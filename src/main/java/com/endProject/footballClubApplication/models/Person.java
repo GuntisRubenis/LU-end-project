@@ -14,28 +14,27 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(nullable=false)
+	
 	private String name;
 	
-	@Column(nullable=false)
+	
 	private String surname;
 	
-	@Column(nullable=false)
+	
 	private String age;
 	
-	@Column(nullable=true)
+	
 	private String photo;
 	
-	@Column(nullable=false)
+	
 	private String phone;
 	
-	@Column(nullable=false)
+	
 	private String email;
 	
 	
 
 	public Person(Integer id, String name, String surname, String age, String photo, String phone, String email) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -104,6 +103,8 @@ public class Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	
 	
 
 }
