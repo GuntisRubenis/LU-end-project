@@ -1,5 +1,7 @@
 package com.endProject.footballClubApplication.controllers;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +26,7 @@ public class AdminController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@RolesAllowed("ADMIN")
 	@RequestMapping("admin")
 	public String adminPage() {
 		return "admin";
@@ -39,5 +41,7 @@ public class AdminController {
 		userRepository.save(user);
 		return "admin";
 	}
+	
+	
 
 }
