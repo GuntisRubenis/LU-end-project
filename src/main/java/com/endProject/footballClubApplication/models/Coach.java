@@ -12,11 +12,13 @@ public class Coach extends Person{
 	
 	private String category;
 	
+	// one coach can coach more than one team
 	@OneToMany(mappedBy="coach")
 	private List<Team> teams;
 	
-	@OneToMany(mappedBy="asistantCoach")
-	private List<Team> asistanTeams;
+	// one coach can be  assistant coach to more than one team
+	@OneToMany(mappedBy="assistantCoach")
+	private List<Team> assistantTeams;
 
 	public Coach(Integer id, String name, String surname, String age, String photo, String phone, String email,
 			String category) {
@@ -40,13 +42,15 @@ public class Coach extends Person{
 		this.teams = teams;
 	}
 
-	public List<Team> getAsistanTeams() {
-		return asistanTeams;
+	public List<Team> getAssistantTeams() {
+		return assistantTeams;
 	}
 
-	public void setAsistanTeams(List<Team> asistanTeams) {
-		this.asistanTeams = asistanTeams;
+	public void setAssistantTeams(List<Team> assistantTeams) {
+		this.assistantTeams = assistantTeams;
 	}
+
+	
 	
 	
 	

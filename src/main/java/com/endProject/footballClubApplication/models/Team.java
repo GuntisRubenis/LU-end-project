@@ -21,16 +21,19 @@ public class Team {
 	
 	private String teamName;
 	
+	// team can have one coach
 	@ManyToOne
 	@JoinColumn(name="coachId", insertable=false, updatable=false)
 	private Coach coach;
 	private Integer coachId;
 	
+	// team can have one assistant coach
 	@ManyToOne
-	@JoinColumn(name="asistantCoachId", insertable=false, updatable=false)
-	private Coach asistantCoach;
-	private Integer asistantCoachId;
+	@JoinColumn(name="assistantCoachId", insertable=false, updatable=false)
+	private Coach assistantCoach;
+	private Integer assistantCoachId;
 	
+	// every team have list of players
 	@OneToMany(mappedBy="team")
 	private List<Player> players;
 
@@ -66,21 +69,6 @@ public class Team {
 		this.coachId = coachId;
 	}
 
-	public Coach getAsistantCoach() {
-		return asistantCoach;
-	}
-
-	public void setAsistantCoach(Coach asistantCoach) {
-		this.asistantCoach = asistantCoach;
-	}
-
-	public Integer getAsistantCoachId() {
-		return asistantCoachId;
-	}
-
-	public void setAsistantCoachId(Integer asistantCoachId) {
-		this.asistantCoachId = asistantCoachId;
-	}
 
 	public List<Player> getPlayers() {
 		return players;
@@ -88,6 +76,22 @@ public class Team {
 
 	public void setPlayers(List<Player> players) {
 		this.players = players;
+	}
+
+	public Coach getAssistantCoach() {
+		return assistantCoach;
+	}
+
+	public void setAssistantCoach(Coach assistantCoach) {
+		this.assistantCoach = assistantCoach;
+	}
+
+	public Integer getAssistantCoachId() {
+		return assistantCoachId;
+	}
+
+	public void setAssistantCoachId(Integer assistantCoachId) {
+		this.assistantCoachId = assistantCoachId;
 	}
 	
 	

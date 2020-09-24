@@ -13,6 +13,7 @@ public class Player extends Person{
 	
 	private String alternatePosition;
 	
+	// player can be part of one team only
 	@ManyToOne
 	@JoinColumn(name="teamId", insertable=false, updatable=false)
 	private Team team;
