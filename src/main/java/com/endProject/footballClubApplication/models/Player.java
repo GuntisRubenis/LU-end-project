@@ -26,6 +26,9 @@ public class Player extends Person{
 		this.strongFoot = strongFoot;
 		this.alternatePosition = alternatePosition;
 	}
+	
+	public Player () {}
+	
 
 	public String getPosition() {
 		return position;

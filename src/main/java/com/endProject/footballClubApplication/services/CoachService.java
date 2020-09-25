@@ -19,8 +19,8 @@ public class CoachService {
 		 coachRepository.save(coach);
 	}
 	
-	public void delete(Coach coach) {
-		 coachRepository.save(coach);
+	public void deleteByid(Integer id) {
+		 coachRepository.deleteById(id);
 	}
 	
 	public List<Coach> findAll(){

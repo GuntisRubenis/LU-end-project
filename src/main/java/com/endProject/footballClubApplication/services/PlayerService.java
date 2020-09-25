@@ -19,8 +19,8 @@ public class PlayerService {
 		 playerRepository.save(player);
 	}
 	
-	public void delete(Player player) {
-		 playerRepository.save(player);
+	public void deleteById(Integer id) {
+		 playerRepository.deleteById(id);
 	}
 	
 	public List<Player> findAll(){

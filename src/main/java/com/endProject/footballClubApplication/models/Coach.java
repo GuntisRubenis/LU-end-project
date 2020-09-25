@@ -25,6 +25,10 @@ public class Coach extends Person{
 		super(id, name, surname, age, photo, phone, email);
 		this.category = category;
 	}
+	
+	public Coach() {
+		
+	}
 
 	public String getCategory() {
 		return category;
@@ -49,10 +53,6 @@ public class Coach extends Person{
 	public void setAssistantTeams(List<Team> assistantTeams) {
 		this.assistantTeams = assistantTeams;
 	}
-
-	
-	
-	
 	
 	
 }

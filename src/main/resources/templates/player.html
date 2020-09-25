@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Coach</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	
+	<div class="container">
+		<h1>This is Players page</h1>
+		<table class="custom-table">
+			<tbody>
+				<tr>
+					<th>Picture</th>
+					<th>Name</th>
+					<th>Surname</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Position</th>
+					<th>Options</th>
+				</tr>
+				<tr th:each="player : ${players}">
+					<td th:text="${player.photo}"></td>
+					<td th:text="${player.name}"></td>
+					<td th:text="${player.surname}"></td>
+					<td th:text="${player.phone}"></td>
+					<td th:text="${player.email}"></td>
+					<td th:text="${player.position}"></td>
+					<td class="button-group">
+						<a class="editButton" id="editButton" th:href="@{/rest/player/findbyId/(id=${player.id})}">Edit</a>
+						<a class="detailsButton" href="">Details</a>
+						<a class="deleteButton" th:href="@{/rest/player/delete/(id=${player.id})}" id="deleteButton" >Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<button class="add-button"  id="addButton">Add new Player</button>
+		</div>
+	</div>
+	
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+	
+<!--Add new modal start  -->
+	<div id="addModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Add new Coach</h3>
+			</div>
+			<div class="modal-body">
+				<form th:action="@{/rest/player/addNew}" method="post">
+					<div>
+						<label>Name</label>
+						<input type="text" name="name">
+					</div>
+					<div>
+						<label>Surname</label>
+						<input type="text" name="surname">
+					</div>
+					<div>
+						<label>Age</label>
+						<input type="text" name="age">
+					</div>
+					<div>
+						<label>Phone</label>
+						<input type="text" name="phone">
+					</div>
+					<div>
+						<label>Email</label>
+						<input type="text" name="email">
+					</div>
+					<div>
+						<label>Position</label>
+						<input type="text" name="position">
+					</div>
+					<button class="modalSaveButton" type="submit">Save</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Add new modal end -->
+
+<!--Delete modal start  -->
+	<div id="deleteModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Delete Coach</h3>
+			</div>
+			<div class="modal-body">
+				<H2>Are u sure to delete this player?</H2>
+			</div>
+			<div class="modal-footer">
+				<button href="" class="modalSaveButton" type="submit">Delete</button>
+			</div>
+		</div>
+	</div>
+<!--Delete modal end -->
+	
+<script src="/js/addModal.js"></script>
+<script src="/js/updateModal.js"></script>		
+</body>
+</html>
