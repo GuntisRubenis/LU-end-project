@@ -24,7 +24,6 @@ function closeModal(){
 }
 
 
-
 //listen for click outside of modal
 window.addEventListener('click', clickOutside);
 

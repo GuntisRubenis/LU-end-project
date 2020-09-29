@@ -58,31 +58,33 @@
 			</div>
 			<div class="modal-body">
 				<form th:action="@{/rest/coach/addNew}" method="post">
-					<div>
+					<div class="form-div">
 						<label>Name</label>
 						<input type="text" name="name">
 					</div>
-					<div>
+					<div class="form-div">
 						<label>Surname</label>
 						<input type="text" name="surname">
 					</div>
-					<div>
+					<div class="form-div">
 						<label>Age</label>
 						<input type="text" name="age">
 					</div>
-					<div>
+					<div class="form-div">
 						<label>Phone</label>
 						<input type="text" name="phone">
 					</div>
-					<div>
+					<div class="form-div">
 						<label>Email</label>
 						<input type="text" name="email">
 					</div>
-					<div>
+					<div class="form-div">
 						<label>Category</label>
 						<input type="text" name="category">
 					</div>
-					<button class="modalSaveButton" type="submit">Save</button>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
@@ -102,13 +104,13 @@
 				<H2>Are u sure to delete this coach?</H2>
 			</div>
 			<div class="modal-footer">
-				<button href="" class="modalSaveButton" type="submit">Delete</button>
+				<a href="" class="modalDeleteButton" type="submit">Delete</a>
 			</div>
 		</div>
 	</div>
 <!--Delete modal end -->
 	
 <script src="/js/addModal.js"></script>
-<script src="/js/updateModal.js"></script>		
+<script src="/js/deleteModal.js"></script>		
 </body>
 </html>
