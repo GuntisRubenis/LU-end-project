@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Football management system">
 <link href="/css/style.css" rel="stylesheet">
+
 </head>
 <body>
 	<header>
@@ -33,9 +34,9 @@
 					<td th:text="${coach.email}"></td>
 					<td th:text="${coach.category}"></td>
 					<td class="button-group">
-						<a class="editButton" id="editButton" th:href="@{/rest/coach/findbyId/(id=${coach.id})}">Edit</a>
+						<a class="editButton" th:href="@{/rest/coach/findById/(id=${coach.id})}">Edit</a>
 						<a class="detailsButton" href="">Details</a>
-						<a class="deleteButton" th:href="@{/rest/coach/delete/(id=${coach.id})}" id="deleteButton" >Delete</a>
+						<a class="deleteButton" th:href="@{/rest/coach/delete/(id=${coach.id})}" >Delete</a>
 					</td>
 				</tr>
 			</tbody>
@@ -60,11 +61,11 @@
 				<form th:action="@{/rest/coach/addNew}" method="post">
 					<div class="form-div">
 						<label>Name</label>
-						<input type="text" name="name">
+						<input type="text"  name="name">
 					</div>
 					<div class="form-div">
 						<label>Surname</label>
-						<input type="text" name="surname">
+						<input type="text"  name="surname">
 					</div>
 					<div class="form-div">
 						<label>Age</label>
@@ -72,15 +73,43 @@
 					</div>
 					<div class="form-div">
 						<label>Phone</label>
-						<input type="text" name="phone">
+						<input type="text"  name="phone">
 					</div>
 					<div class="form-div">
 						<label>Email</label>
-						<input type="text" name="email">
+						<input type="email"  name="email">
 					</div>
 					<div class="form-div">
-						<label>Category</label>
-						<input type="text" name="category">
+					<label>Category</label>
+						<select name="category">
+							<option>Select Category</option>
+							<option>A-UEFA-PRO</option>
+							<option>A-UEFA</option>
+							<option>B-LFF</option>
+							<option>C-LFF</option>
+						</select>
+					</div>
+					<div class="form-div">
+						<label>Coach</label>
+						<br>
+						<select >
+				            <option>Select Team</option>
+				            <option th:each="team:${teams}"
+					            th:value="${team.id}"
+					            th:text="${team.name}">
+				            </option>
+           				 </select>
+					</div>
+					<div class="form-div">
+						<label>Assistant Coach</label>
+						<br>
+						<select >
+				            <option>Select Team</option>
+				            <option th:each="team:${teams}"
+					            th:value="${team.id}"
+					            th:text="${team.name}">
+				            </option>
+           				 </select>
 					</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>
@@ -92,6 +121,82 @@
 		</div>
 	</div>
 <!--Add new modal end -->
+
+<!--Edit modal start  -->
+<div id="editModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Edit Coach</h3>
+			</div>
+			<div class="modal-body">
+				<form th:action="@{/rest/coach/update}" method="put">
+					<div class="form-div">
+						<label>Id</label>
+						<input type="text" id="idEdit" name="id" readonly>
+					</div>
+					<div class="form-div">
+						<label>Name</label>
+						<input type="text" id="nameEdit" name="name">
+					</div>
+					<div class="form-div">
+						<label>Surname</label>
+						<input type="text" id="surnameEdit" name="surname">
+					</div>
+					<div class="form-div">
+						<label>Age</label>
+						<input type="text" id="ageEdit" name="age">
+					</div>
+					<div class="form-div">
+						<label>Phone</label>
+						<input type="text" id="phoneEdit" name="phone">
+					</div>
+					<div class="form-div">
+						<label>Email</label>
+						<input type="text" id="emailEdit" name="email">
+					</div>
+					<div class="form-div">
+					<label>Category</label>
+						<select name="category" id="categoryEdit">
+							<option>Select Category</option>
+							<option>A-UEFA-PRO</option>
+							<option>A-UEFA</option>
+							<option>B-LFF</option>
+							<option>C-LFF</option>
+						</select>
+					</div>
+					<div class="form-div">
+						<label>Coach</label>
+						<br>
+						<select name="teams" id="teamsEdit">
+				            <option>Select Team</option>
+				            <option th:each="team:${teams}"
+					            th:value="${team.id}"
+					            th:text="${team.name}">
+				            </option>
+           				 </select>
+					</div>
+					<div class="form-div">
+						<label>Assistant Coach</label>
+						<br>
+						<select name="assistanTeams" id="assistantTeamsEdit">
+				            <option>Select Team</option>
+				            <option th:each="team:${teams}"
+					            th:value="${team.id}"
+					            th:text="${team.name}">
+				            </option>
+           				 </select>
+					</div>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Edit modal end-->
 
 <!--Delete modal start  -->
 	<div id="deleteModal" class="modal">
@@ -109,8 +214,9 @@
 		</div>
 	</div>
 <!--Delete modal end -->
-	
+
 <script src="/js/addModal.js"></script>
-<script src="/js/deleteModal.js"></script>		
+<script src="/js/deleteModal.js"></script>
+<script src="/js/editModal.js"></script>			
 </body>
 </html>
