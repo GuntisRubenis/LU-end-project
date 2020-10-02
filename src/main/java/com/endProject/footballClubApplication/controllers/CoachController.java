@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,10 +35,10 @@ public class CoachController {
 	private CoachService coachService;
 	
 	
-	
+	// display all coaches, keyword is for search function, so we can filter coaches
 	@RequestMapping("/rest/coach")
-	public String coachPage (Model model) {
-		List<Coach> coaches = coachService.findAll();
+	public String coachPage (Model model, @Param("keyword") String keyword) {
+		List<Coach> coaches = coachService.findAll(keyword);
 		model.addAttribute("coaches", coaches);
 		return "coach";
 	}

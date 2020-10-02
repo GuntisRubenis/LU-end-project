@@ -14,7 +14,17 @@
 	</header>
 	
 	<div class="container">
-		<h1>This is Coach page</h1>
+		<h1>Coaches</h1>
+		<div class ="search-div">
+			<form th:action="@{/rest/coach}">
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
+				&nbsp;
+				<input class="search-button" type="submit" value="Search"/>
+				&nbsp;
+				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
+			</form>
+		</div>
+		
 		<table class="custom-table">
 			<tbody>
 				<tr>
@@ -28,7 +38,7 @@
 				</tr>
 				<tr th:each="coach : ${coaches}">
 					<td >
-						<a class="photoButton" th:href="@{/rest/coach/findById/(id=${coach.id})}">
+						<a class="photo-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">
  							<img class="min-images" th:src="@{'/img/coaches/' + ${coach.id} +'.jpg'}" width="60" height="60">
  						</a>
 					</td>
@@ -38,9 +48,9 @@
 					<td th:text="${coach.email}"></td>
 					<td th:text="${coach.category}"></td>
 					<td class="button-group">
-						<a class="editButton" th:href="@{/rest/coach/findById/(id=${coach.id})}">Edit</a>
-						<a class="detailsButton" th:href="@{/rest/coach/findById/(id=${coach.id})}">Add Image</a>
-						<a class="deleteButton" th:href="@{/rest/coach/delete/(id=${coach.id})}" >Delete</a>
+						<a class="edit-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">Edit</a>
+						<a class="details-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">Add Image</a>
+						<a class="delete-button" th:href="@{/rest/coach/delete/(id=${coach.id})}" >Delete</a>
 					</td>
 				</tr>
 			</tbody>

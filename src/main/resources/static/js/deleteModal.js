@@ -1,5 +1,5 @@
 
-var deleteButtons = document.querySelectorAll('.deleteButton');
+var deleteButtons = document.querySelectorAll('.delete-button');
 var deleteModal = document.querySelector('#deleteModal');
 var modalCloseButtons = document.querySelectorAll('.modalCloseButton');
 

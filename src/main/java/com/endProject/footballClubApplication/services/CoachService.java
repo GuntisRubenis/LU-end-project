@@ -24,8 +24,6 @@ import com.endProject.footballClubApplication.repositories.CoachRepository;
 @Service 
 public class CoachService {
 	
-	
-	
 	@Autowired
 	CoachRepository coachRepository;
 	
@@ -36,8 +34,11 @@ public class CoachService {
 	public void deleteByid(Integer id) {
 		 coachRepository.deleteById(id);
 	}
-	
-	public List<Coach> findAll(){
+	// check if keyword is typed and then call findAll function based on keyword
+	public List<Coach> findAll(String keyword){
+		if (keyword != null) {
+			return coachRepository.findAll(keyword);
+		}
 		return coachRepository.findAll();
 	}
 	

@@ -1,7 +1,7 @@
 /*======================================*/
 //Start of edit modal
 /*======================================*/
-var editButtons = document.querySelectorAll('.editButton');
+var editButtons = document.querySelectorAll('.edit-button');
 var editModal = document.querySelector('#editModal');
 
 // for all buttons in coach table
@@ -50,7 +50,7 @@ for (const button of editButtons){
 //Start of upload modal
 /*======================================*/
 var uploadModal= document.querySelector('#uploadModal');
-var detailsButtons = document.querySelectorAll('.detailsButton');
+var detailsButtons = document.querySelectorAll('.details-button');
 
 for (const button of detailsButtons){
 	button.addEventListener('click', function(event){
@@ -89,7 +89,7 @@ for (const button of detailsButtons){
 /*======================================*/
 //Start of photo modal
 /*======================================*/
-var photoButtons = document.querySelectorAll('.photoButton');
+var photoButtons = document.querySelectorAll('.photo-button');
 var photoModal = document.querySelector('#photoModal');
 
 for(const button of photoButtons){
@@ -148,3 +148,11 @@ for (const button of modalCloseButtons) {
 	  });
 	
 	}
+/*======================================*/
+//Search
+/*======================================*/
+var clearButton = document.querySelector('#clear-button');
+clearButton.addEventListener('click', function(){
+	//clear url 
+	window.location='/rest/coach';
+})

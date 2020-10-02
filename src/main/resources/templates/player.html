@@ -33,9 +33,9 @@
 					<td th:text="${player.email}"></td>
 					<td th:text="${player.position}"></td>
 					<td class="button-group">
-						<a class="editButton" id="editButton" th:href="@{/rest/player/findbyId/(id=${player.id})}">Edit</a>
-						<a class="detailsButton" href="">Details</a>
-						<a class="deleteButton" th:href="@{/rest/player/delete/(id=${player.id})}" id="deleteButton" >Delete</a>
+						<a class="edit-button" th:href="@{/rest/player/findById/(id=${player.id})}">Edit</a>
+						<a class="details-button" th:href="@{/rest/player/findById/(id=${player.id})}">Add Image</a>
+						<a class="delete-button" th:href="@{/rest/player/delete/(id=${player.id})}" >Delete</a>
 					</td>
 				</tr>
 			</tbody>
@@ -96,19 +96,19 @@
 		<div class="modalContent">
 			<div class="modal-header">
 				<span class="modalCloseButton">&times;</span>
-				<h3>Delete Coach</h3>
+				<h3>Delete Player</h3>
 			</div>
 			<div class="modal-body">
 				<H2>Are u sure to delete this player?</H2>
 			</div>
 			<div class="modal-footer">
-				<button href="" class="modalSaveButton" type="submit">Delete</button>
+				<button href="" class="modalDeleteButton" type="submit">Delete</button>
 			</div>
 		</div>
 	</div>
 <!--Delete modal end -->
 	
 <script src="/js/addModal.js"></script>
-<script src="/js/updateModal.js"></script>		
+<script src="/js/deleteModal.js"></script>		
 </body>
 </html>
