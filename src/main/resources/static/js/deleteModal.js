@@ -8,8 +8,8 @@ for (const button of deleteButtons) {
 	
 	  button.addEventListener('click', function(event) {
 	    event.preventDefault();
-	    //get clicked buttons href
-	    var href = button.href;
+	   
+	    console.log(button.href);
 	    // set dleteModalButtons href to current href
 	    var modalDeleteButton = document.querySelector('.modalDeleteButton');
 	    modalDeleteButton.href = button.href;

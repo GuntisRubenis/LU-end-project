@@ -28,11 +28,12 @@ ul {
 }
 
 .button-group a{
-	text-decoration: none;
-	padding:10px 10px 10px 10px;
+	padding: 10px;
 	color: #ffffff;
-	text-align: center;
-	border-radius:5px; 
+	border-radius: 8px;
+	border: 0;
+	transition-duration: 0.4s;
+	text-decoration: none;
 }
 
 .button-group a:hover{
@@ -53,12 +54,15 @@ ul {
 }
 
 .add-button {
-	border-radius:5px; 
-	padding: 10px;
 	margin-top: 10px;
 	background-color: #008000;
-	color: white;
+	padding: 10px;
+	color: #ffffff;
+	border-radius: 8px;
 	border: 0;
+	transition-duration: 0.4s;
+	text-decoration: none;
+	
 }
 
 .add-button:hover {

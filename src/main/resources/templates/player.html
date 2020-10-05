@@ -12,8 +12,18 @@
 		<div th:replace="fragments/secureHeader :: secureHeader"></div>
 	</header>
 	
-	<div class="container">
-		<h1>This is Players page</h1>
+		<div class="container">
+		<h1>Players</h1>
+		<div class ="search-div">
+			<form th:action="@{/rest/player}">
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
+				&nbsp;
+				<input class="search-button" type="submit" value="Search"/>
+				&nbsp;
+				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
+			</form>
+		</div>
+		
 		<table class="custom-table">
 			<tbody>
 				<tr>
@@ -26,7 +36,11 @@
 					<th>Options</th>
 				</tr>
 				<tr th:each="player : ${players}">
-					<td th:text="${player.photo}"></td>
+					<td >
+						<a class="photo-button" th:href="@{/rest/player/findById/(id=${player.id})}">
+ 							<img class="min-images" th:src="@{'/img/players/' + ${player.id} +'.jpg'}" width="60" height="60">
+ 						</a>
+					</td>
 					<td th:text="${player.name}"></td>
 					<td th:text="${player.surname}"></td>
 					<td th:text="${player.phone}"></td>
@@ -58,29 +72,53 @@
 			</div>
 			<div class="modal-body">
 				<form th:action="@{/rest/player/addNew}" method="post">
-					<div>
+					<div class="form-div">
 						<label>Name</label>
 						<input type="text" name="name">
 					</div>
-					<div>
+					<div class="form-div">
 						<label>Surname</label>
 						<input type="text" name="surname">
 					</div>
-					<div>
+					<div class="form-div">
 						<label>Age</label>
 						<input type="text" name="age">
 					</div>
-					<div>
+					<div class="form-div">
 						<label>Phone</label>
 						<input type="text" name="phone">
 					</div>
-					<div>
+					<div class="form-div">
 						<label>Email</label>
 						<input type="text" name="email">
 					</div>
-					<div>
-						<label>Position</label>
-						<input type="text" name="position">
+					<div class="form-div">
+					<label>Position</label>
+						<select name="position">
+							<option>Select Position</option>
+							<option>Striker</option>
+							<option>Midlfielder</option>
+							<option>Defender</option>
+							<option>Goalkeeper</option>
+						</select>
+					</div>
+					<div class="form-div">
+					<label>Alternate Position</label>
+						<select name="alternatePosition" >
+							<option>Select Position</option>
+							<option>Striker</option>
+							<option>Midlfielder</option>
+							<option>Defender</option>
+							<option>Goalkeeper</option>
+						</select>
+					</div>
+					<div class="form-div">
+					<label>Strong Foot</label>
+						<select name="strongFoot" >
+							<option>Select</option>
+							<option>Left</option>
+							<option>Right</option>
+						</select>
 					</div>
 					<button class="modalSaveButton" type="submit">Save</button>
 				</form>
@@ -91,8 +129,130 @@
 	</div>
 <!--Add new modal end -->
 
+<!--Edit modal start  -->
+<div id="editModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Edit Coach</h3>
+			</div>
+			<div class="modal-body">
+				<form th:action="@{/rest/player/update}" method="put">
+					<div class="form-div">
+						<label>Id</label>
+						<input type="text" id="idEdit" name="id" readonly>
+					</div>
+					<div class="form-div">
+						<label>Name</label>
+						<input type="text" id="nameEdit" name="name">
+					</div>
+					<div class="form-div">
+						<label>Surname</label>
+						<input type="text" id="surnameEdit" name="surname">
+					</div>
+					<div class="form-div">
+						<label>Age</label>
+						<input type="text" id="ageEdit" name="age">
+					</div>
+					<div class="form-div">
+						<label>Phone</label>
+						<input type="text" id="phoneEdit" name="phone">
+					</div>
+					<div class="form-div">
+						<label>Email</label>
+						<input type="text" id="emailEdit" name="email">
+					</div>
+					<div class="form-div">
+					<label>Position</label>
+						<select name="position" id="positionEdit">
+							<option>Select Position</option>
+							<option>Striker</option>
+							<option>Midlfielder</option>
+							<option>Defender</option>
+							<option>Goalkeeper</option>
+						</select>
+					</div>
+					<div class="form-div">
+					<label>Alternate Position</label>
+						<select name="alternatePosition" id="alternatePositionEdit">
+							<option>Select Position</option>
+							<option>Striker</option>
+							<option>Midlfielder</option>
+							<option>Defender</option>
+							<option>Goalkeeper</option>
+						</select>
+					</div>
+					<div class="form-div">
+					<label>Strong Foot</label>
+						<select name="strongFoot" id="strongFootEdit">
+							<option>Select</option>
+							<option>Left</option>
+							<option>Right</option>
+						</select>
+					</div>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Edit modal end-->
+
+<!--Upload modal start -->
+<div id="uploadModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Upload</h3>
+			</div>
+			<div class="form-div">
+				<form id="uploadForm" th:action="@{/rest/player/upload/}" method="post" enctype="multipart/form-data">
+					<div class="form-div">
+						<label>Select image:</label>
+						<input type="file" id="photo" name="file" accept="images/*">
+					</div>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit" >Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Upload modal end -->
+
+<!--Photo modal start -->
+<div id="photoModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Info</h3>
+			</div>
+			<div class ="photo-modal-div">
+				<div class="photo-div" >
+					<img id="photoModalImage" src="" width="100%" height="100%">
+				</div>
+				<div class="info-div">
+					<p>Name:</p>
+					<p id="photo-name">Name</p>
+					<p>Surname:</p>
+					<p id="photo-surname">Surname</p>
+					<p>Age:</p>
+					<p id="photo-age">Age</p>
+				</div>
+			</div>	
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Photo modal end -->
+
 <!--Delete modal start  -->
-	<div id="deleteModal" class="modal">
+<div id="deleteModal" class="modal">
 		<div class="modalContent">
 			<div class="modal-header">
 				<span class="modalCloseButton">&times;</span>
@@ -102,13 +262,14 @@
 				<H2>Are u sure to delete this player?</H2>
 			</div>
 			<div class="modal-footer">
-				<button href="" class="modalDeleteButton" type="submit">Delete</button>
+				<a href="" class="modalDeleteButton" type="submit">Delete</a>
 			</div>
 		</div>
 	</div>
 <!--Delete modal end -->
 	
 <script src="/js/addModal.js"></script>
-<script src="/js/deleteModal.js"></script>		
+<script src="/js/deleteModal.js"></script>
+<script src="/js/playerModal.js"></script>		
 </body>
 </html>
