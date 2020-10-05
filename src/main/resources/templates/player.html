@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Coach</title>
+<title>Players</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Football management system">
 <link href="/css/style.css" rel="stylesheet">
@@ -48,7 +48,7 @@
 					<td th:text="${player.position}"></td>
 					<td class="button-group">
 						<a class="edit-button" th:href="@{/rest/player/findById/(id=${player.id})}">Edit</a>
-						<a class="details-button" th:href="@{/rest/player/findById/(id=${player.id})}">Add Image</a>
+						<a class="details-button" th:href="@{/rest/player/findById/(id=${player.id})}">Image</a>
 						<a class="delete-button" th:href="@{/rest/player/delete/(id=${player.id})}" >Delete</a>
 					</td>
 				</tr>

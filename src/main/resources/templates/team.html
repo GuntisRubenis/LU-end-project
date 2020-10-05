@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Teams</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	
+	<div class="container">
+		<h1>Teams</h1>
+		<div class ="search-div">
+			<form th:action="@{/rest/team}">
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
+				&nbsp;
+				<input class="search-button" type="submit" value="Search"/>
+				&nbsp;
+				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
+			</form>
+		</div>
+	</div>
+	
+	<div class="team-container">
+		<div class="team-div" th:each="team : ${teams}">
+			<ul>
+				<li>
+					<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">
+ 						<img class="" th:src="@{'/img/teams/' + ${team.id} +'.jpg'}" width="60" height="60">
+ 					</a>
+ 				</li>
+				<li>
+					<h3 th:text = "${team.teamName}"></h3>
+				</li>	
+				<li>
+					<div class="">
+						<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">Edit</a>
+						<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">Image</a>
+						<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">Details</a>
+						<a class="" th:href="@{/rest/team/delete/(id=${team.id})}" >Delete</a>
+					</div>
+				</li>
+			</ul>
+		</div>	
+	</div>
+	
+		
+	
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+	
+
+
+
+<script src="/js/addModal.js"></script>
+<script src="/js/deleteModal.js"></script>
+			
+</body>
+</html>

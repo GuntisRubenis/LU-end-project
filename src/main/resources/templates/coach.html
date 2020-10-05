@@ -49,7 +49,7 @@
 					<td th:text="${coach.category}"></td>
 					<td class="button-group">
 						<a class="edit-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">Edit</a>
-						<a class="details-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">Add Image</a>
+						<a class="details-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">Image</a>
 						<a class="delete-button" th:href="@{/rest/coach/delete/(id=${coach.id})}" >Delete</a>
 					</td>
 				</tr>
@@ -145,7 +145,7 @@
 					</div>
 					<div class="form-div">
 						<label>Email</label>
-						<input type="text" id="emailEdit" name="email">
+						<input type="email" id="emailEdit" name="email">
 					</div>
 					<div class="form-div">
 					<label>Category</label>

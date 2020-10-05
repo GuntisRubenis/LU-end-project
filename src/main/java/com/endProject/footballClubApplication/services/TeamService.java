@@ -19,8 +19,8 @@ public class TeamService {
 		 teamRepository.save(team);
 	}
 	
-	public void delete(Team team) {
-		 teamRepository.save(team);
+	public void deleteById(Integer id) {
+		 teamRepository.deleteById(id);
 	}
 	
 	public List<Team> findAll(){

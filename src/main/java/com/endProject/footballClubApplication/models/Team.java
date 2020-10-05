@@ -93,7 +93,5 @@ public class Team {
 	public void setAssistantCoachId(Integer assistantCoachId) {
 		this.assistantCoachId = assistantCoachId;
 	}
-	
-	
 
 }

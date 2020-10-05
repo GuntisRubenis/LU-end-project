@@ -377,6 +377,24 @@ footer{
 	color: #ffffff;
 }
 
+/*Team page*/
+.team-container{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;;
+	width: 80%;
+	margin:auto;
+	overflow: hidden;
+}
+.team-div {
+	border: 1px solid gray;
+	margin:10px;
+	padding: 20px;
+}
+
+.team-div li{
+	text-decoration: none;
+	display:flex;
+}
 
 
 
