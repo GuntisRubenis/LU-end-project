@@ -23,6 +23,9 @@
 				&nbsp;
 				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
 			</form>
+			<div>
+				<button class="add-button"  id="addButton">Add new Team</button>
+			</div>
 		</div>
 	</div>
 	
@@ -31,30 +34,70 @@
 			<ul>
 				<li>
 					<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">
- 						<img class="" th:src="@{'/img/teams/' + ${team.id} +'.jpg'}" width="60" height="60">
+ 						<img class="" th:src="@{'/img/teams/' + ${team.id} +'.jpg'}" width="100%" height="200px">
  					</a>
  				</li>
 				<li>
-					<h3 th:text = "${team.teamName}"></h3>
+					<h3 class="team-li" th:text = "${team.teamName}"></h3>
 				</li>	
 				<li>
-					<div class="">
-						<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">Edit</a>
-						<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">Image</a>
+					<div class="team-li">
 						<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">Details</a>
+						<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">Edit</a>
 						<a class="" th:href="@{/rest/team/delete/(id=${team.id})}" >Delete</a>
 					</div>
 				</li>
 			</ul>
 		</div>	
 	</div>
-	
-		
-	
 	<footer>
 		<div th:replace="fragments/footer :: footer"></div>
 	</footer>
-	
+<!--Add new modal start  -->
+<div id="addModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Add new Coach</h3>
+			</div>
+			<div class="modal-body">
+				<form th:action="@{/rest/team/addNew}" method="post" enctype="multipart/form-data">
+					<div class="form-div">
+						<label>Team Name</label>
+						<input type="text"  name="teamName">
+					</div>
+					<div class="form-div">
+						<label>Coach</label>
+						<select name="coachId">
+							<option>Select Coach</option>
+							<option th:each="coach:${coaches}"
+							th:value="${coach.id}"
+							th:text="${coach.name}+' '+${coach.surname}">
+						</select>
+					</div>
+					<div class="form-div">
+						<label>Assistant Coach</label>
+						<select name="assistantCoachId">
+							<option>Select Coach</option>
+							<option th:each="coach:${coaches}"
+							th:value="${coach.id}"
+							th:text="${coach.name}+' '+${coach.surname}">
+						</select>
+					</div>
+					<div class="form-div">
+						<label>Select image:</label>
+						<input type="file" id="photo" name="file" accept="images/*">
+					</div>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Add new modal end -->
 
 
 

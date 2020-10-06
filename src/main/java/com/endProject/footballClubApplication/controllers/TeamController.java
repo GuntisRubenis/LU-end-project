@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.endProject.footballClubApplication.models.Team;
+import com.endProject.footballClubApplication.services.CoachService;
 import com.endProject.footballClubApplication.services.TeamService;
 
 
@@ -26,17 +27,20 @@ public class TeamController {
 	
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private CoachService coachService;
 	
 	@RequestMapping("/rest/team")
 	public String teamPage (Model model) {
 		List<Team> teams = teamService.findAll();
 		model.addAttribute("teams", teams);
+		model.addAttribute("coaches", coachService.findAll());
 		return "team";
 	}
 	
 	@PostMapping("/rest/team/addNew")
-	public String addTeam(Team team) {
-		teamService.save(team);
+	public String addTeam(Team team, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+		teamService.save(team, file);
 		return "redirect:";
 	}
 	
@@ -54,18 +58,9 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value="/rest/team/update", method = {RequestMethod.PUT, RequestMethod.GET})
-	public String update(Team team) {
-		teamService.save(team);
+	public String update(Team team, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+		teamService.save(team, file);
 		return "redirect:/rest/team";
 	}
 	
-	/*
-	@RequestMapping(value="/rest/team/upload/{id}", method = {RequestMethod.POST, RequestMethod.GET})
-	public String  uploadFile(@PathVariable("id") Integer id, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
-		
-		teamService.uploadFile(id,file);
-		
-		return"redirect:/rest/team";
-	}
-	*/
 }

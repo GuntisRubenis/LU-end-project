@@ -23,6 +23,10 @@ ul {
 	
 }
 
+a{
+	text-decoration: none;
+}
+
 .highlight {
 	color: #b30000;
 }
@@ -74,7 +78,7 @@ ul {
 
 .custom-table {
 	table-layout: auto;
-	width: 110%;
+	width: 100%;
 }
 
 /* global custom table*/
@@ -335,7 +339,7 @@ footer{
 .search-div{
 	background-color: #e6e6e6;
 	padding:20px;
-	margin: 5px;
+	margin-bottom: 5px;
 }
 
 .search-input{ 
@@ -384,16 +388,38 @@ footer{
 	width: 80%;
 	margin:auto;
 	overflow: hidden;
+	background-color: #e6e6e6;
 }
 .team-div {
-	border: 1px solid gray;
 	margin:10px;
 	padding: 20px;
+	background-color: #f4f4f4;
+}
+
+.team-li{
+	background-color: #333333;
+	color: #f4f4f4;
+	width: 100%;
+	padding: 10px;
+}
+
+.team-li a{
+	color: #f4f4f4;
+	border-right: 1px solid #f4f4f4;
+	padding: 5px;  
+	
+}
+
+.team-li a:hover{
+	background-color: gray; 
+	
 }
 
 .team-div li{
 	text-decoration: none;
 	display:flex;
+	
+	
 }
 
 

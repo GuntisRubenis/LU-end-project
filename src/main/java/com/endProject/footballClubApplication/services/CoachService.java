@@ -42,6 +42,10 @@ public class CoachService {
 		return coachRepository.findAll();
 	}
 	
+	public List<Coach> findAll(){
+		return coachRepository.findAll();
+	}
+	
 	public Optional<Coach> finfById(Integer id){
 		return coachRepository.findById(id);
 	}
