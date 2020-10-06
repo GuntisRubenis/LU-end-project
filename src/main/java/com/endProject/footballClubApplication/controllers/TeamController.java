@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Team;
 import com.endProject.footballClubApplication.services.CoachService;
 import com.endProject.footballClubApplication.services.TeamService;
@@ -31,8 +33,8 @@ public class TeamController {
 	private CoachService coachService;
 	
 	@RequestMapping("/rest/team")
-	public String teamPage (Model model) {
-		List<Team> teams = teamService.findAll();
+	public String teamPage (Model model, @Param("keyword") String keyword) {
+		List<Team> teams = teamService.findAll(keyword);
 		model.addAttribute("teams", teams);
 		model.addAttribute("coaches", coachService.findAll());
 		return "team";
@@ -57,7 +59,22 @@ public class TeamController {
 		return teamService.finfById(id);
 	}
 	
-	@RequestMapping(value="/rest/team/update", method = {RequestMethod.PUT, RequestMethod.GET})
+	//return view of team details and add team data to it
+	@RequestMapping("/rest/team/teamDetails/")
+	public String showTeamDetails(Model model,Integer id) {
+		Optional<Team> team = teamService.finfById(id);
+		Optional<Coach> coach = coachService.finfById(team.get().getCoachId());
+		Optional<Coach> assistantCoach = coachService.finfById(team.get().getAssistantCoachId());
+		//check if team exists, unwrap it and add to model
+		if(team.isPresent()) {
+			model.addAttribute("team", team.get());
+			model.addAttribute("coach", coach.get());
+			model.addAttribute("assistantCoach", assistantCoach.get());
+		}
+		return "teamdetails";
+	}
+	
+	@RequestMapping(value="/rest/team/update", method = {RequestMethod.POST, RequestMethod.GET})
 	public String update(Team team, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
 		teamService.save(team, file);
 		return "redirect:/rest/team";

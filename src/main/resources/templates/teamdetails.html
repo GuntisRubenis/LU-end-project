@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Teams</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	<div class="team-details-header">
+		<h1 th:text="${team.teamName}"></h1>
+	</div>
+	<div class="team-details-cont">
+		<div class="team-picture-cont">
+			<img class="" th:src="@{'/img/teams/' + ${team.id} +'.jpg'}" width="100%" height="auto">
+		</div>
+		<div class="team-coach-cont">
+			<div class="team-coach-div">
+				<h3>Coach:</h3>
+				<img class="" th:src="@{'/img/coaches/' + ${team.coachId} +'.jpg'}" width="50%" height="auto">
+				<h4 th:text="${coach.name}+' '+${coach.surname}"></h4>
+			</div>
+			<div class="team-coach-div">
+				<h3>Assistant Coach:</h3>
+				<img class="" th:src="@{'/img/coaches/' + ${team.assistantCoachId} +'.jpg'}" width="50%" height="auto">
+				<h4 th:text="${assistantCoach.name}+' '+${assistantCoach.surname}"></h4>
+			</div>
+		</div>
+		<div class="team-players-cont">
+			<h3>Players:</h3>
+			<table class="custom-table">
+			<tbody>
+				<tr>
+					<th>Picture</th>
+					<th>Name</th>
+					<th>Surname</th>
+					<th>Position</th>
+					<th>Alternate Position</th>
+					<th>Strong foot</th>
+				</tr>
+				<tr th:each="player : ${team.players}">
+					<td >
+						<a class="photo-button" th:href="@{/rest/player/findById/(id=${player.id})}">
+ 							<img class="min-images" th:src="@{'/img/players/' + ${player.id} +'.jpg'}" width="60" height="60">
+ 						</a>
+					</td>
+					<td th:text="${player.name}"></td>
+					<td th:text="${player.surname}"></td>
+					<td th:text="${player.position}"></td>
+					<td th:text="${player.alternatePosition}"></td>
+					<td th:text="${player.strongFoot}"></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+		
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+
+
+
+<script src="/js/teamDetails.js"></script>
+			
+</body>
+</html>

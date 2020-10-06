@@ -31,47 +31,19 @@ a{
 	color: #b30000;
 }
 
+
 .button-group a{
-	padding: 10px;
-	color: #ffffff;
-	border-radius: 8px;
-	border: 0;
+	color: #333333;
 	transition-duration: 0.4s;
 	text-decoration: none;
+	padding: 5px;
+	border-right: 1px solid #333333;
 }
 
 .button-group a:hover{
-	background-color: gray;
-	
-}
-
-.button-group .edit-button{
-	background-color: #000099;
-}
-
-.button-group .details-button{
-	background-color: #008000;
-}
-
-.button-group .delete-button{
 	background-color: #b30000;
-}
-
-.add-button {
-	margin-top: 10px;
-	background-color: #008000;
-	padding: 10px;
 	color: #ffffff;
-	border-radius: 8px;
-	border: 0;
-	transition-duration: 0.4s;
-	text-decoration: none;
 	
-}
-
-.add-button:hover {
-	background-color:gray;
-	color: #ffffff;
 }
 
 
@@ -311,7 +283,7 @@ footer{
 
 .form-div select {
 	width:100%;
-	height:40px;
+	height:30px;
 	border: 1px solid gray;
   	border-radius: 4px;
   	font-family: Arial, Helvetica, sans-serif;
@@ -340,6 +312,8 @@ footer{
 	background-color: #e6e6e6;
 	padding:20px;
 	margin-bottom: 5px;
+	display: grid;
+	grid-template-columns: 1fr;
 }
 
 .search-input{ 
@@ -381,10 +355,25 @@ footer{
 	color: #ffffff;
 }
 
+.add-button {
+	background-color: #333333;
+	padding: 10px;
+	color: #ffffff;
+	border-radius: 8px;
+	border: 0;
+	transition-duration: 0.4s;
+	text-decoration: none;
+}
+
+.add-button:hover {
+	background-color:gray;
+	color: #ffffff;
+}
+
 /*Team page*/
 .team-container{
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;;
+	grid-template-columns: 1fr 1fr 1fr;
 	width: 80%;
 	margin:auto;
 	overflow: hidden;
@@ -421,6 +410,71 @@ footer{
 	
 	
 }
+
+/*Team Details*/
+
+.team-details-cont{
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	width: 80%;
+	grid-gap:10px;
+	height:auto;
+	margin:auto;
+	
+	overflow: hidden;
+}
+
+.team-details-header{
+	display:flex;
+	padding:10px;
+	border-bottom:2px solid gray;
+	width: 80%;
+	margin:auto;
+	margin-bottom: 10px;
+}
+
+.team-details-header h1{
+	margin-bottom: 0px
+}
+
+.team-picture-cont{
+	grid-column:2/5;
+}
+
+.team-coach-cont{
+	display:grid;
+	grid-column:1/2;
+	grid-row:1/2;
+	justify-content: center;
+	height: auto;
+	
+}
+
+.team-coach-div{
+	display: grid;
+	
+}
+
+.team-coach-div h3 {
+	border-bottom: 2px solid gray;
+	margin-top: 0px;
+}
+
+.team-coach-div h4 {
+	margin: 0;
+}
+
+.team-players-cont{
+	grid-column:2/5;
+	height: auto;
+}
+
+.team-players-cont h3{
+	border-bottom: 2px solid gray;
+	margin: 10px;
+}
+
+
 
 
 

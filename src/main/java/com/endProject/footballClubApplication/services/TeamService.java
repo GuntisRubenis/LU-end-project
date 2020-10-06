@@ -28,6 +28,13 @@ public class TeamService {
 		 teamRepository.deleteById(id);
 	}
 	
+	public List<Team> findAll(String keyword){
+		if(keyword !=null) {
+			return teamRepository.findAll(keyword);
+		}
+		return teamRepository.findAll();
+	}
+	
 	public List<Team> findAll(){
 		return teamRepository.findAll();
 	}

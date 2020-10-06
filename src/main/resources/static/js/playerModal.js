@@ -1,3 +1,4 @@
+
 /*======================================*/
 //Start of edit modal
 /*======================================*/
@@ -32,6 +33,7 @@ for (const button of editButtons){
 				document.querySelector('#positionEdit').value = player.position;
 				document.querySelector('#alternatePositionEdit').value = player.alternatePosition;
 				document.querySelector('#strongFootEdit').value = player.strongFoot;
+				document.querySelector('#teamIdEdit').value = player.teamId;
 			}
 		}
 		

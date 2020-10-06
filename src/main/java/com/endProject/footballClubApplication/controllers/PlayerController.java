@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.services.PlayerService;
+import com.endProject.footballClubApplication.services.TeamService;
 
 
 
@@ -26,11 +27,14 @@ public class PlayerController {
 	
 	@Autowired
 	private PlayerService playerService;
+	@Autowired
+	private TeamService teamService;
 	
 	@RequestMapping("/rest/player")
 	public String playerPage (Model model, @Param("keyword") String keyword) {
 		List<Player> players = playerService.findAll(keyword);
 		model.addAttribute("players", players);
+		model.addAttribute("teams", teamService.findAll());
 		return "player";
 	}
 	

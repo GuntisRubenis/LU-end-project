@@ -22,6 +22,8 @@
 				&nbsp;
 				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
 			</form>
+			&nbsp;
+			<button class="add-button"  id="addButton">Add new Player</button>
 		</div>
 		
 		<table class="custom-table">
@@ -54,9 +56,6 @@
 				</tr>
 			</tbody>
 		</table>
-		<div>
-			<button class="add-button"  id="addButton">Add new Player</button>
-		</div>
 	</div>
 	
 	<footer>
@@ -120,6 +119,15 @@
 							<option>Right</option>
 						</select>
 					</div>
+					<div class="form-div">
+						<label>Team</label>
+						<select name="teamId">
+							<option>Select Team</option>
+							<option th:each="team:${teams}"
+							th:value="${team.id}"
+							th:text="${team.teamName}">
+						</select>
+					</div>
 					<button class="modalSaveButton" type="submit">Save</button>
 				</form>
 			</div>
@@ -134,7 +142,7 @@
 		<div class="modalContent">
 			<div class="modal-header">
 				<span class="modalCloseButton">&times;</span>
-				<h3>Edit Coach</h3>
+				<h3>Edit Player</h3>
 			</div>
 			<div class="modal-body">
 				<form th:action="@{/rest/player/update}" method="put">
@@ -188,6 +196,15 @@
 							<option>Select</option>
 							<option>Left</option>
 							<option>Right</option>
+						</select>
+					</div>
+					<div class="form-div">
+						<label>Team</label>
+						<select id="teamIdEdit" name="teamId">
+							<option>Select Team</option>
+							<option th:each="team:${teams}"
+							th:value="${team.id}"
+							th:text="${team.teamName}">
 						</select>
 					</div>
 					<div class="form-div">
