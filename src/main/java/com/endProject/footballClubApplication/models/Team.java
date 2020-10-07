@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -40,6 +41,12 @@ public class Team {
 	// every team have list of players
 	@OneToMany(mappedBy="team")
 	private List<Player> players;
+	
+	// every team have list of trainings
+	@OneToMany(mappedBy="team")
+	private List<Training> trainings;
+	
+	
 
 	public String getTeamName() {
 		return teamName;
@@ -96,6 +103,14 @@ public class Team {
 
 	public void setAssistantCoachId(Integer assistantCoachId) {
 		this.assistantCoachId = assistantCoachId;
+	}
+	
+	public List<Training> getTrainings() {
+		return trainings;
+	}
+
+	public void setTrainings(List<Training> trainings) {
+		this.trainings = trainings;
 	}
 
 }
