@@ -42,9 +42,6 @@ for (const button of editButtons){
 		editModal.style.display = 'block';
 	})
 }
-/*======================================*/
-//End of edit modal
-/*======================================*/
 
 /*======================================*/
 //Start of upload modal
@@ -82,9 +79,6 @@ for (const button of detailsButtons){
 		uploadModal.style.display = 'block';
 	})
 }
-/*======================================*/
-//End of upload modal
-/*======================================*/
 
 /*======================================*/
 //Start of photo modal
@@ -123,10 +117,10 @@ for(const button of photoButtons){
 		photoModal.style.display = 'block';
 	})
 }
-/*======================================*/
-//End of photo modal
-/*======================================*/
 
+/*======================================*/
+//Close modal
+/*======================================*/
 var modalCloseButtons = document.querySelectorAll('.modalCloseButton');
 //for all close buttons in deleteModal
 for (const button of modalCloseButtons) {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Trainings</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	
+	<div class="container">
+		<h1>Attendance</h1>
+		<form class="attendance-form" th:action="@{/rest/training}" method="post" >
+					<div class="attendance-div" th:each="player:${players}">
+						<div class="attendance-palyer-div">
+							<label th:text="${player.name}+' '+${player.surname}" ></label>
+							<input type="checkbox"  name="players">
+						</div>
+					</div>
+					<div class="attendance-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+		</form>
+		
+	</div>
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+	
+
+	
+<script src="/js/addModal.js"></script>
+<script src="/js/deleteModal.js"></script>
+<script src="/js/training.js"></script>		
+</body>
+</html>

@@ -11,7 +11,7 @@ import com.endProject.footballClubApplication.models.Training;
 public interface TrainingRepository extends JpaRepository<Training, Integer> {
 	
 	
-		@Query("SELECT t FROM Training t WHERE t.date LIKE %?1%")
+		@Query("SELECT t FROM Training t WHERE t.team.teamName LIKE %?1%")
 		public List<Training> findAll(String Keyword);
 
 }

@@ -44,6 +44,7 @@
 					<td th:text="${training.date}"></td>
 					<td class="button-group">
 						<a class="edit-button" th:href="@{/rest/training/findById/(id=${training.id})}">Edit</a>
+						<a  th:href="@{/rest/training/attendance/(id=${training.id})}">Attendance</a>
 						<a class="delete-button" th:href="@{/rest/training/delete/(id=${training.id})}" >Delete</a>
 					</td>
 				</tr>
@@ -95,15 +96,86 @@
 	</div>
 <!--Add new modal end -->
 
+<!--Attendance modal start -->
+<div id="ttendanceModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Attendance</h3>
+			</div>
+			<div class="modal-body">
+				<form th:action="@{/rest/training}" method="post" >
+					<div th:each ="player :${players}">
+						<div  class="form-div">
+							<label th:text="${player.name}"></label>
+							<input type="checkbox"  name="players">
+						</div>
+					</div>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--  Attendance modal end -->
+
+<!--Edit modal start  -->
+<div id="editModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Edit Training</h3>
+			</div>
+			<div class="modal-body">
+				<form th:action="@{/rest/training/update}" method="post" enctype="multipart/form-data">
+					<div class="form-div">
+						<label>Id</label>
+						<input type="text" id="idEdit"  name="id">
+					</div>
+					<div class="form-div">
+						<label>Description</label>
+						<input type="text" id="descriptionEdit"  name="description">
+					</div>
+					<div class="form-div">
+						<label>Date</label>
+						<input type="date" id="dateEdit"  name="date">
+					</div>
+					<div class="form-div">
+						<label>Team</label>
+						<select name="teamId" id="teamEdit" required>
+							<option>Select Team</option>
+							<option th:each="team:${teams}"
+							th:value="${team.id}"
+							th:text="${team.teamName}">
+						</select>
+					</div>
+					<div class="form-div">
+						<label>Select file:</label>
+						<input type="file" id="fileEdit" name="file" accept="images/*">
+					</div>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Edit modal end -->
+
 <!--Delete modal start  -->
 <div id="deleteModal" class="modal">
 		<div class="modalContent">
 			<div class="modal-header">
 				<span class="modalCloseButton">&times;</span>
-				<h3>Delete Player</h3>
+				<h3>Delete Training</h3>
 			</div>
 			<div class="modal-body">
-				<H2>Are u sure to delete this player?</H2>
+				<H2>Are u sure to delete this training?</H2>
 			</div>
 			<div class="modal-footer">
 				<a href="" class="modalDeleteButton" type="submit">Delete</a>
@@ -114,6 +186,6 @@
 	
 <script src="/js/addModal.js"></script>
 <script src="/js/deleteModal.js"></script>
-<script src="/js/playerModal.js"></script>		
+<script src="/js/training.js"></script>		
 </body>
 </html>

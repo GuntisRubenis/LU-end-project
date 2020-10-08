@@ -21,7 +21,10 @@ public class TeamService {
 	
 	public void save(Team team, MultipartFile file) throws IllegalStateException, IOException {
 		 teamRepository.save(team);
-		 file.transferTo(new File("C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\teams\\"+team.getId()+".jpg"));
+		 if(!file.isEmpty()) {
+			 file.transferTo(new File("C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\teams\\"+team.getId()+".jpg"));
+		 }
+		 
 	}
 	
 	public void deleteById(Integer id) {

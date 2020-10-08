@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,6 +36,8 @@ public class Training{
 	@JoinColumn(name="teamId", insertable=false, updatable=false)
 	private Team team;
 	private Integer teamId;
+	
+	
 	
 	
 	
@@ -89,5 +92,9 @@ public class Training{
 	public void setTeamId(Integer teamId) {
 		this.teamId = teamId;
 	}
+
+
+	
+	
 	
 }
