@@ -14,11 +14,18 @@
 	
 	<div class="container">
 		<h1>Attendance</h1>
-		<form class="attendance-form" th:action="@{/rest/training}" method="post" >
-					<div class="attendance-div" th:each="player:${players}">
+		<div th:each = "p:${training.players}">
+			<h1 th:text="${p.name}"></h1>
+		</div>
+		<form class="attendance-form" th:action="@{/rest/training/addAttendance}" method="post" >
+					<div class="attendance-div">
 						<div class="attendance-palyer-div">
+							<label>Team</label>
+							<input type="text" th:value="${training.id}" th:text="${training.team.teamName}" name="id">
+						</div>
+						<div th:each="player:${players}" class="attendance-palyer-div">
 							<label th:text="${player.name}+' '+${player.surname}" ></label>
-							<input type="checkbox"  name="players">
+							<input type="checkbox" th:value="${player.id}" name="playerId">
 						</div>
 					</div>
 					<div class="attendance-div">

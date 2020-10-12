@@ -1,13 +1,17 @@
 package com.endProject.footballClubApplication.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -37,21 +41,32 @@ public class Training{
 	private Team team;
 	private Integer teamId;
 	
+	@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "attendance", 
+        joinColumns = { @JoinColumn(name = "trainingId") }, 
+        inverseJoinColumns = { @JoinColumn(name = "playerId") }
+    )
+    private List<Player> players = new ArrayList<Player>();
 	
 	
-	
-	
-	public Training(Integer id, String description, Date date, Team team, Integer teamId) {
+
+	public Training() {
+		
+	}
+
+
+
+	public Training(Integer id, String description, Date date, Team team, Integer teamId, List<Player> players) {
 		this.id = id;
 		this.description = description;
 		this.date = date;
 		this.team = team;
 		this.teamId = teamId;
+		this.players = players;
 	}
 
-	public Training() {
-		
-	}
+
 
 	public Integer getId() {
 		return id;
@@ -93,6 +108,19 @@ public class Training{
 		this.teamId = teamId;
 	}
 
+
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+	
+	
 
 	
 	

@@ -13,42 +13,47 @@
 		<div th:replace="fragments/secureHeader :: secureHeader"></div>
 	</header>
 	
-	<div class="container">
-		<h1>Teams</h1>
+	<div class="main-container">
+		<div class="tittle-div">
+			<h1>Teams</h1>
+		</div>
 		<div class ="search-div">
 			<form th:action="@{/rest/team}">
+				<label>Search</label>
 				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
-				&nbsp;
 				<input class="search-button" type="submit" value="Search"/>
-				&nbsp;
+				
 				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
 			</form>
-			&nbsp;
-			<button class="add-button"  id="addButton">Add new Team</button>
+			<div>
+				<button class="add-button"  id="addButton">Add new Team</button>
+			</div>
+		</div>
+			<div class="table-div">
+			<div class="team-container">
+				<div class="team-div" th:each="team : ${teams}">
+					<ul>
+						<li>
+							<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">
+		 						<img class="" th:src="@{'/img/teams/' + ${team.id} +'.jpg'}" width="100%" height="200px">
+		 					</a>
+		 				</li>
+						<li>
+							<h3 class="team-li" th:text = "${team.teamName}"></h3>
+						</li>	
+						<li>
+							<div class="team-li">
+								<a class="details-button" th:href="@{/rest/team/teamDetails/(id=${team.id})}">Details</a>
+								<a class="edit-button" th:href="@{/rest/team/findById/(id=${team.id})}">Edit</a>
+								<a class="delete-button" th:href="@{/rest/team/delete/(id=${team.id})}" >Delete</a>
+							</div>
+						</li>
+					</ul>
+				</div>	
+			</div>
 		</div>
 	</div>
 	
-	<div class="team-container">
-		<div class="team-div" th:each="team : ${teams}">
-			<ul>
-				<li>
-					<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">
- 						<img class="" th:src="@{'/img/teams/' + ${team.id} +'.jpg'}" width="100%" height="200px">
- 					</a>
- 				</li>
-				<li>
-					<h3 class="team-li" th:text = "${team.teamName}"></h3>
-				</li>	
-				<li>
-					<div class="team-li">
-						<a class="details-button" th:href="@{/rest/team/teamDetails/(id=${team.id})}">Details</a>
-						<a class="edit-button" th:href="@{/rest/team/findById/(id=${team.id})}">Edit</a>
-						<a class="delete-button" th:href="@{/rest/team/delete/(id=${team.id})}" >Delete</a>
-					</div>
-				</li>
-			</ul>
-		</div>	
-	</div>
 	<footer>
 		<div th:replace="fragments/footer :: footer"></div>
 	</footer>

@@ -1,7 +1,11 @@
 package com.endProject.footballClubApplication.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -22,6 +26,9 @@ public class Player extends Person{
 	@JoinColumn(name="teamId", insertable=false, updatable=false)
 	private Team team;
 	private Integer teamId;
+	
+	@ManyToMany(mappedBy = "players")
+    private List<Training> trainings = new ArrayList<Training>();
 
 	public Player(Integer id, String name, String surname, String age, String photo, String phone, String email,
 			String position, String strongFoot, String alternatePosition) {
@@ -72,6 +79,14 @@ public class Player extends Person{
 
 	public void setTeamId(Integer teamId) {
 		this.teamId = teamId;
+	}
+
+	public List<Training> getTrainings() {
+		return trainings;
+	}
+
+	public void setTrainings(List<Training> trainings) {
+		this.trainings = trainings;
 	}
 	
 	

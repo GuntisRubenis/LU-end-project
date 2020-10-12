@@ -12,44 +12,45 @@
 		<div th:replace="fragments/secureHeader :: secureHeader"></div>
 	</header>
 	
-	<div class="container">
-		<h1>Trainings</h1>
+	<div class="main-container">
+		<div class="tittle-div">
+			<h1>Trainings</h1>
+		</div>
 		<div class ="search-div">
 			<form th:action="@{/rest/training}">
+				<label>Search</label>
 				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
-				&nbsp;
+				
 				<input class="search-button" type="submit" value="Search"/>
-				&nbsp;
+				
 				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
 			</form>
-			&nbsp;
-			<button class="add-button"  id="addButton">Add new Training</button>
+			<div>
+				<button class="add-button"  id="addButton">Add new Training</button>
+			</div>
 		</div>
-		<table class="custom-table">
-			<tbody>
-				<tr>
-					<th>File</th>
-					<th>Team</th>
-					<th>Description</th>
-					<th>Date</th>
-					<th>Options</th>
-				</tr>
-				<tr th:each="training : ${trainings}">
-					<td >  
-						
- 						
-					</td>
-					<td th:text="${training.team.teamName}"></td>
-					<td th:text="${training.description}"></td>
-					<td th:text="${training.date}"></td>
-					<td class="button-group">
-						<a class="edit-button" th:href="@{/rest/training/findById/(id=${training.id})}">Edit</a>
-						<a  th:href="@{/rest/training/attendance/(id=${training.id})}">Attendance</a>
-						<a class="delete-button" th:href="@{/rest/training/delete/(id=${training.id})}" >Delete</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="table-div">
+			<table class="custom-table">
+				<tbody>
+					<tr>
+						<th>Team</th>
+						<th>Description</th>
+						<th>Date</th>
+						<th>Options</th>
+					</tr>
+					<tr th:each="training : ${trainings}">
+						<td th:text="${training.team.teamName}"></td>
+						<td th:text="${training.description}"></td>
+						<td th:text="${training.date}"></td>
+						<td class="button-group">
+							<a class="edit-button" th:href="@{/rest/training/findById/(id=${training.id})}">Edit</a>
+							<a class="attendance-button" th:href="@{/rest/training/findById/(id=${training.id})}">Attendance</a>
+							<a class="delete-button" th:href="@{/rest/training/delete/(id=${training.id})}" >Delete</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<footer>
 		<div th:replace="fragments/footer :: footer"></div>
@@ -97,24 +98,18 @@
 <!--Add new modal end -->
 
 <!--Attendance modal start -->
-<div id="ttendanceModal" class="modal">
+<div id="attendanceModal" class="modal">
 		<div class="modalContent">
 			<div class="modal-header">
 				<span class="modalCloseButton">&times;</span>
 				<h3>Attendance</h3>
 			</div>
 			<div class="modal-body">
-				<form th:action="@{/rest/training}" method="post" >
-					<div th:each ="player :${players}">
-						<div  class="form-div">
-							<label th:text="${player.name}"></label>
-							<input type="checkbox"  name="players">
+					<form class="attendance-form" th:action="@{/rest/training/addAttendance}" method="post" >
+						<div class="attendance-div">
+							<button class="modalSaveButton" type="submit">Save</button>
 						</div>
-					</div>
-					<div class="form-div">
-						<button class="modalSaveButton" type="submit">Save</button>
-					</div>
-				</form>
+					</form>
 			</div>
 			<div class="modal-footer">
 			</div>
