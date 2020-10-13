@@ -68,4 +68,16 @@ public class CoachController {
 		return "redirect:/rest/coach";
 	}
 	
+	
+	@RequestMapping(value="/rest/coach/coachDetails")
+	public String coachDetails(Model model, Integer id ) {
+		Optional<Coach> coach = coachService.finfById(id);
+		if(coach.isPresent()) {
+			model.addAttribute("coach", coach.get());
+			model.addAttribute("teams", coach.get().getTeams());
+			model.addAttribute("assistantTeams", coach.get().getAssistantTeams());
+		}
+		return "coachDetails"; 
+	}
+	
 }

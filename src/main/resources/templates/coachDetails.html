@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Coach Details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	
+	<div class="individual-main-container">
+		<div class="individual-tittle-div">
+			
+		</div>
+		<div class="individual-attendance-div">
+			<h1 th:text ="${coach.name}+' '+${coach.surname}"></h1>
+		</div>
+		<div class="individual-side-div">
+			<img class="" th:src="@{'/img/coaches/' + ${coach.id} +'.jpg'}" width="100%" height="300px">
+		</div>
+		<div class="individual-center-div">
+			<table class="custom-table">
+				<tbody>
+					<tr>
+						<td>Category:</td>
+						<td th:text="${coach.category}"></td>
+					</tr>
+					<tr>
+						<td>Age:</td>
+						<td th:text="${coach.age}"></td>
+					</tr>
+					<tr>
+						<td>Email:</td>
+						<td th:text="${coach.email}"></td>
+					</tr>
+					<tr>
+						<td>Phone:</td>
+						<td th:text="${coach.phone}"></td>
+					</tr>
+					<tr>
+						<td>Teams Managed</td>
+						<td>
+							<ul th:each="team:${teams}">
+								<li th:text="${team.teamName}"></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>Teams Assisted</td>
+						<td>
+							<ul th:each="team:${assistantTeams}">
+								<li th:text="${team.teamName}"></li>
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+	
+
+	
+<script src="/js/addModal.js"></script>
+<script src="/js/deleteModal.js"></script>	
+</body>
+</html>

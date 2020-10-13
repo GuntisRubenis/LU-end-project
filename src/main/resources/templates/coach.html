@@ -37,21 +37,17 @@
 						<th>Photo</th>
 						<th>Name</th>
 						<th>Surname</th>
-						<th>Phone</th>
-						<th>Email</th>
 						<th>Category</th>
 						<th>Options</th>
 					</tr>
 					<tr th:each="coach : ${coaches}">
 						<td >
-							<a class="photo-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">
+							<a class="photo-button" th:href="@{/rest/coach/coachDetails/(id=${coach.id})}">
 	 							<img class="min-images" th:src="@{'/img/coaches/' + ${coach.id} +'.jpg'}" width="60" height="60">
 	 						</a>
 						</td>
 						<td th:text="${coach.name}"></td>
 						<td th:text="${coach.surname}"></td>
-						<td th:text="${coach.phone}"></td>
-						<td th:text="${coach.email}"></td>
 						<td th:text="${coach.category}"></td>
 						<td class="button-group">
 							<a class="edit-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">Edit</a>

@@ -58,5 +58,4 @@ public class Coach extends Person{
 		this.assistantTeams = assistantTeams;
 	}
 	
-	
 }
