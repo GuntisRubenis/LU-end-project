@@ -39,7 +39,9 @@
 						<th>Options</th>
 					</tr>
 					<tr th:each="training : ${trainings}">
-						<td th:text="${training.team.teamName}"></td>
+						<td>
+							<a th:text="${training.team.teamName}" th:href = "@{/rest/training/trainingDetails/(id=${training.id})}"></a>
+						</td>
 						<td th:text="${training.description}"></td>
 						<td th:text="${training.date}"></td>
 						<td class="button-group">

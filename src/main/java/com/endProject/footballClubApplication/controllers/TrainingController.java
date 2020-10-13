@@ -78,14 +78,14 @@ public class TrainingController {
 		return trainingService.finfById(id);
 	}
 	
-	@RequestMapping("/rest/training/attendance") 
+	@RequestMapping("/rest/training/trainingDetails") 
 	public String attendance(Integer id, Model model){	
 		Optional<Training> training = trainingService.finfById(id);
 		if(training.isPresent()) {
 			model.addAttribute("players", training.get().getTeam().getPlayers());
 			model.addAttribute("training", training.get());
 		}
-		return "attendance";
+		return "trainingDetails";
 	}
 	
 	
