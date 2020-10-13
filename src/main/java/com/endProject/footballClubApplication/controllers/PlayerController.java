@@ -63,5 +63,16 @@ public class PlayerController {
 		return "redirect:/rest/player";
 	}
 	
+	@RequestMapping(value="/rest/player/playerDetails")
+	public String playerDetails (Model model, Integer id) {
+		Optional<Player> player = playerService.finfById(id);
+		
+		if (player.isPresent()) {
+			model.addAttribute("player", player.get());
+		}
+		
+		return "playerDetails";
+	}
+	
 
 }

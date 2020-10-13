@@ -89,7 +89,9 @@ public class Player extends Person{
 		this.trainings = trainings;
 	}
 	
-	
+	public Integer countTrainings () {
+		return trainings.size();
+	}
 	
 	
 	
