@@ -20,8 +20,12 @@ public class PlayerService {
 	@Autowired
 	PlayerRepository playerRepository;
 	
-	public void save(Player player) {
+	public void save(Player player,  MultipartFile file) throws IllegalStateException, IOException {
 		 playerRepository.save(player);
+		 
+		 if(!file.isEmpty()) {
+			 file.transferTo(new File("C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\players\\"+player.getId()+".jpg"));
+		 }
 	}
 	
 	public void deleteById(Integer id) {
@@ -40,10 +44,4 @@ public class PlayerService {
 		return playerRepository.findById(id);
 	}
 	
-	//upload new file to end direction and rename it as user id, so it have unique name 
-	public void uploadFile(Integer id, MultipartFile file) throws IllegalStateException, IOException {
-			
-		file.transferTo(new File("C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\players\\"+id+".jpg"));
-			
-	}
 }

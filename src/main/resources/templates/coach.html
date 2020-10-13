@@ -55,7 +55,6 @@
 						<td th:text="${coach.category}"></td>
 						<td class="button-group">
 							<a class="edit-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">Edit</a>
-							<a class="details-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">Image</a>
 							<a class="delete-button" th:href="@{/rest/coach/delete/(id=${coach.id})}" >Delete</a>
 						</td>
 					</tr>
@@ -76,7 +75,7 @@
 				<h3>Add new Coach</h3>
 			</div>
 			<div class="modal-body">
-				<form th:action="@{/rest/coach/addNew}" method="post">
+				<form th:action="@{/rest/coach/addNew}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Name</label>
 						<input type="text"  name="name">
@@ -108,6 +107,10 @@
 						</select>
 					</div>
 					<div class="form-div">
+						<label>Select image:</label>
+						<input type="file" id="photo" name="file" accept="images/*">
+					</div>
+					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>
 					</div>
 				</form>
@@ -126,7 +129,7 @@
 				<h3>Edit Coach</h3>
 			</div>
 			<div class="modal-body">
-				<form th:action="@{/rest/coach/update}" method="put">
+				<form th:action="@{/rest/coach/update}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Id</label>
 						<input type="text" id="idEdit" name="id" readonly>
@@ -160,6 +163,10 @@
 							<option>B-LFF</option>
 							<option>C-LFF</option>
 						</select>
+					</div>
+					<div class="form-div">
+						<label>Select image:</label>
+						<input type="file" id="photo" name="file" accept="images/*">
 					</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>

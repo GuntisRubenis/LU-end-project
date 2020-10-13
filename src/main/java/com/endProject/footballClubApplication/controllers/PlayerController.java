@@ -39,8 +39,8 @@ public class PlayerController {
 	}
 	
 	@PostMapping("/rest/player/addNew")
-	public String addPlayer(Player player) {
-		playerService.save(player);
+	public String addPlayer(Player player, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+		playerService.save(player, file);
 		return "redirect:";
 	}
 	
@@ -57,19 +57,11 @@ public class PlayerController {
 		return playerService.finfById(id);
 	}
 	
-	@RequestMapping(value="/rest/player/update", method = {RequestMethod.PUT, RequestMethod.GET})
-	public String update(Player player) {
-		playerService.save(player);
+	@RequestMapping(value="/rest/player/update", method = {RequestMethod.POST, RequestMethod.GET})
+	public String update(Player player, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+		playerService.save(player, file);
 		return "redirect:/rest/player";
 	}
 	
-	//
-	@RequestMapping(value="/rest/player/upload/{id}", method = {RequestMethod.POST, RequestMethod.GET})
-	public String  uploadFile(@PathVariable("id") Integer id, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
-		
-		playerService.uploadFile(id,file);
-		
-		return"redirect:/rest/player";
-	}
 
 }

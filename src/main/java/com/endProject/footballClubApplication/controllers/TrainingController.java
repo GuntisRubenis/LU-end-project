@@ -82,7 +82,7 @@ public class TrainingController {
 	public String attendance(Integer id, Model model){	
 		Optional<Training> training = trainingService.finfById(id);
 		if(training.isPresent()) {
-			model.addAttribute("players", training.get().getTeam().getPlayers());
+			model.addAttribute("players", training.get().getPlayers());
 			model.addAttribute("training", training.get());
 		}
 		return "trainingDetails";

@@ -54,7 +54,6 @@
 						<td th:text="${player.position}"></td>
 						<td class="button-group">
 							<a class="edit-button" th:href="@{/rest/player/findById/(id=${player.id})}">Edit</a>
-							<a class="details-button" th:href="@{/rest/player/findById/(id=${player.id})}">Image</a>
 							<a class="delete-button" th:href="@{/rest/player/delete/(id=${player.id})}" >Delete</a>
 						</td>
 					</tr>
@@ -75,7 +74,7 @@
 				<h3>Add new Coach</h3>
 			</div>
 			<div class="modal-body">
-				<form th:action="@{/rest/player/addNew}" method="post">
+				<form th:action="@{/rest/player/addNew}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Name</label>
 						<input type="text" name="name">
@@ -133,6 +132,10 @@
 							th:text="${team.teamName}">
 						</select>
 					</div>
+					<div class="form-div">
+						<label>Select image:</label>
+						<input type="file" id="photo" name="file" accept="images/*">
+					</div>
 					<button class="modalSaveButton" type="submit">Save</button>
 				</form>
 			</div>
@@ -150,7 +153,7 @@
 				<h3>Edit Player</h3>
 			</div>
 			<div class="modal-body">
-				<form th:action="@{/rest/player/update}" method="put">
+				<form th:action="@{/rest/player/update}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Id</label>
 						<input type="text" id="idEdit" name="id" readonly>
@@ -213,6 +216,10 @@
 						</select>
 					</div>
 					<div class="form-div">
+						<label>Select image:</label>
+						<input type="file" id="photo" name="file" accept="images/*">
+					</div>
+					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>
 					</div>
 				</form>
@@ -223,55 +230,6 @@
 	</div>
 <!--Edit modal end-->
 
-<!--Upload modal start -->
-<div id="uploadModal" class="modal">
-		<div class="modalContent">
-			<div class="modal-header">
-				<span class="modalCloseButton">&times;</span>
-				<h3>Upload</h3>
-			</div>
-			<div class="form-div">
-				<form id="uploadForm" th:action="@{/rest/player/upload/}" method="post" enctype="multipart/form-data">
-					<div class="form-div">
-						<label>Select image:</label>
-						<input type="file" id="photo" name="file" accept="images/*">
-					</div>
-					<div class="form-div">
-						<button class="modalSaveButton" type="submit" >Save</button>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-			</div>
-		</div>
-	</div>
-<!--Upload modal end -->
-
-<!--Photo modal start -->
-<div id="photoModal" class="modal">
-		<div class="modalContent">
-			<div class="modal-header">
-				<span class="modalCloseButton">&times;</span>
-				<h3>Info</h3>
-			</div>
-			<div class ="photo-modal-div">
-				<div class="photo-div" >
-					<img id="photoModalImage" src="" width="100%" height="100%">
-				</div>
-				<div class="info-div">
-					<p>Name:</p>
-					<p id="photo-name">Name</p>
-					<p>Surname:</p>
-					<p id="photo-surname">Surname</p>
-					<p>Age:</p>
-					<p id="photo-age">Age</p>
-				</div>
-			</div>	
-			<div class="modal-footer">
-			</div>
-		</div>
-	</div>
-<!--Photo modal end -->
 
 <!--Delete modal start  -->
 <div id="deleteModal" class="modal">

@@ -44,89 +44,9 @@ for (const button of editButtons){
 		editModal.style.display = 'block';
 	})
 }
-/*======================================*/
-//End of edit modal
-/*======================================*/
 
 /*======================================*/
-//Start of upload modal
-/*======================================*/
-var uploadModal= document.querySelector('#uploadModal');
-var detailsButtons = document.querySelectorAll('.details-button');
-
-for (const button of detailsButtons){
-	button.addEventListener('click', function(event){
-		event.preventDefault();
-		
-		//make new request 
-		var request = new XMLHttpRequest();
-		//type of request, url/file name, async or not
-		request.open('GET', button.href, true);
-		console.log(request.responseText);
-		
-		//
-		request.onload = function (){
-			//check if status is OK, before we do anything
-			if(request.status == 200){
-				// parse response text to json format, so we can acess coach properties
-				var player = JSON.parse(request.responseText);
-				//get upload forms action url
-				var actionUrl = document.querySelector('#uploadForm').action;
-				console.log(actionUrl);
-				//add actipn forms url coaches id, so we can save pictures qith unique id
-				var url = document.querySelector('#uploadForm').action = actionUrl+player.id;
-				console.log(url);
-			}
-		}
-		
-		request.send();
-		
-		uploadModal.style.display = 'block';
-	})
-}
-/*======================================*/
-//End of upload modal
-/*======================================*/
-
-/*======================================*/
-//Start of photo modal
-/*======================================*/
-var photoButtons = document.querySelectorAll('.photo-button');
-var photoModal = document.querySelector('#photoModal');
-
-for(const button of photoButtons){
-	button.addEventListener('click', function(event){
-		event.preventDefault();
-		
-		//make new request 
-		var request = new XMLHttpRequest();
-		//type of request, url/file name, async or not
-		request.open('GET', button.href, true);
-		console.log(request.responseText);
-		
-		//
-		request.onload = function (){
-			//check if status is OK, before we do anything
-			if(request.status == 200){
-				// parse response text to json format, so we can acess coach properties
-				var player = JSON.parse(request.responseText);
-				//set coach image url
-				document.querySelector('#photoModalImage').src = '/img/players/' + player.id +'.jpg';
-				document.querySelector('#photo-name').innerHTML = player.name;
-				document.querySelector('#photo-surname').innerHTML = player.surname;
-				document.querySelector('#photo-age').innerHTML = player.age;
-			}
-		}
-		
-		request.send();
-		
-		
-		
-		photoModal.style.display = 'block';
-	})
-}
-/*======================================*/
-//End of photo modal
+//Close modal 
 /*======================================*/
 
 var modalCloseButtons = document.querySelectorAll('.modalCloseButton');

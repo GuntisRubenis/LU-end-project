@@ -44,8 +44,8 @@ public class CoachController {
 	}
 	
 	@PostMapping("/rest/coach/addNew")
-	public String addCoach(Coach coach) {
-		coachService.save(coach);
+	public String addCoach(Coach coach, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+		coachService.save(coach,file);
 		return "redirect:";
 	}
 	
@@ -62,20 +62,10 @@ public class CoachController {
 		return coachService.finfById(id);
 	}
 	
-	@RequestMapping(value="/rest/coach/update", method = {RequestMethod.PUT, RequestMethod.GET})
-	public String update(Coach coach) {
-		coachService.save(coach);
+	@RequestMapping(value="/rest/coach/update", method = {RequestMethod.POST, RequestMethod.GET})
+	public String update(Coach coach, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+		coachService.save(coach,file);
 		return "redirect:/rest/coach";
 	}
 	
-	//
-	@RequestMapping(value="/rest/coach/upload/{id}", method = {RequestMethod.POST, RequestMethod.GET})
-	public String  uploadFile(@PathVariable("id") Integer id, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
-		
-		coachService.uploadFile(id,file);
-		
-		return"redirect:/rest/coach";
-	}
-
-
 }

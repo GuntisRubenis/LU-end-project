@@ -27,8 +27,11 @@ public class CoachService {
 	@Autowired
 	CoachRepository coachRepository;
 	
-	public void save(Coach coach) {
+	public void save(Coach coach, MultipartFile file) throws IllegalStateException, IOException {
 		 coachRepository.save(coach);
+		 if(!file.isEmpty()) {
+			 file.transferTo(new File("C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\coaches\\"+coach.getId()+".jpg"));
+		 }
 	}
 	
 	public void deleteByid(Integer id) {
@@ -48,14 +51,5 @@ public class CoachService {
 	
 	public Optional<Coach> finfById(Integer id){
 		return coachRepository.findById(id);
-	}
-	//upload new file to end direction and rename it as user id, so it have unique name 
-	public void uploadFile(Integer id, MultipartFile file) throws IllegalStateException, IOException {
-		
-		file.transferTo(new File("C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\coaches\\"+id+".jpg"));
-		
-	}
-	
-	
-	
+	}	
 }
