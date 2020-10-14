@@ -1,6 +1,7 @@
 package com.endProject.footballClubApplication.models;
 
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -30,13 +32,13 @@ public class User{
 	
 	private String password;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 				name = "user_role", 
 				joinColumns = @JoinColumn(name="user_id"), 
 				inverseJoinColumns = @JoinColumn(name="role_id")
 				)
-	private Set<Role> roles;
+	private List<Role> roles;
 
 	public User () {
 		
@@ -66,11 +68,11 @@ public class User{
 		this.id = id;
 	}
 
-	public Set<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 

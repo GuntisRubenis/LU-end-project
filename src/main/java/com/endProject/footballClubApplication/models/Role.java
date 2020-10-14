@@ -1,10 +1,14 @@
 package com.endProject.footballClubApplication.models;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -21,6 +25,9 @@ public class Role {
 	
 	
 	private String role;
+	
+	@ManyToMany(mappedBy = "roles")
+    private List<User> users = new ArrayList<User>();
 	
 	
 	public Role () {

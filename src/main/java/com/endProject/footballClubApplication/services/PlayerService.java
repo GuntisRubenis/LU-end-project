@@ -20,6 +20,8 @@ public class PlayerService {
 	@Autowired
 	PlayerRepository playerRepository;
 	
+	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\players\\";
+	
 	public void save(Player player,  MultipartFile file) throws IllegalStateException, IOException {
 		 playerRepository.save(player);
 		 
@@ -29,6 +31,11 @@ public class PlayerService {
 	}
 	
 	public void deleteById(Integer id) {
+		//check if file exists in our directory and delete it
+		File file = new File(PATH+id+".jpg");
+		 if(file.exists()) {
+			 file.delete();
+		 }
 		 playerRepository.deleteById(id);
 	}
 	

@@ -63,13 +63,18 @@ public class TeamController {
 	@RequestMapping("/rest/team/teamDetails/")
 	public String showTeamDetails(Model model,Integer id) {
 		Optional<Team> team = teamService.finfById(id);
-		Optional<Coach> coach = coachService.finfById(team.get().getCoachId());
-		Optional<Coach> assistantCoach = coachService.finfById(team.get().getAssistantCoachId());
 		//check if team exists, unwrap it and add to model
 		if(team.isPresent()) {
+			Optional<Coach> coach = coachService.finfById(team.get().getCoachId());
+			Optional<Coach> assistantCoach = coachService.finfById(team.get().getAssistantCoachId());
+			if (coach.isPresent()) {
+				model.addAttribute("coach", coach.get());
+				
+			}
+			if(assistantCoach.isPresent()) {
+				model.addAttribute("assistantCoach", assistantCoach.get());
+			}
 			model.addAttribute("team", team.get());
-			model.addAttribute("coach", coach.get());
-			model.addAttribute("assistantCoach", assistantCoach.get());
 		}
 		return "teamdetails";
 	}

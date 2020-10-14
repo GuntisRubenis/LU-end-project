@@ -26,7 +26,7 @@
 				
 				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
 			</form>
-			<div>
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
 				<button class="add-button"  id="addButton">Add new Coach</button>
 			</div>
 		</div>
@@ -38,7 +38,7 @@
 						<th>Name</th>
 						<th>Surname</th>
 						<th>Category</th>
-						<th>Options</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">Options</th>
 					</tr>
 					<tr th:each="coach : ${coaches}">
 						<td >
@@ -49,7 +49,7 @@
 						<td th:text="${coach.name}"></td>
 						<td th:text="${coach.surname}"></td>
 						<td th:text="${coach.category}"></td>
-						<td class="button-group">
+						<td sec:authorize="hasRole('ROLE_ADMIN')" class="button-group">
 							<a class="edit-button" th:href="@{/rest/coach/findById/(id=${coach.id})}">Edit</a>
 							<a class="delete-button" th:href="@{/rest/coach/delete/(id=${coach.id})}" >Delete</a>
 						</td>

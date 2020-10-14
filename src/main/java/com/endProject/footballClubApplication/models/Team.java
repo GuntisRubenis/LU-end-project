@@ -2,6 +2,7 @@ package com.endProject.footballClubApplication.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -27,23 +31,25 @@ public class Team {
 	private String teamName;
 	
 	// team can have one coach
+	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne
 	@JoinColumn(name="coachId", insertable=false, updatable=false)
 	private Coach coach;
 	private Integer coachId;
 	
 	// team can have one assistant coach
+	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne
 	@JoinColumn(name="assistantCoachId", insertable=false, updatable=false)
 	private Coach assistantCoach;
 	private Integer assistantCoachId;
 	
 	// every team have list of players
-	@OneToMany(mappedBy="team")
+	@OneToMany(mappedBy="team", cascade = CascadeType.PERSIST)
 	private List<Player> players;
 	
 	// every team have list of trainings
-	@OneToMany(mappedBy="team")
+	@OneToMany(mappedBy="team", cascade = CascadeType.PERSIST)
 	private List<Training> trainings;
 	
 	

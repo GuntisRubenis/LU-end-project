@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -35,13 +37,13 @@ public class Training{
 	@DateTimeFormat( pattern = "yyyy-MM-dd")
 	private Date date;
 	
-	
+	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne
 	@JoinColumn(name="teamId", insertable=false, updatable=false)
 	private Team team;
 	private Integer teamId;
 	
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "attendance", 
         joinColumns = { @JoinColumn(name = "trainingId") }, 

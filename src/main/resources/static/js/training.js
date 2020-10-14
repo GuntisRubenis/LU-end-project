@@ -84,7 +84,7 @@ for (const button of attendanceButtons){
 					const submitButton =document.querySelectorAll('.attendance-div')[0];
 					const div1 = document.createElement('div');
 					const div2 = document.createElement('div');
-					// add class name sowe can style this div 
+					// add class name so we can style this div 
 					playerDiv.classList.add('attendance-player-div');
 					div1.classList.add('div1');
 					div2.classList.add('div2');

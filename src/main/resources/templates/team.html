@@ -25,7 +25,7 @@
 				
 				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
 			</form>
-			<div>
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
 				<button class="add-button"  id="addButton">Add new Team</button>
 			</div>
 		</div>
@@ -39,11 +39,12 @@
 		 					</a>
 		 				</li>
 						<li>
-							<h3 class="team-li" th:text = "${team.teamName}"></h3>
+							<div class="team-li">
+								<a  th:text = "${team.teamName}"  th:href="@{/rest/team/teamDetails/(id=${team.id})}"></a>
+							</div>
 						</li>	
 						<li>
-							<div class="team-li">
-								<a class="details-button" th:href="@{/rest/team/teamDetails/(id=${team.id})}">Details</a>
+							<div sec:authorize="hasRole('ROLE_ADMIN')" class="team-li">
 								<a class="edit-button" th:href="@{/rest/team/findById/(id=${team.id})}">Edit</a>
 								<a class="delete-button" th:href="@{/rest/team/delete/(id=${team.id})}" >Delete</a>
 							</div>

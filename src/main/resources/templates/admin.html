@@ -11,7 +11,102 @@
 	<header>
 		<div th:replace="fragments/secureHeader :: secureHeader"></div>
 	</header>
-	
+	<div class="admin-main-container">
+		<div class="admin-tittle1-div">
+			
+		</div>
+		<div class="admin-tittle2-div">
+			<h1>Users</h1>
+		</div>
+		<div class="admin-side1-div">
+			<ul>
+				<li><a>Add new user</a></li>
+			</ul>
+			<form th:action="@{/secure/admin/addUser}" method="post">
+				<div class="form-div">
+						<label>UserName</label>
+						<input type="text" name="username">
+				</div>
+				<div class="form-div">
+						<label>Password</label>
+						<input type="password" name="password">
+				</div>
+				<div class="form-div">
+						<label>Role</label>
+						<select name="roleId" required>
+							<option>Select Role</option>
+							<option th:each="role:${roles}"
+							th:value="${role.id}"
+							th:text="${role.role}">
+						</select>
+					</div>
+				<button class="modalSaveButton" type="submit">Save</button>
+			</form>
+		</div>
+		<div class="admin-center1-div">
+			<table class="custom-table">
+				<tbody>
+					<tr>
+						<th>ID</th>
+						<th>UserName</th>
+						<th>Role</th>
+						<th>Options</th>
+					</tr>
+					<tr th:each="user : ${users}">
+						<td th:text="${user.id}"></td>
+						<td th:text="${user.username}"></td>
+						<td>
+							<ul th:each="role:${user.getRoles()}">
+								<li th:text="${role.getRole()}"></li>
+							</ul>
+						</td>
+						<td>
+							<ul>
+								<li><a>Edit</a></li>
+								<li><a>Delete</a></li>
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="admin-tittle3-div">
+			
+		</div>
+		<div class="admin-tittle4-div">
+			<h1>Posts</h1>
+		</div>
+		<div class="admin-side2-div">
+			<ul>
+				<li><a>Add new post</a></li>
+			</ul>
+		</div>
+			<div class="admin-center2-div">
+			<table class="custom-table">
+				<tbody>
+					<tr>
+						<th>Title</th>
+						<th>Description</th>
+						<th>Options</th>
+					</tr>
+					<tr th:each="user : ${users}">
+						<td th:text="${user.username}"></td>
+						<td>
+							<ul th:each="role:${user.getRoles()}">
+								<li th:text="${role.getRole()}"></li>
+							</ul>
+						</td>
+						<td>
+							<ul>
+								<li><a>Edit</a></li>
+								<li><a>Delete</a></li>
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	<footer>
 		<div th:replace="fragments/footer :: footer"></div>
 	</footer>

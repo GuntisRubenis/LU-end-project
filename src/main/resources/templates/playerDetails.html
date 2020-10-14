@@ -39,7 +39,7 @@
 					</tr>
 					<tr>
 						<td>Team:</td>
-						<td th:text ="${player.getTeam().getTeamName()}"></td>
+						<td th:text ="${team != null} ? ${team.teamName} : '-'"></td>
 					</tr>
 					<tr>
 						<td>Position:</td>

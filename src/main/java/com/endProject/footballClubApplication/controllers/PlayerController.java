@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.endProject.footballClubApplication.models.Player;
+import com.endProject.footballClubApplication.models.Team;
 import com.endProject.footballClubApplication.services.PlayerService;
 import com.endProject.footballClubApplication.services.TeamService;
 
@@ -68,7 +69,14 @@ public class PlayerController {
 		Optional<Player> player = playerService.finfById(id);
 		
 		if (player.isPresent()) {
+			
 			model.addAttribute("player", player.get());
+			Team team =player.get().getTeam();
+			if(team != null) {
+				model.addAttribute("team", team);
+			}
+			
+			
 		}
 		
 		return "playerDetails";

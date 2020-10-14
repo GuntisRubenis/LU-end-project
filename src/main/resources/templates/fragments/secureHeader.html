@@ -10,21 +10,25 @@
 			<div class="main-page-title">
 				<h1>Futbola <span class="highlight">Parks</span></h1>
 			</div>
-			<div class="login">
-				<h3><a href="login.html">LogOut</a></h3>
+			<div sec:authorize="isAnonymous()" class="login">
+				<h3><a href="login.html">Login</a></h3>
+			</div>
+			<div sec:authorize="isAuthenticated()" class="login">
+				<h3><a href="login.html">Logout</a></h3>
 			</div>
 		</div>
 		<div class="container">
 				<nav>
 					<ul>
 						<li><a th:href="@{/}">Home</a></li>
-						<li><a th:href="@{/rest/coach}">Coaches</a></li>
-						<li><a th:href="@{/rest/player}">Players</a></li>
-						<li><a th:href="@{/rest/team}">Teams</a></li>
-						<li><a th:href="@{/rest/training}">Training</a></li>
-						<li><a th:href="@{/rest/tournament}">Tournaments</a></li>
-						<li><a href="index.html">Contacts</a></li>
-						<li><a href="index.html">About</a></li>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/secure/admin}">Admin</a></li>
+						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/coach}">Coaches</a></li>
+						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/player}">Players</a></li>
+						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/team}">Teams</a></li>
+						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/training}">Training</a></li>
+						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/tournament}">Tournaments</a></li>
+						<li><a th:href="@{/contacts}">Contacts</a></li>
+						<li><a th:href="@{/about}">About</a></li>
 					</ul>
 				</nav>
 			</div>

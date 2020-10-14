@@ -23,12 +23,12 @@
 			<div class="team-coach-div">
 				<h3>Coach:</h3>
 				<img class="" th:src="@{'/img/coaches/' + ${team.coachId} +'.jpg'}" width="50%" height="auto">
-				<h4 th:text="${coach.name}+' '+${coach.surname}"></h4>
+				<h4 th:text ="${coach != null} ? ${coach.name}+' '+${coach.surname} : '-'"></h4>
 			</div>
 			<div class="team-coach-div">
 				<h3>Assistant Coach:</h3>
-				<img class="" th:src="@{'/img/coaches/' + ${team.assistantCoachId} +'.jpg'}" width="50%" height="auto">
-				<h4 th:text="${assistantCoach.name}+' '+${assistantCoach.surname}"></h4>
+				<img class="" th:src="@{'/img/coaches/' +  ${team.assistantCoachId} +'.jpg'}" width="50%" height="auto">
+				<h4 th:text ="${assistantCoach != null} ? ${assistantCoach.name}+' '+${assistantCoach.surname} : '-'"></h4>
 			</div>
 		</div>
 		<div class="team-players-cont">
