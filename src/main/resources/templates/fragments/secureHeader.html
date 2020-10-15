@@ -5,26 +5,31 @@
 <title></title>
 </head>
 <body>
-	<div class="container" th:fragment="secureHeader">
-	<div class="container">
-			<div class="main-page-title">
+	<div class="header-container" th:fragment="secureHeader">
+		<div class="header1">
+			<div class="main-page-tittle">
 				<h1>Futbola <span class="highlight">Parks</span></h1>
-			</div>
-			<div sec:authorize="isAnonymous()" class="login">
-				<h3><a href="login.html">Login</a></h3>
-			</div>
-			<div sec:authorize="isAuthenticated()" class="login">
-				<h3><a href="login.html">Logout</a></h3>
+				<p sec:authorize="isAnonymous()" ><a href="login.html">Login</a></p>
+				<p sec:authorize="isAuthenticated()"><a href="login.html">Logout</a></p>
 			</div>
 		</div>
-		<div class="container">
+		<div class="header2">
 				<nav>
 					<ul>
 						<li><a th:href="@{/}">Home</a></li>
-						<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/secure/admin}">Admin</a></li>
-						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/coach}">Coaches</a></li>
-						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/player}">Players</a></li>
-						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/team}">Teams</a></li>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#">Admin</a>
+							<ul>
+								<li><a th:href="@{/secure/admin/user}">Users</a></li>
+								<li><a href="#">Posts</a></li>
+							</ul>
+						</li>
+						<li sec:authorize="isAuthenticated()"><a href="#">Staff</a>
+							<ul>
+								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/coach}">Coaches</a></li>
+								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/player}">Players</a></li>
+								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/team}">Teams</a></li>
+							</ul>
+						</li>
 						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/training}">Training</a></li>
 						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/tournament}">Tournaments</a></li>
 						<li><a th:href="@{/contacts}">Contacts</a></li>

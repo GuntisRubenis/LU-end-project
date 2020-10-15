@@ -45,7 +45,7 @@ public class AdminController {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@RolesAllowed("ADMIN")
-	@RequestMapping("/secure/admin")
+	@RequestMapping("/secure/admin/user")
 	public String adminPage(Model model) {
 		model.addAttribute("users", customUserDetailService.findAll());
 		model.addAttribute("roles", roleService.findAll());
@@ -53,7 +53,7 @@ public class AdminController {
 	}
 	
 	
-	@PostMapping("/secure/admin/addUser")
+	@PostMapping("/secure/admin/user/addUser")
 	public String addUser (User user, @RequestParam("role") Integer roleId) {
 		Optional<Role> role = roleService.finfById(roleId);
 		if(role.isPresent()) {
@@ -75,7 +75,7 @@ public class AdminController {
 	@RequestMapping(value="/secure/admin/delete" , method = {RequestMethod.DELETE, RequestMethod.GET} )
 	public String deleteUser(Integer id) {
 		customUserDetailService.deleteById(id);
-		return "redirect:/secure/admin";
+		return "redirect:/secure/admin/user";
 	}
 	
 }
