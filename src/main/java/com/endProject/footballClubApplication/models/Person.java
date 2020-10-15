@@ -20,8 +20,6 @@ public class Person {
 	
 	private String age;
 	
-	private String photo;
-	
 	private String phone;
 	
 	private String email;
@@ -33,7 +31,7 @@ public class Person {
 		this.name = name;
 		this.surname = surname;
 		this.age = age;
-		this.photo = photo;
+		
 		this.phone = phone;
 		this.email = email;
 	}
@@ -74,13 +72,6 @@ public class Person {
 		this.age = age;
 	}
 
-	public String getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
 
 	public String getPhone() {
 		return phone;
@@ -97,8 +88,5 @@ public class Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
-	
 
 }

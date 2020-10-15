@@ -1,6 +1,7 @@
 package com.endProject.footballClubApplication.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +38,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	public List<User> findAll() {
 		return userRepository.findAll();
+	}
+	
+	public Optional<User> findById(Integer id) {
+		return userRepository.findById(id);
+	}
+	
+	public User findByUserName(String username){
+		return userRepository.findByUsername(username);
+	}
+	
+	public void deleteById(Integer id) {
+		userRepository.deleteById(id);
 	}
 
 }

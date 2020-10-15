@@ -1,6 +1,7 @@
 package com.endProject.footballClubApplication.models;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class User{
+public class User extends Person{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +33,13 @@ public class User{
 	
 	private String password;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable(
 				name = "user_role", 
 				joinColumns = @JoinColumn(name="user_id"), 
 				inverseJoinColumns = @JoinColumn(name="role_id")
 				)
-	private List<Role> roles;
+	private List<Role> roles = new ArrayList<Role>();
 
 	public User () {
 		

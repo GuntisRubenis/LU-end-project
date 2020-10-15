@@ -13,31 +13,49 @@
 	</header>
 	<div class="admin-main-container">
 		<div class="admin-tittle1-div">
-			
+			<h1 class="tittle">Add new user</h1>
 		</div>
 		<div class="admin-tittle2-div">
 			<h1>Users</h1>
 		</div>
 		<div class="admin-side1-div">
-			<ul>
-				<li><a>Add new user</a></li>
-			</ul>
 			<form th:action="@{/secure/admin/addUser}" method="post">
 				<div class="form-div">
+						<label>Id</label>
+						<input id="idEdit" type="text" name="id">
+				</div>
+				<div class="form-div">
 						<label>UserName</label>
-						<input type="text" name="username">
+						<input id="userNameEdit" type="text" name="username">
 				</div>
 				<div class="form-div">
 						<label>Password</label>
-						<input type="password" name="password">
+						<input id="passwordEdit" type="password" name="password">
+				</div>
+				<div class="form-div">
+						<label>Name</label>
+						<input id="nameEdit" type="text" name="name">
+				</div>
+				<div class="form-div">
+						<label>Surname</label>
+						<input id="surnameEdit" type="text" name="surname">
+				</div>
+				<div class="form-div">
+						<label>Phone</label>
+						<input id="phoneEdit" type="text" name="phone">
+				</div>
+				<div class="form-div">
+						<label>Email</label>
+						<input id="emailEdit" type="text" name="email">
 				</div>
 				<div class="form-div">
 						<label>Role</label>
-						<select name="roleId" required>
-							<option>Select Role</option>
+						<select id="roleEdit" name="role" required>
+							<option>Select role</option>
 							<option th:each="role:${roles}"
 							th:value="${role.id}"
-							th:text="${role.role}">
+							th:text="${role.role}"></option>
+			
 						</select>
 					</div>
 				<button class="modalSaveButton" type="submit">Save</button>
@@ -47,13 +65,13 @@
 			<table class="custom-table">
 				<tbody>
 					<tr>
-						<th>ID</th>
+						<th>Full Name</th>
 						<th>UserName</th>
 						<th>Role</th>
 						<th>Options</th>
 					</tr>
 					<tr th:each="user : ${users}">
-						<td th:text="${user.id}"></td>
+						<td th:text="${user.name}+' '+${user.surname}"></td>
 						<td th:text="${user.username}"></td>
 						<td>
 							<ul th:each="role:${user.getRoles()}">
@@ -62,8 +80,8 @@
 						</td>
 						<td>
 							<ul>
-								<li><a>Edit</a></li>
-								<li><a>Delete</a></li>
+								<li><a class="edit-button" th:href="@{/secure/admin/findById/(id=${user.id})}">Edit</a></li>
+								<li><a class="delete-button" th:href="@{/secure/admin/delete/(id=${user.id})}">Delete</a></li>
 							</ul>
 						</td>
 					</tr>
@@ -110,5 +128,7 @@
 	<footer>
 		<div th:replace="fragments/footer :: footer"></div>
 	</footer>
+	
+	<script src="/js/admin.js"></script>
 </body>
 </html>

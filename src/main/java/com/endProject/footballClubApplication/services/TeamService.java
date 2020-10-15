@@ -16,18 +16,25 @@ import com.endProject.footballClubApplication.repositories.TeamRepository;
 @Service 
 public class TeamService {
 	
+	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\teams\\";
+	
 	@Autowired
 	TeamRepository teamRepository;
 	
 	public void save(Team team, MultipartFile file) throws IllegalStateException, IOException {
 		 teamRepository.save(team);
 		 if(!file.isEmpty()) {
-			 file.transferTo(new File("C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\teams\\"+team.getId()+".jpg"));
+			 file.transferTo(new File(PATH+team.getId()+".jpg"));
 		 }
 		 
 	}
 	
 	public void deleteById(Integer id) {
+		//check if file exists in our directory and delete it
+		File file = new File(PATH+id+".jpg");
+			if(file.exists()) {
+			file.delete();
+				}
 		 teamRepository.deleteById(id);
 	}
 	

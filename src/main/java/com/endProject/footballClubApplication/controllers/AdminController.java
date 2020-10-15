@@ -17,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.endProject.footballClubApplication.models.Role;
 import com.endProject.footballClubApplication.models.User;
@@ -52,17 +54,28 @@ public class AdminController {
 	
 	
 	@PostMapping("/secure/admin/addUser")
-	public String addUser (User user, @RequestParam("roleId") Integer roleId) {
+	public String addUser (User user, @RequestParam("role") Integer roleId) {
 		Optional<Role> role = roleService.finfById(roleId);
-		List<Role> roles = new ArrayList<Role>();
 		if(role.isPresent()) {
-			roles.add(role.get());
+			user.getRoles().add(role.get());
 		}
-		user.setRoles(roles);
 		String password = user.getPassword();
 		String encryptPWD = passwordEncoder.encode(password);
 		user.setPassword(encryptPWD);
 		userRepository.save(user);
 		return "redirect:";
 	}
+	
+	@RequestMapping("/secure/admin/findById")
+	@ResponseBody
+	public Optional<User> findById(Integer id) {
+		return customUserDetailService.findById(id);
+	}
+	
+	@RequestMapping(value="/secure/admin/delete" , method = {RequestMethod.DELETE, RequestMethod.GET} )
+	public String deleteUser(Integer id) {
+		customUserDetailService.deleteById(id);
+		return "redirect:/secure/admin";
+	}
+	
 }

@@ -121,7 +121,7 @@
 					</div>
 					<div class="form-div">
 						<label>Team</label>
-						<select name="teamId">
+						<select name="teamId" required>
 							<option>Select Team</option>
 							<option th:each="team:${teams}"
 							th:value="${team.id}"

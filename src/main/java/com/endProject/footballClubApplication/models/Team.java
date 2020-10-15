@@ -49,7 +49,7 @@ public class Team {
 	private List<Player> players;
 	
 	// every team have list of trainings
-	@OneToMany(mappedBy="team", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="team", cascade = CascadeType.ALL)
 	private List<Training> trainings;
 	
 	

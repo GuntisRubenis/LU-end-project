@@ -26,7 +26,7 @@ public class PlayerService {
 		 playerRepository.save(player);
 		 
 		 if(!file.isEmpty()) {
-			 file.transferTo(new File("C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\players\\"+player.getId()+".jpg"));
+			 file.transferTo(new File(PATH+player.getId()+".jpg"));
 		 }
 	}
 	

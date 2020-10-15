@@ -40,7 +40,7 @@
 					</tr>
 					<tr th:each="training : ${trainings}">
 						<td>
-							<a th:text="${training.team.teamName}" th:href = "@{/rest/training/trainingDetails/(id=${training.id})}"></a>
+							<a th:text ="${training.team != null} ? ${training.team.teamName} : '-'" th:href = "@{/rest/training/trainingDetails/(id=${training.id})}"></a>
 						</td>
 						<td th:text="${training.description}"></td>
 						<td th:text="${training.date}"></td>
