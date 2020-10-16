@@ -51,5 +51,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public void deleteById(Integer id) {
 		userRepository.deleteById(id);
 	}
+	
+	public void save(User user) {
+		userRepository.save(user);
+	}
 
 }

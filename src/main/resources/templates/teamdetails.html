@@ -22,12 +22,16 @@
 		<div class="team-coach-cont">
 			<div class="team-coach-div">
 				<h3>Coach:</h3>
-				<img class="" th:src="@{'/img/coaches/' + ${team.coachId} +'.jpg'}" width="50%" height="auto">
+					<a th:href="@{/rest/coach/coachDetails/(id=${coach.id})}">
+						<img class="" th:src="@{'/img/coaches/' + ${team.coachId} +'.jpg'}" width="50%" height="auto">	
+					</a>
 				<h4 th:text ="${coach != null} ? ${coach.name}+' '+${coach.surname} : '-'"></h4>
 			</div>
 			<div class="team-coach-div">
 				<h3>Assistant Coach:</h3>
-				<img class="" th:src="@{'/img/coaches/' +  ${team.assistantCoachId} +'.jpg'}" width="50%" height="auto">
+					<a th:href="@{/rest/coach/coachDetails/(id=${assistantCoach.id})}">
+						<img class="" th:src="@{'/img/coaches/' +  ${team.assistantCoachId} +'.jpg'}" width="50%" height="auto">
+					</a>
 				<h4 th:text ="${assistantCoach != null} ? ${assistantCoach.name}+' '+${assistantCoach.surname} : '-'"></h4>
 			</div>
 		</div>
@@ -45,7 +49,7 @@
 				</tr>
 				<tr th:each="player : ${team.players}">
 					<td >
-						<a class="photo-button" th:href="@{/rest/player/findById/(id=${player.id})}">
+						<a class="photo-button" th:href="@{/rest/player/playerDetails/(id=${player.id})}">
  							<img class="min-images" th:src="@{'/img/players/' + ${player.id} +'.jpg'}" width="60" height="60">
  						</a>
 					</td>

@@ -34,7 +34,7 @@
 				<div class="team-div" th:each="team : ${teams}">
 					<ul>
 						<li>
-							<a class="" th:href="@{/rest/team/findById/(id=${team.id})}">
+							<a class="" th:href="@{/rest/team/teamDetails/(id=${team.id})}">
 		 						<img class="" th:src="@{'/img/teams/' + ${team.id} +'.jpg'}" width="100%" height="200px">
 		 					</a>
 		 				</li>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Administrator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	<div class="admin-main-container">
+		<div class="admin-tittle1-div">
+			<h1 class="tittle">Add new post</h1>
+		</div>
+		<div class="admin-tittle2-div">
+			<h1>Posts</h1>
+		</div>
+		<div class="admin-side1-div">
+			<form th:action="@{/secure/admin/post/addPost}" method="post">
+				<div class="form-div">
+						<label>Title</label>
+						<input id="titleEdit" type="text" name="tittle">
+				</div>
+				<div class="form-div">
+						<label>Description</label>
+						<input id="userNameEdit" type="text" name="username">
+				</div>
+				<div class="form-div">
+						<label>Team</label>
+						<select id="roleEdit" name="role" required>
+							<option>Select team</option>
+							<option th:each="team:${teams}"
+							th:value="${team.id}"
+							th:text="${team.teamName}"></option>
+			
+						</select>
+					</div>
+				<button class="modalSaveButton" type="submit">Save</button>
+			</form>
+		</div>
+		<div class="admin-center1-div">
+			<table class="custom-table">
+				<tbody>
+					<tr>
+						<th>Title</th>
+						<th>Description</th>
+						<th>Options</th>
+					</tr>
+					<tr th:each="post : ${posts}">
+						<td th:text="${post.title}"></td>
+						<td th:text="${post.description}"></td>
+						<td>
+							<ul>
+								<li><a class="edit-button" th:href="@{/secure/admin/post/findById/(id=${post.id})}">Edit</a></li>
+								<li><a class="delete-button" th:href="@{/secure/admin/post/delete/(id=${post.id})}">Delete</a></li>
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+	
+	<script src="/js/admin.js"></script>
+</body>
+</html>

@@ -19,18 +19,14 @@
 			<h1>Users</h1>
 		</div>
 		<div class="admin-side1-div">
-			<form th:action="@{/secure/admin/user/addUser}" method="post">
+			<form class="user-form" th:action="@{/secure/admin/user/addUser}" method="post">
 				<div class="form-div">
 						<label>Id</label>
-						<input id="idEdit" type="text" name="id">
+						<input id="idEdit" type="text" name="id" readonly>
 				</div>
 				<div class="form-div">
 						<label>UserName</label>
 						<input id="userNameEdit" type="text" name="username">
-				</div>
-				<div class="form-div">
-						<label>Password</label>
-						<input id="passwordEdit" type="password" name="password">
 				</div>
 				<div class="form-div">
 						<label>Name</label>
@@ -57,8 +53,19 @@
 							th:text="${role.role}"></option>
 			
 						</select>
-					</div>
-				<button class="modalSaveButton" type="submit">Save</button>
+				</div>
+				<div class="form-div">
+						<label id="password-label">Password</label>
+						<input id="passwordEdit" type="password" name="password">
+				</div>
+				<div class="form-div">
+						<label>Confirm Password</label>
+						<input  type="password" name="confirmPassword">
+				</div>
+				<div class="form-buttons">
+					<button class="modalSaveButton" type="submit">Save</button>
+					<input class="clear-button" type="button" value="Clear" id="clear-button"/>
+				</div>
 			</form>
 		</div>
 		<div class="admin-center1-div">
@@ -80,44 +87,8 @@
 						</td>
 						<td>
 							<ul>
-								<li><a class="edit-button" th:href="@{/secure/admin/findById/(id=${user.id})}">Edit</a></li>
-								<li><a class="delete-button" th:href="@{/secure/admin/delete/(id=${user.id})}">Delete</a></li>
-							</ul>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="admin-tittle3-div">
-			
-		</div>
-		<div class="admin-tittle4-div">
-			<h1>Posts</h1>
-		</div>
-		<div class="admin-side2-div">
-			<ul>
-				<li><a>Add new post</a></li>
-			</ul>
-		</div>
-			<div class="admin-center2-div">
-			<table class="custom-table">
-				<tbody>
-					<tr>
-						<th>Title</th>
-						<th>Description</th>
-						<th>Options</th>
-					</tr>
-					<tr th:each="user : ${users}">
-						<td th:text="${user.username}"></td>
-						<td>
-							<ul th:each="role:${user.getRoles()}">
-								<li th:text="${role.getRole()}"></li>
-							</ul>
-						</td>
-						<td>
-							<ul>
-								<li><a>Edit</a></li>
-								<li><a>Delete</a></li>
+								<li><a class="edit-button" th:href="@{/secure/admin/user/findById/(id=${user.id})}">Edit</a></li>
+								<li><a class="delete-button" th:href="@{/secure/admin/user/delete/(id=${user.id})}">Delete</a></li>
 							</ul>
 						</td>
 					</tr>
@@ -129,6 +100,24 @@
 		<div th:replace="fragments/footer :: footer"></div>
 	</footer>
 	
+	<!--Delete modal start  -->
+<div id="deleteModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Delete User</h3>
+			</div>
+			<div class="modal-body">
+				<H2>Are u sure to delete this user?</H2>
+			</div>
+			<div class="modal-footer">
+				<a href="" class="modalDeleteButton" type="submit">Delete</a>
+			</div>
+		</div>
+	</div>
+<!--Delete modal end -->
+	
 	<script src="/js/admin.js"></script>
+	<script src="/js/deleteModal.js"></script>
 </body>
 </html>

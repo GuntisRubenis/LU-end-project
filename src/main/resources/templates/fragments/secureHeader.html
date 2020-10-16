@@ -20,16 +20,16 @@
 						<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#">Admin</a>
 							<ul>
 								<li><a th:href="@{/secure/admin/user}">Users</a></li>
-								<li><a href="#">Posts</a></li>
+								<li><a th:href="@{/secure/admin/post}">Posts</a></li>
 							</ul>
 						</li>
 						<li sec:authorize="isAuthenticated()"><a href="#">Staff</a>
 							<ul>
 								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/coach}">Coaches</a></li>
 								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/player}">Players</a></li>
-								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/team}">Teams</a></li>
 							</ul>
 						</li>
+						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/team}">Teams</a></li>
 						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/training}">Training</a></li>
 						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/tournament}">Tournaments</a></li>
 						<li><a th:href="@{/contacts}">Contacts</a></li>

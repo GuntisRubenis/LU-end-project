@@ -60,7 +60,7 @@
 					</tr>
 					<tr th:each="player : ${players}">
 						<td >
-							<a class="photo-button" th:href="@{/rest/player/findById/(id=${player.id})}">
+							<a class="photo-button" th:href="@{/rest/player/playerDetails/(id=${player.id})}">
 	 							<img class="min-images" th:src="@{'/img/players/' + ${player.id} +'.jpg'}" width="60" height="60">
 	 						</a>
 						</td>
