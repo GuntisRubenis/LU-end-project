@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,13 +53,16 @@ public class AdminController {
 	public String userPage(Model model) {
 		model.addAttribute("users", customUserDetailService.findAll());
 		model.addAttribute("roles", roleService.findAll());
+		model.addAttribute("user", new User());
 		return "admin";
 	}
 	
 	
 	@PostMapping("/secure/admin/user/addUser")
-	public String addUser (User user, @RequestParam("role") Integer roleId,@RequestParam("confirmPassword") String confirmPassword ) {
+	public String addUser (@Valid  User user, Errors errors, @RequestParam("role") Integer roleId,
+			@RequestParam("confirmPassword") String confirmPassword, Model model ) {
 		Optional<Role> role = roleService.finfById(roleId);
+
 		if(role.isPresent()) {
 			user.getRoles().add(role.get());
 		}
@@ -65,7 +72,10 @@ public class AdminController {
 			String encryptPWD = passwordEncoder.encode(password);
 			user.setPassword(encryptPWD);
 		}else {
-			throw new IllegalArgumentException("password dont match");
+			model.addAttribute("users", customUserDetailService.findAll());
+			model.addAttribute("roles", roleService.findAll());
+			model.addAttribute("password", "Passwords don`t match!!");
+			return "admin";
 		}
 		
 		customUserDetailService.save(user);
@@ -73,45 +83,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/secure/admin/user/update", method = {RequestMethod.POST, RequestMethod.GET})
-	public String updateUser(User user, @RequestParam("confirmPassword") String confirmPassword, 
-			@RequestParam("id") Integer id, @RequestParam("oldPassword") String oldPassword,@RequestParam("role") Integer roleId ){
+	public String updateUser(@Valid User user,@RequestParam("role") Integer roleId) {
 		//set user role 
-		Optional<Role> role = roleService.finfById(roleId);
-		if(role.isPresent()) {
-			user.getRoles().add(role.get());
-		}
-		//check if old password is entered it means admin wants to change password
-		if(oldPassword.isEmpty()) {
-			// get user from database and set password to database password
-			Optional<User> oldUser = customUserDetailService.findById(id);
-			if(oldUser.isPresent()) {
-				user.setPassword(oldUser.get().getPassword());
-			}
-			customUserDetailService.save(user);
-		}else {
-			// get user from database to get old password	
-			Optional<User> oldUser = customUserDetailService.findById(id);
-				if(oldUser.isPresent()) {
-					//get old password
-					String oldPWD = oldUser.get().getPassword();
-					//check if database password matched typed old password
-					if(passwordEncoder.matches(oldPassword,oldPWD)) {
-						//check if new password is typed correctly
-						if(user.getPassword().equals(confirmPassword)) {
-							// encrypt new password and add it to user, save user to database
-							String encryptPWD = passwordEncoder.encode(user.getPassword());
-							user.setPassword(encryptPWD);
-							customUserDetailService.save(user);
-						}
-						else {
-							throw new IllegalArgumentException("new passwrod dont match!!");
-						}
-					}
-					else {
-						throw new IllegalArgumentException("old passwrod dont match!!");
-					}
-				}	
-		}
+				Optional<Role> role = roleService.finfById(roleId);
+				if(role.isPresent()) {
+					user.getRoles().add(role.get());
+				}
+				Optional<User> databaseUser = customUserDetailService.findById(user.getId());
+				if(databaseUser.isPresent()) {
+					user.setPassword(databaseUser.get().getPassword());
+				}
+				customUserDetailService.save(user);
 		return "redirect:/secure/admin/user";
 	}
 	

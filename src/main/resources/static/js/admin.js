@@ -1,7 +1,8 @@
 /*======================================*/
-//Start of edit form
+//Start of edit modal
 /*======================================*/
 var editButtons = document.querySelectorAll('.edit-button');
+var editModal = document.querySelector('#editModal');
 
 for (const button of editButtons){
 	button.addEventListener('click', function(event){
@@ -29,25 +30,13 @@ for (const button of editButtons){
 				document.querySelector('#emailEdit').value = user.email;
 				document.querySelector('#roleEdit').value = user.roles[0].id;
 				
-				//cretae new div for old password, and insert it when edditing user
-				const form = document.querySelectorAll('.user-form')[0];
-				const buttons =document.querySelectorAll('.form-buttons')[0];
-				var newDiv = document.createElement('div');
-				var oldPWDInput = document.createElement('input');
-				var oldPWDLabel = document.createElement('label');
-				newDiv.classList.add('form-div');
-				oldPWDLabel.innerHTML = 'Old password';
-				oldPWDInput.setAttribute('type', 'password');
-				oldPWDInput.setAttribute('name', 'oldPassword');
-				newDiv.appendChild(oldPWDLabel);
-				newDiv.appendChild(oldPWDInput);
-				form.insertBefore(newDiv, buttons);
-				document.querySelector('#password-label').innerHTML = "New password";
+				
 			}
 		}
 		
 		request.send();
 		
+		editModal.style.display = 'block';
 		
 	})
 }

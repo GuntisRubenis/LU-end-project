@@ -13,6 +13,7 @@ body {
 .container {
 	width: 80%;
 	margin:auto;
+	overflow: hidden;
 }
 
 ul {
@@ -32,6 +33,9 @@ a{
 	color: #b30000;
 }
 
+.errors{
+	color: red;
+}
 
 .button-group a{
 	color: #333333;

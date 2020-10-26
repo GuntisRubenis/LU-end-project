@@ -21,35 +21,37 @@
 		<div class="admin-side1-div">
 			<form class="user-form" th:action="@{/secure/admin/user/addUser}" method="post" th:object="${user}">
 				<div class="form-div">
+						<label>Id</label>
+						<input id="idEdit" type="text" name="id" readonly>
+				</div>
+				<div class="form-div">
 						<label>UserName</label>
-						<input th:field="${user.username}" required="required" pattern="[a-zA-Z0-9]{4,25}" 
-							   title="Username should be 4-25 character long">
+						<input id="userNameEdit" th:field="${user.username}">
+						<span class="errors" th:errors="${user.username}"></span>
 				</div>
 				<div class="form-div">
 						<label>Name</label>
-						<input  th:field="${user.name}" required="required" pattern="[a-zA-Z_]{2,25}" 
-							   title="Name should be 4-25 character long">
-						
+						<input id="nameEdit" th:field="${user.name}">
+						<span class="errors" th:errors="${user.name}"></span>
 				</div>
 				<div class="form-div">
 						<label>Surname</label>
-						<input  th:field="${user.surname}" required="required" pattern="[a-zA-Z_]{2,25}" 
-							   title="Surname should be 4-25 character long">
-						
+						<input id="surnameEdit" th:field="${user.surname}">
+						<span class="errors" th:errors="${user.surname}"></span>
 				</div>
 				<div class="form-div">
 						<label>Phone</label>
-						<input  th:field="${user.phone}" pattern="[0-9]{8,15}" 
-							   title="Phone number should contain only numbers and be 8-15 long">
+						<input id="phoneEdit" th:field="${user.phone}">
 				</div>
 				<div class="form-div">
 						<label>Email</label>
-						<input th:field="${user.email}">
-						
+						<input id="emailEdit" th:field="${user.email}">
+						<span class="errors" th:errors="${user.email}"></span>
 				</div>
 				<div class="form-div">
 						<label>Role</label>
-						<select name="role">
+						<select id="roleEdit" name="role">
+							
 							<option th:each="role:${roles}"
 							th:value="${role.id}"
 							th:text="${role.role}"></option>
@@ -57,13 +59,13 @@
 				</div>
 				<div class="form-div">
 						<label id="password-label">Password</label>
-						<input id="passwordEdit" type="password" name="password" required pattern="[a-zA-Z0-9]{4,25}" 
-							   title="Password should be 4-25 character long">
+						<input id="passwordEdit" type="password" name="password">
+						<span class="errors" th:errors="${user.password}"></span>
 						<span class="errors" th:text="${password}"></span>
 				</div>
 				<div class="form-div">
 						<label>Confirm Password</label>
-						<input  type="password" name="confirmPassword" required>
+						<input  type="password" name="confirmPassword">
 						<span class="errors" th:text="${password}"></span>
 				</div>
 				<div class="form-buttons">
@@ -104,61 +106,7 @@
 		<div th:replace="fragments/footer :: footer"></div>
 	</footer>
 	
-<!--Edit modal start  -->
-<div id="editModal" class="modal">
-		<div class="modalContent">
-			<div class="modal-header">
-				<span class="modalCloseButton">&times;</span>
-				<h3>Edit User</h3>
-			</div>
-			<div class="modal-body">
-				<form th:action="@{/secure/admin/user/update}" method="post" >
-					<div class="form-div">
-						<label>Id</label>
-						<input id="idEdit" type="text" name="id" readonly>
-				</div>
-				<div class="form-div">
-						<label>UserName</label>
-						<input id="userNameEdit" th:field="${user.username}">
-						
-				</div>
-				<div class="form-div">
-						<label>Name</label>
-						<input id="nameEdit" th:field="${user.name}" required >
-						
-				</div>
-				<div class="form-div">
-						<label>Surname</label>
-						<input id="surnameEdit" th:field="${user.surname}" required>
-						
-				</div>
-				<div class="form-div">
-						<label>Phone</label>
-						<input id="phoneEdit" th:field="${user.phone}">
-				</div>
-				<div class="form-div">
-						<label>Email</label>
-						<input id="emailEdit" th:field="${user.email}">
-				</div>
-				<div class="form-div">
-						<label>Role</label>
-						<select id="roleEdit" name="role">
-							
-							<option th:each="role:${roles}"
-							th:value="${role.id}"
-							th:text="${role.role}"></option>
-						</select>
-				</div>
-					<div class="form-div">
-						<button class="modalSaveButton" type="submit">Save</button>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-			</div>
-		</div>
-	</div>
-<!--Edit modal end-->
+
 	
 	<!--Delete modal start  -->
 <div id="deleteModal" class="modal">
