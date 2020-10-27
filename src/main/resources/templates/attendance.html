@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Training Details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	
+	<div class="individual-main-container">
+		<div class="individual-tittle-div">
+			<h1>Edit Attendance</h1>
+		</div>
+		
+		<div class="individual-side-div">
+			<form class="attendance-form" th:action="@{/rest/training/addAttendance}" method="post" >
+				<div style="display:none" class="attendance-div">
+					<label>Id</label>
+					<input type="text" th:value="${training.id}" name="id">
+				</div>
+				<table class="custom-table">
+				<tbody>
+					<tr>
+						<th>Name</th>
+						<th>Surname</th>
+						<th>Attended</th>
+					</tr>
+					<tr th:each="player : ${players}">
+						<td th:text="${player.key.name}"></td>
+						<td th:text="${player.key.surname}"></td>
+						<td>
+							<div>
+								<input th:if="${player.value == true}" th:checked="true" type="checkbox" th:value="${player.key.id}" name="playerId">
+								<input th:if="${player.value == false}" th:checked="false" type="checkbox" th:value="${player.key.id}" name="playerId">
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+				<div class="attendance-div">
+					<button class="modalSaveButton" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+		
+		
+	</div>
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+	
+
+	
+<script src="/js/addModal.js"></script>
+<script src="/js/deleteModal.js"></script>
+<script src="/js/training.js"></script>		
+</body>
+</html>

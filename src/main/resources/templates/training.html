@@ -40,13 +40,13 @@
 					</tr>
 					<tr th:each="training : ${trainings}">
 						<td>
-							<a th:text ="${training.team != null} ? ${training.team.teamName} : '-'" th:href = "@{/rest/training/trainingDetails/(id=${training.id})}"></a>
+							<a th:text ="${training.team.teamName}" th:href = "@{/rest/training/trainingDetails/(id=${training.id})}"></a>
 						</td>
 						<td th:text="${training.description}"></td>
 						<td th:text="${training.date}"></td>
 						<td sec:authorize= "hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" class="button-group">
 							<a class="edit-button" th:href="@{/rest/training/findById/(id=${training.id})}">Edit</a>
-							<a class="attendance-button" th:href="@{/rest/training/findById/(id=${training.id})}">Attendance</a>
+							<a class="attendance-button" th:href="@{/rest/training/attendance/(id=${training.id})}">Attendance</a>
 							<a class="delete-button" th:href="@{/rest/training/delete/(id=${training.id})}" >Delete</a>
 						</td>
 					</tr>
@@ -98,26 +98,6 @@
 		</div>
 	</div>
 <!--Add new modal end -->
-
-<!--Attendance modal start -->
-<div id="attendanceModal" class="modal">
-		<div class="modalContent">
-			<div class="modal-header">
-				<span class="modalCloseButton">&times;</span>
-				<h3>Attendance</h3>
-			</div>
-			<div class="modal-body">
-					<form class="attendance-form" th:action="@{/rest/training/addAttendance}" method="post" >
-						<div class="attendance-div">
-							<button class="modalSaveButton" type="submit">Save</button>
-						</div>
-					</form>
-			</div>
-			<div class="modal-footer">
-			</div>
-		</div>
-	</div>
-<!--  Attendance modal end -->
 
 <!--Edit modal start  -->
 <div id="editModal" class="modal">

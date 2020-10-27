@@ -30,6 +30,11 @@ public class PlayerService {
 		 }
 	}
 	
+	public void save(Player player){
+		
+		playerRepository.save(player);
+	}
+	
 	public void deleteById(Integer id) {
 		//check if file exists in our directory and delete it
 		File file = new File(PATH+id+".jpg");
