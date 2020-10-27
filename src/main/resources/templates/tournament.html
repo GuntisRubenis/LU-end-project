@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Tournaments</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	
+	<div class="main-container">
+		<div class="tittle-div">
+			<h1>Tournaments</h1>
+		</div>
+		<div class ="search-div">
+			<form th:action="@{/rest/tournament}">
+				<label>Search</label>
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
+				
+				<input class="search-button" type="submit" value="Search"/>
+				
+				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
+			</form>
+			<div sec:authorize= "hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" >
+				<button class="add-button"  id="addButton">Add new Tournament</button>
+			</div>
+		</div>
+		<div class="table-div">
+			<table class="custom-table">
+				<tbody>
+					<tr>
+						<th>Team</th>
+						<th>Name</th>
+						<th>Date</th>
+						<th>Address</th>
+						<th sec:authorize= "hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Options</th>
+					</tr>
+					<tr th:each="tournament : ${tournaments}">
+						<td>
+							<a th:text ="${tournament.team.teamName}" th:href ="@{/rest/tournament/tournamentDetails/(id=${tournament.id})}"></a>
+						</td>
+						<td th:text="${tournament.name}"></td>
+						<td th:text="${tournament.date}"></td>
+						<td th:text="${tournament.address}"></td>
+						<td sec:authorize= "hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" class="button-group">
+							<a class="edit-button" th:href="@{/rest/tournament/findById/(id=${tournament.id})}">Edit</a>
+							<a class="attendance-button" th:href="@{/rest/tournament/teamSquad/(id=${tournament.id})}">Team Squad</a>
+							<a class="delete-button" th:href="@{/rest/tournament/delete/(id=${tournament.id})}" >Delete</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+	
+<!--Add new modal start  -->
+<div id="addModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Add new Tournament</h3>
+			</div>
+			<div class="modal-body">
+				<form th:action="@{/rest/tournament/addNew}" method="post">
+					<div class="form-div">
+						<label>Name</label>
+						<input type="text"  name="name">
+					</div>
+					<div class="form-div">
+						<label>Address</label>
+						<input type="text"  name="address">
+					</div>
+					<div class="form-div">
+						<label>Date</label>
+						<input type="date"  name="date">
+					</div>
+					<div class="form-div">
+						<label>Team</label>
+						<select name="teamId" required>
+							<option>Select Team</option>
+							<option th:each="team:${teams}"
+							th:value="${team.id}"
+							th:text="${team.teamName}">
+						</select>
+					</div>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Add new modal end -->
+
+<!--Delete modal start  -->
+<div id="deleteModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Delete Training</h3>
+			</div>
+			<div class="modal-body">
+				<H2>Are u sure to delete this training?</H2>
+			</div>
+			<div class="modal-footer">
+				<a href="" class="modalDeleteButton" type="submit">Delete</a>
+			</div>
+		</div>
+	</div>
+<!--Delete modal end -->
+	
+<script src="/js/addModal.js"></script>
+<script src="/js/deleteModal.js"></script>
+<script src="/js/tournament.js"></script>		
+</body>
+</html>

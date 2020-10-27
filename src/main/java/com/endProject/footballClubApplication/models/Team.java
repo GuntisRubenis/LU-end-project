@@ -52,6 +52,10 @@ public class Team {
 	@OneToMany(mappedBy="team", cascade = CascadeType.ALL)
 	private List<Training> trainings;
 	
+	// every team have list of trainings
+	@OneToMany(mappedBy="team", cascade = CascadeType.ALL)
+	private List<Tournament> tournaments;
+	
 	
 
 	public String getTeamName() {
@@ -119,4 +123,12 @@ public class Team {
 		this.trainings = trainings;
 	}
 
+	public List<Tournament> getTournaments() {
+		return tournaments;
+	}
+
+	public void setTournaments(List<Tournament> tournaments) {
+		this.tournaments = tournaments;
+	}
+	
 }
