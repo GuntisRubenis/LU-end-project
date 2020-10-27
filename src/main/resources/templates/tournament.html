@@ -100,6 +100,50 @@
 		</div>
 	</div>
 <!--Add new modal end -->
+<!--Edit modal start  -->
+<div id="editModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Edit Tournament</h3>
+			</div>
+			<div class="modal-body">
+				<form th:action="@{/rest/tournament/update}" method="post">
+					<div class="form-div">
+						<label>Id</label>
+						<input type="text" id="idEdit"  name="id">
+					</div>
+					<div class="form-div">
+						<label>Name</label>
+						<input type="text" id="nameEdit"  name="name">
+					</div>
+					<div class="form-div">
+						<label>Address</label>
+						<input type="text" id="addressEdit"  name="address">
+					</div>
+					<div class="form-div">
+						<label>Date</label>
+						<input type="date" id="dateEdit"  name="date">
+					</div>
+					<div class="form-div">
+						<label>Team</label>
+						<select name="teamId" id="teamEdit" required>
+							<option>Select Team</option>
+							<option th:each="team:${teams}"
+							th:value="${team.id}"
+							th:text="${team.teamName}">
+						</select>
+					</div>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Edit modal end -->
 
 <!--Delete modal start  -->
 <div id="deleteModal" class="modal">

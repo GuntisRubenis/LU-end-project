@@ -1,14 +1,20 @@
 package com.endProject.footballClubApplication.controllers;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.endProject.footballClubApplication.models.Team;
 import com.endProject.footballClubApplication.models.Tournament;
 import com.endProject.footballClubApplication.models.Training;
 import com.endProject.footballClubApplication.services.TeamService;
@@ -36,13 +42,20 @@ public class TournamentController {
 	
 	@RequestMapping(value="/rest/tournament/delete", method = {RequestMethod.DELETE, RequestMethod.GET} )
 	public String deleteTournament(Integer id) {
-		// find training by id so we can get name of team and find directory for files
-				//then get team name and pass it to training services
-				Optional<Tournament> tournament = tournamentService.finfById(id);
-				if(tournament.isPresent()) {
-					tournamentService.deleteById(id);
-				}
-				return "redirect:/rest/tournament";
+		tournamentService.deleteById(id);
+		return "redirect:/rest/tournament";
+	}
+	
+	@RequestMapping("/rest/tournament/findById")
+	@ResponseBody
+	public Optional<Tournament> findByid(Integer id) {
+		return tournamentService.finfById(id);
+	}
+	
+	@RequestMapping(value="/rest/tournament/update", method = {RequestMethod.POST, RequestMethod.GET})
+	public String update(Tournament tournament){
+		tournamentService.save(tournament);
+		return "redirect:/rest/tournament";
 	}
 
 }

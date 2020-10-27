@@ -18,15 +18,16 @@ for (const button of editButtons){
 			//check if status is OK, before we do anything
 			if(request.status == 200){
 				// parse response text to json format, so we can acess coach properties
-				var training = JSON.parse(request.responseText);
-				console.log(training);
+				var tournament = JSON.parse(request.responseText);
+				console.log(tournament);
 				//get elements by id and assign each value to be displayed
-				document.querySelector('#idEdit').value = training.id;
-				document.querySelector('#descriptionEdit').value = training.description;
+				document.querySelector('#idEdit').value = tournament.id;
+				document.querySelector('#nameEdit').value = tournament.name;
+				document.querySelector('#addressEdit').value = tournament.address;
 				// cut time portion of date
-				var date = training.date.substr(0,10);
+				var date = tournament.date.substr(0,10);
 				document.querySelector('#dateEdit').value = date;
-				document.querySelector('#teamEdit').value = training.teamId;
+				document.querySelector('#teamEdit').value = tournament.teamId;
 			}
 		}
 		
@@ -66,5 +67,5 @@ for (const button of modalCloseButtons) {
 var clearButton = document.querySelector('#clear-button');
 clearButton.addEventListener('click', function(){
 	//clear url 
-	window.location='/rest/training';
+	window.location='/rest/tournament';
 })
