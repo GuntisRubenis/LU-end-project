@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Tournament Squad</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	
+	<div class="individual-main-container">
+		<div class="individual-tittle-div">
+			<h1>Add players</h1>
+		</div>
+		<div class="individual-attendance-div">
+			<h1 th:text="${tournament.name}+' '+ 'player statistic'">Add Statistics</h1>
+		</div>
+		
+		<div class="individual-side-div">
+			<form class="attendance-form" th:action="@{/rest/tournament/report/addPlayers}" method="post" >
+				<div style="display:none" class="attendance-div">
+					<label>Id</label>
+					<input type="text" th:value="${tournament.id}" name="id">
+				</div>
+				<table class="custom-table">
+				<tbody>
+					<tr>
+						<th>Name</th>
+						<th>Surname</th>
+						<th>Added</th>
+					</tr>
+					<tr th:each="player : ${players}">
+						<td th:text="${player.key.name}"></td>
+						<td th:text="${player.key.surname}"></td>
+						<td>
+							<div>
+								<input th:if="${player.value == true}" th:checked="true" type="checkbox" th:value="${player.key.id}" name="playerId">
+								<input th:if="${player.value == false}" th:checked="false" type="checkbox" th:value="${player.key.id}" name="playerId">
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+				<div class="attendance-div">
+					<button class="modalSaveButton" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+		<div class="individual-center-div">
+			<div class="table-div">
+				<form th:action="@{/rest/tournament/report/addStatistic}" method="post">
+					<table class="custom-table">
+						<tbody>
+							<tr>
+								
+								<th>FullName</th>
+								<th>Goals</th>
+								<th>Assists</th>
+								<th>Minutes</th>
+							</tr>	
+							<tr th:each="player : ${tournamentPlayers}" >
+								<td style=display:none>
+									<label ></label>
+									<input type="hidden" th:value="${tournament.id}" name="tournamentId">
+								</td>
+								<td>
+									<label th:text="${player.name+' '+player.surname}"></label>
+									<input  type="hidden" th:value="${player.id}" name="playerId">
+								</td>
+								<td>
+									<input type="number"  th:value="${player.getGoals(tournament.id)}" name="goals"  min="0" max="50">
+								</td>
+								<td>
+									<input type="number" th:value="${player.getAssists(tournament.id)}" name="assists"  min="0" max="50">
+								</td>
+								<td>
+									<input type="number" th:value="${player.getMinutes(tournament.id)}" name="minutes"  min="0" max="99999">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="attendance-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+	
+<script src="/js/addModal.js"></script>
+<script src="/js/deleteModal.js"></script>
+<script src="/js/training.js"></script>		
+</body>
+</html>

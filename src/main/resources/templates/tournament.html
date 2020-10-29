@@ -48,7 +48,7 @@
 						<td th:text="${tournament.address}"></td>
 						<td sec:authorize= "hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" class="button-group">
 							<a class="edit-button" th:href="@{/rest/tournament/findById/(id=${tournament.id})}">Edit</a>
-							<a class="attendance-button" th:href="@{/rest/tournament/teamSquad/(id=${tournament.id})}">Team Squad</a>
+							<a class="attendance-button" th:href="@{/rest/tournament/report/(id=${tournament.id})}">Report</a>
 							<a class="delete-button" th:href="@{/rest/tournament/delete/(id=${tournament.id})}" >Delete</a>
 						</td>
 					</tr>

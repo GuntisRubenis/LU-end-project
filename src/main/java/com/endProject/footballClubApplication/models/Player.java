@@ -3,10 +3,12 @@ package com.endProject.footballClubApplication.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -33,6 +35,12 @@ public class Player extends Person{
 	
 	@ManyToMany(mappedBy = "players")
     private List<Training> trainings = new ArrayList<Training>();
+	
+	@ManyToMany(mappedBy = "players")
+    private List<Tournament> tournaments = new ArrayList<Tournament>();
+	
+	@OneToMany(mappedBy="player", cascade = CascadeType.REMOVE)
+	private List<Statistics> statictics;
 
 	public Player(Integer id, String name, String surname, String age, String photo, String phone, String email,
 			String position, String strongFoot, String alternatePosition) {
@@ -42,7 +50,9 @@ public class Player extends Person{
 		this.alternatePosition = alternatePosition;
 	}
 	
-	public Player () {}
+	public Player () {
+		
+	}
 	
 
 	public String getPosition() {
@@ -96,7 +106,54 @@ public class Player extends Person{
 	public Integer countTrainings () {
 		return trainings.size();
 	}
+
+	public List<Tournament> getTournaments() {
+		return tournaments;
+	}
+
+	public void setTournaments(List<Tournament> tournaments) {
+		this.tournaments = tournaments;
+	}
+
+	public List<Statistics> getStatictics() {
+		return statictics;
+	}
+
+	public void setStatictics(List<Statistics> statictics) {
+		this.statictics = statictics;
+	}
 	
+	public Integer getGoals (Integer tournamentId) {
+		Integer goals = 0;
+		for (Integer i=0; i<statictics.size(); i++) {
+			Statistics stat = statictics.get(i);
+			if(stat.getTournamentId()==tournamentId) {
+				goals = stat.getGoals();
+			}
+		}
+		return goals;
+	}
 	
+	public Integer getAssists(Integer tournamentId) {
+		Integer assists = 0;
+		for (Integer i=0; i<statictics.size(); i++) {
+			Statistics stat = statictics.get(i);
+			if(stat.getTournamentId()==tournamentId) {
+				assists = stat.getAssists();
+			}
+		}
+		return assists;
+	}
+	
+	public Integer getMinutes(Integer tournamentId) {
+		Integer minutes = 0;
+		for (Integer i=0; i<statictics.size(); i++) {
+			Statistics stat = statictics.get(i);
+			if(stat.getTournamentId()==tournamentId) {
+				minutes = stat.getMinutes();
+			}
+		}
+		return minutes;
+	}
 	
 }

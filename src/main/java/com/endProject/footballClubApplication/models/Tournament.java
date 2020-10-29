@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.NotFound;
@@ -45,6 +46,18 @@ public class Tournament{
 	@JoinColumn(name="teamId", insertable=false, updatable=false)
 	private Team team;
 	private Integer teamId;
+	
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "player_tournament", 
+        joinColumns = { @JoinColumn(name = "tournamentId") }, 
+        inverseJoinColumns = { @JoinColumn(name = "playerId") }
+    )
+    private List<Player> players = new ArrayList<Player>();
+	
+	
+	@OneToMany(mappedBy="tournament", cascade = CascadeType.REMOVE)
+	private List<Statistics> statictics;
 
 	public Tournament() {
 		
@@ -107,4 +120,21 @@ public class Tournament{
 	public void setTeamId(Integer teamId) {
 		this.teamId = teamId;
 	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
+	public List<Statistics> getStatictics() {
+		return statictics;
+	}
+
+	public void setStatictics(List<Statistics> statictics) {
+		this.statictics = statictics;
+	}
+	
 }
