@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Tournament details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	
+	<div class="individual-main-container">
+		<div class="individual-tittle-div">
+			<h1 th:text="${tournament.name}">Tournament Details</h1>
+		</div>
+		<div class="individual-attendance-div">
+			<h1>Players participated</h1>
+		</div>
+		
+		<div class="individual-side-div">
+			<a th:href="@{/rest/team/teamDetails/(id=${team.id})}">
+			 	<img class="" th:src="@{'/img/teams/' + ${team.id} +'.jpg'}" width="100%" height="200px">
+			 </a>
+			 <div class="table-div">
+			 	<table class="custom-table">
+					<tbody>
+						<tr>
+							<td><h3 >Team:</h3></td>
+							<td><h4 th:text="${team.teamName}"></h4></td>
+						</tr>
+						<tr >
+							<td><h3 >Coach:</h3></td>
+							<td><h4 th:text="${team.coach.name+' '+team.coach.surname}"></h4></td>
+						</tr>
+						<tr >
+							<td><h3 >Date:</h3></td>
+							<td><h4 th:text="${tournament.date}"></h4></td>
+						</tr>
+					</tbody>
+				</table>
+			 </div>
+		</div>
+		<div class="individual-center-div">
+			<table class="custom-table">
+				<tbody>
+					<tr>
+						<th>Picture</th>
+						<th>Name</th>
+						<th>Surname</th>
+						<th>Position</th>
+						<th>Goals</th>
+						<th>Assists</th>
+						<th>Minutes played</th>
+						
+					</tr>
+					<tr th:each="player : ${players}">
+						<td >
+							<a class="photo-button" th:href="@{/rest/player/playerDetails/(id=${player.id})}">
+	 							<img class="min-images" th:src="@{'/img/players/' + ${player.id} +'.jpg'}" width="60" height="60">
+	 						</a>
+						</td>
+						<td th:text="${player.name}"></td>
+						<td th:text="${player.surname}"></td>
+						<td th:text="${player.position}"></td>
+						<td th:text="${player.getGoals(tournament.id)}"></td>
+						<td th:text="${player.getAssists(tournament.id)}"></td>
+						<td th:text="${player.getMinutes(tournament.id)}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<footer>
+		<div th:replace="fragments/footer :: footer"></div>
+	</footer>
+	
+<script src="/js/addModal.js"></script>
+<script src="/js/deleteModal.js"></script>
+<script src="/js/training.js"></script>		
+</body>
+</html>

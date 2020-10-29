@@ -98,8 +98,8 @@ public class TournamentController {
 		}
 		
 		// from attendanceModal form collect array of playerIds, and tournament id  
-				@PostMapping("/rest/tournament/report/addPlayers")
-				public String addAttendance (@RequestParam(value="playerId") int[] playersId, @RequestParam(value="id") Integer tournamentId ) {
+		@PostMapping("/rest/tournament/report/addPlayers")
+		public String addAttendance (@RequestParam(value="playerId") int[] playersId, @RequestParam(value="id") Integer tournamentId ) {
 					//find tournament by id
 					Optional<Tournament> tournament = tournamentService.finfById(tournamentId);
 					//create new list of players where we will add players who attended tournament
@@ -171,7 +171,18 @@ public class TournamentController {
 							}
 					 return "redirect:/rest/tournament/report/?id="+tournamentId;
 				}
-		
+				
+		@RequestMapping("/rest/tournament/tournamentDetails")
+		public String tournamentDetails(Model model, Integer tournamentId) {
+			Optional<Tournament> tournament = tournamentService.finfById(tournamentId);
+			if(tournament.isPresent()) {
+				model.addAttribute("tournament", tournament.get());
+				model.addAttribute("players", tournament.get().getPlayers());
+				model.addAttribute("team", tournament.get().getTeam());
+			}
+			
+			return "tournamentDetails";		
+		}
 		
 
 }
