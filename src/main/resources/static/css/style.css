@@ -361,13 +361,24 @@ footer{
 }
 
 
-.form-div input {
+.form-div input  {
 	width:100%;
 	height:30px;
 	border: 1px solid gray;
   	border-radius: 4px;
   	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
+  	
+  	
+}
+
+.form-div textarea  {
+	width:100%;
+	border: 1px solid gray;
+  	border-radius: 4px;
+  	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	resize:none;
   	
   	
 }

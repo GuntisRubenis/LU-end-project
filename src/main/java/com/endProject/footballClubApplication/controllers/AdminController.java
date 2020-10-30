@@ -28,11 +28,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.endProject.footballClubApplication.models.Coach;
+import com.endProject.footballClubApplication.models.Post;
 import com.endProject.footballClubApplication.models.Role;
 import com.endProject.footballClubApplication.models.User;
 import com.endProject.footballClubApplication.repositories.RoleRepository;
 import com.endProject.footballClubApplication.repositories.UserRepository;
 import com.endProject.footballClubApplication.services.CustomUserDetailsService;
+import com.endProject.footballClubApplication.services.PostService;
 import com.endProject.footballClubApplication.services.RoleService;
 
 
@@ -46,6 +48,9 @@ public class AdminController {
 	private RoleService roleService;
 	
 	@Autowired
+	private PostService postService;
+	
+	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@RolesAllowed("ADMIN")
@@ -54,7 +59,7 @@ public class AdminController {
 		model.addAttribute("users", customUserDetailService.findAll());
 		model.addAttribute("roles", roleService.findAll());
 		model.addAttribute("user", new User());
-		return "admin";
+		return "user";
 	}
 	
 	
@@ -62,20 +67,23 @@ public class AdminController {
 	public String addUser (@Valid  User user, Errors errors, @RequestParam("role") Integer roleId,
 			@RequestParam("confirmPassword") String confirmPassword, Model model ) {
 		Optional<Role> role = roleService.finfById(roleId);
-
+		// find role and add it to user
 		if(role.isPresent()) {
 			user.getRoles().add(role.get());
 		}
+		//get password and check if it equals confirm password
 		String password = user.getPassword();
 		
 		if(password.equals(confirmPassword)) {
+			// encripit password before seting it to user
 			String encryptPWD = passwordEncoder.encode(password);
 			user.setPassword(encryptPWD);
 		}else {
+			//if passwords dont match return user view with error message
 			model.addAttribute("users", customUserDetailService.findAll());
 			model.addAttribute("roles", roleService.findAll());
 			model.addAttribute("password", "Passwords don`t match!!");
-			return "admin";
+			return "user";
 		}
 		
 		customUserDetailService.save(user);
@@ -99,7 +107,7 @@ public class AdminController {
 	
 	@RequestMapping("/secure/admin/user/findById")
 	@ResponseBody
-	public Optional<User> findById(Integer id) {
+	public Optional<User> findByIdUser(Integer id) {
 		return customUserDetailService.findById(id);
 	}
 	
@@ -112,7 +120,32 @@ public class AdminController {
 	
 	@RequestMapping("/secure/admin/post")
 	public String postPage(Model model) {
+		model.addAttribute("posts", postService.findAll());
 		return "post";
+	}
+	
+	@PostMapping("/secure/admin/post/addPost")
+	public String addCoach(Post post, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+		postService.save(post,file);
+		return "redirect:";
+	}
+	
+	@RequestMapping(value="/secure/admin/post/delete" , method = {RequestMethod.DELETE, RequestMethod.GET} )
+	public String deletePost(Integer id) {
+		postService.deleteById(id);
+		return "redirect:/secure/admin/post";
+	}
+	
+	@RequestMapping("/secure/admin/post/findById")
+	@ResponseBody
+	public Optional<Post> findByIdPost(Integer id) {
+		return postService.finfById(id);
+	}
+	
+	@RequestMapping(value="/secure/admin/post/update", method = {RequestMethod.POST, RequestMethod.GET})
+	public String update(Post post, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+		postService.save(post,file);
+		return "redirect:/secure/admin/post";
 	}
 	
 }

@@ -19,26 +19,22 @@
 			<h1>Posts</h1>
 		</div>
 		<div class="admin-side1-div">
-			<form th:action="@{/secure/admin/post/addPost}" method="post">
+			<form th:action="@{/secure/admin/post/addPost}" method="post" enctype="multipart/form-data">
 				<div class="form-div">
 						<label>Title</label>
-						<input id="titleEdit" type="text" name="tittle">
+						<input  type="text" name="title">
 				</div>
 				<div class="form-div">
 						<label>Description</label>
-						<input id="userNameEdit" type="text" name="username">
+						<textarea rows="4" cols="50" name="description"></textarea>
 				</div>
 				<div class="form-div">
-						<label>Team</label>
-						<select id="roleEdit" name="role" required>
-							<option>Select team</option>
-							<option th:each="team:${teams}"
-							th:value="${team.id}"
-							th:text="${team.teamName}"></option>
-			
-						</select>
-					</div>
-				<button class="modalSaveButton" type="submit">Save</button>
+					<label>Select image:</label>
+					<input type="file" id="photo" name="file" accept="images/*">
+				</div>
+				<div class="form-div">
+					<button class="modalSaveButton" type="submit">Save</button>
+				</div>
 			</form>
 		</div>
 		<div class="admin-center1-div">
@@ -46,27 +42,77 @@
 				<tbody>
 					<tr>
 						<th>Title</th>
-						<th>Description</th>
 						<th>Options</th>
 					</tr>
 					<tr th:each="post : ${posts}">
 						<td th:text="${post.title}"></td>
-						<td th:text="${post.description}"></td>
-						<td>
-							<ul>
-								<li><a class="edit-button" th:href="@{/secure/admin/post/findById/(id=${post.id})}">Edit</a></li>
-								<li><a class="delete-button" th:href="@{/secure/admin/post/delete/(id=${post.id})}">Delete</a></li>
-							</ul>
+						<td sec:authorize="hasRole('ROLE_ADMIN')" class="button-group">
+							<a class="edit-button" th:href="@{/secure/admin/post/findById/(id=${post.id})}">Edit</a>
+							<a class="delete-button" th:href="@{/secure/admin/post/delete/(id=${post.id})}" >Delete</a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
-	<footer>
-		<div th:replace="fragments/footer :: footer"></div>
-	</footer>
+<footer>
+	<div th:replace="fragments/footer :: footer"></div>
+</footer>
+
+<!--Edit modal start  -->
+<div id="editModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Edit Training</h3>
+			</div>
+			<div class="modal-body">
+				<form th:action="@{/secure/admin/post/update}" method="post" enctype="multipart/form-data">
+					<div class="form-div">
+						<label>Id</label>
+						<input type="text" id="idEdit"  name="id">
+					</div>
+					<div class="form-div">
+						<label>Title</label>
+						<input id="titleEdit" type="text" name="title">
+					</div>
+					<div class="form-div">
+						<label>Description</label>
+						<textarea id="descriptionEdit" rows="4" cols="50" name="description"></textarea>
+					</div>
+					<div class="form-div">
+						<label>Select file:</label>
+						<input type="file" id="fileEdit" name="file" accept="images/*">
+					</div>
+					<div class="form-div">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Edit modal end -->
 	
-	<script src="/js/admin.js"></script>
+<!--Delete modal start  -->
+<div id="deleteModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Delete Post</h3>
+			</div>
+			<div class="modal-body">
+				<H2>Are u sure to delete this post?</H2>
+			</div>
+			<div class="modal-footer">
+				<a href="" class="modalDeleteButton" type="submit">Delete</a>
+			</div>
+		</div>
+	</div>
+<!--Delete modal end -->
+	
+	<script src="/js/post.js"></script>
+	<script src="/js/deleteModal.js"></script>
 </body>
 </html>

@@ -89,11 +89,9 @@
 								<li th:text="${role.getRole()}"></li>
 							</ul>
 						</td>
-						<td>
-							<ul>
-								<li><a class="edit-button" th:href="@{/secure/admin/user/findById/(id=${user.id})}">Edit</a></li>
-								<li><a class="delete-button" th:href="@{/secure/admin/user/delete/(id=${user.id})}">Delete</a></li>
-							</ul>
+						<td sec:authorize="hasRole('ROLE_ADMIN')" class="button-group">
+							<a class="edit-button" th:href="@{/secure/admin/user/findById/(id=${user.id})}">Edit</a>
+							<a class="delete-button" th:href="@{/secure/admin/user/delete/(id=${user.id})}" >Delete</a>
 						</td>
 					</tr>
 				</tbody>
@@ -177,7 +175,7 @@
 	</div>
 <!--Delete modal end -->
 	
-	<script src="/js/admin.js"></script>
+	<script src="/js/post.js"></script>
 	<script src="/js/deleteModal.js"></script>
 </body>
 </html>
