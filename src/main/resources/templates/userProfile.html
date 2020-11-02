@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Football management system">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/secureHeader :: secureHeader"></div>
+	</header>
+	<div class="admin-main-container">
+		<div class="admin-tittle1-div">
+			<h1 class="tittle">Edit profile</h1>
+		</div>
+		<div class="admin-tittle2-div">
+			<h1 class="tittle">Change password</h1>
+		</div>
+		<div class="admin-side1-div">
+			<form class="user-form" th:action="@{/userProfile/update}" method="post" th:object="${user}">
+				<div style=display:none class="form-div">
+						<label>Id</label>
+						<input th:field="${user.id}" readonly>
+				</div>
+				<div class="form-div">
+						<label>UserName</label>
+						<input th:field="${user.username}" required="required" pattern="[a-zA-Z0-9]{4,25}" 
+							   title="Username should be 4-25 character long">
+				</div>
+				<div class="form-div">
+						<label>Name</label>
+						<input  th:field="${user.name}" required="required" pattern="[a-zA-Z_]{2,25}" 
+							   title="Name should be 4-25 character long">
+						
+				</div>
+				<div class="form-div">
+						<label>Surname</label>
+						<input  th:field="${user.surname}" required="required" pattern="[a-zA-Z_]{2,25}" 
+							   title="Surname should be 4-25 character long">
+						
+				</div>
+				<div class="form-div">
+						<label>Phone</label>
+						<input  th:field="${user.phone}" pattern="[0-9]{8,15}" 
+							   title="Phone number should contain only numbers and be 8-15 long">
+				</div>
+				<div class="form-div">
+						<label>Email</label>
+						<input th:field="${user.email}">
+						
+				</div>
+				<div style=display:none class="form-div">
+						<label>Role</label>
+						<input name="role" th:value="${user.roles.get(0).id}" readonly>
+				</div>
+				
+				<div class="form-buttons">
+					<button class="modalSaveButton" type="submit">Save</button>
+					<input class="clear-button" type="button" value="Clear" id="clear-button"/>
+				</div>
+			</form>
+		</div>
+		<div class="admin-center1-div">
+			<form class="user-form" th:action="@{/userProfile/changePassword}" method="post" th:object="${user}">
+				<div style=display:none class="form-div">
+						<label>Id</label>
+						<input th:field="${user.id}">
+				</div>
+				<div class="form-div">
+						<label id="password-label">Old Password</label>
+						<input id="passwordEdit" type="password" name="oldPassword">
+						<span class="errors" th:text="${password}"></span>
+				</div>
+				<div class="form-div">
+						<label id="password-label">New Password</label>
+						<input id="passwordEdit" type="password" name="password" required pattern="[a-zA-Z0-9]{4,25}" 
+							   title="Password should be 4-25 character long">
+						<span class="errors" th:text="${password}"></span>
+				</div>
+				<div class="form-div">
+						<label>Confirm Password</label>
+						<input  type="password" name="confirmPassword" required>
+						<span class="errors" th:text="${password}"></span>
+				</div>
+				<div class="form-buttons">
+					<button class="modalSaveButton" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+<footer>
+	<div th:replace="fragments/footer :: footer"></div>
+</footer>
+
+</body>
+</html>

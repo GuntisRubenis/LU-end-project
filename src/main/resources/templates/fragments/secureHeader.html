@@ -11,6 +11,7 @@
 				<h1>Futbola <span class="highlight">Parks</span></h1>
 				<p sec:authorize="isAnonymous()" ><a href="login.html">Login</a></p>
 				<p sec:authorize="isAuthenticated()"><a href="login.html">Logout</a></p>
+				<p sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/userProfile}">Profile</a></p>
 			</div>
 		</div>
 		<div class="header2">

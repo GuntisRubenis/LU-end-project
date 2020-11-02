@@ -40,6 +40,31 @@ for (const button of editButtons){
 		
 	})
 }
+
+/*======================================*/
+//Close modal
+/*======================================*/
+
+var modalCloseButtons = document.querySelectorAll('.modalCloseButton');
+//for all close buttons in deleteModal
+for (const button of modalCloseButtons) {
+	
+	  button.addEventListener('click', function() {
+	    
+	    editModal.style.display = 'none';
+	  })
+	  // set if click is outside of form to close it
+	  window.addEventListener('click', function(event){
+		  // if user clicked on modal then close it
+		  if(event.target == editModal){
+				editModal.style.display = 'none';
+				
+				}
+		  
+	  });
+	
+}
+
 /*======================================*/
 //Search
 /*======================================*/
