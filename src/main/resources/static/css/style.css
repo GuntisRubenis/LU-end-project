@@ -37,6 +37,14 @@ a{
 	color: red;
 }
 
+.success{
+	color: green;
+}
+
+.delete{
+	color: red;
+}
+
 .button-group a{
 	color: #333333;
 	transition-duration: 0.4s;

@@ -99,7 +99,7 @@ public class TournamentController {
 		
 		// from attendanceModal form collect array of playerIds, and tournament id  
 		@PostMapping("/rest/tournament/report/addPlayers")
-		public String addAttendance (@RequestParam(value="playerId") int[] playersId, @RequestParam(value="id") Integer tournamentId ) {
+		public String addAttendance (@RequestParam(value="playerId", required = false, defaultValue = "0") int[] playersId, @RequestParam(value="id") Integer tournamentId ) {
 					//find tournament by id
 					Optional<Tournament> tournament = tournamentService.finfById(tournamentId);
 					//create new list of players where we will add players who attended tournament

@@ -129,7 +129,7 @@ public class TrainingController {
 	
 	// from attendanceModal form collect array of playerIds, and training id  
 		@PostMapping("/rest/training/addAttendance")
-		public String addAttendance (@RequestParam(value="playerId") int[] playersId, @RequestParam(value="id") Integer trainingId ) {
+		public String addAttendance (@RequestParam(value="playerId", required = false, defaultValue = "0" ) int[] playersId, @RequestParam(value="id") Integer trainingId ) {
 			//find training by id
 			Optional<Training> training = trainingService.finfById(trainingId);
 			//create new list of players where we will add players who attended training
