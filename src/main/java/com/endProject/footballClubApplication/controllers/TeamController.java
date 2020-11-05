@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Team;
@@ -41,14 +42,16 @@ public class TeamController {
 	}
 	
 	@PostMapping("/rest/team/addNew")
-	public String addTeam(Team team, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public String addTeam(Team team, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		teamService.save(team, file);
-		return "redirect:";
+		redirectAttribute.addFlashAttribute("successMessage", "Team added succesfully!!!");
+		return "redirect:/rest/team";
 	}
 	
 	@RequestMapping(value="/rest/team/delete", method = {RequestMethod.DELETE, RequestMethod.GET} )
-	public String deleteTeam(Integer id) {
+	public String deleteTeam(Integer id,RedirectAttributes redirectAttribute) {
 		teamService.deleteById(id);
+		redirectAttribute.addFlashAttribute("deleteMessage", "Team deleted succesfully!!!");
 		return "redirect:/rest/team";
 	}
 	
@@ -80,8 +83,9 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value="/rest/team/update", method = {RequestMethod.POST, RequestMethod.GET})
-	public String update(Team team, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public String update(Team team, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		teamService.save(team, file);
+		redirectAttribute.addFlashAttribute("successMessage", "Team edited succesfully!!!");
 		return "redirect:/rest/team";
 	}
 	

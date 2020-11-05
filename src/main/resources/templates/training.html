@@ -30,6 +30,8 @@
 			</div>
 		</div>
 		<div class="table-div">
+			<span class="success" th:text="${successMessage}"></span>
+			<span class="delete" th:text="${deleteMessage}"></span>
 			<table class="custom-table">
 				<tbody>
 					<tr>
@@ -69,16 +71,16 @@
 				<form th:action="@{/rest/training/addNew}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Description</label>
-						<input type="text"  name="description">
+						<input type="text"  name="description" required pattern="[a-zA-Z\s0-9]{4,50}" 
+							   title="Description should be 4-50 characters long and conatin only letters and numbers">
 					</div>
 					<div class="form-div">
 						<label>Date</label>
-						<input type="date"  name="date">
+						<input required="required" type="date"  name="date">
 					</div>
 					<div class="form-div">
 						<label>Team</label>
 						<select name="teamId" required>
-							<option>Select Team</option>
 							<option th:each="team:${teams}"
 							th:value="${team.id}"
 							th:text="${team.teamName}">
@@ -123,7 +125,6 @@
 					<div class="form-div">
 						<label>Team</label>
 						<select name="teamId" id="teamEdit" required>
-							<option>Select Team</option>
 							<option th:each="team:${teams}"
 							th:value="${team.id}"
 							th:text="${team.teamName}">

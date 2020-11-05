@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.models.Team;
@@ -50,23 +51,26 @@ public class TrainingController {
 	}
 	
 	@PostMapping("/rest/training/addNew")
-	public String addTraining(Training training, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public String addTraining(Training training, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		//get team by id, so we can make dir if it not exists
 		// and name it like team name, where we will store all team training files
 		Optional<Team> team = teamService.finfById(training.getTeamId());
 		if(team.isPresent()) {
 			trainingService.save(training, file,team.get().getTeamName());
+			redirectAttribute.addFlashAttribute("successMessage", "Training added succesfully!!!");
 		}
-		return "redirect:";
+		
+		return "redirect:/rest/training";
 	}
 	
 	@RequestMapping(value="/rest/training/delete", method = {RequestMethod.DELETE, RequestMethod.GET} )
-	public String deleteTraining(Integer id) {
+	public String deleteTraining(Integer id,RedirectAttributes redirectAttribute) {
 		// find training by id so we can get name of team and find directory for files
 		//then get team name and pass it to training services
 		Optional<Training> training = trainingService.finfById(id);
 		if(training.isPresent()) {
 			trainingService.deleteById(id,training.get().getTeam().getTeamName());
+			redirectAttribute.addFlashAttribute("deleteMessage", "Training deleted succesfully!!!");
 		}
 		
 		return "redirect:/rest/training";
@@ -80,12 +84,13 @@ public class TrainingController {
 	
 	
 	@RequestMapping(value="/rest/training/update", method = {RequestMethod.POST, RequestMethod.GET})
-	public String update(Training training, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public String update(Training training, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		//get team by id, so we can make dir if it not exists
 		// and name it like team name, where we will store all team training files
 		Optional<Team> team = teamService.finfById(training.getTeamId());
 		if(team.isPresent()) {
 			trainingService.save(training, file,team.get().getTeamName());
+			redirectAttribute.addFlashAttribute("successMessage", "Training edited succesfully!!!");
 		}
 		
 		return "redirect:/rest/training";
@@ -129,7 +134,9 @@ public class TrainingController {
 	
 	// from attendanceModal form collect array of playerIds, and training id  
 		@PostMapping("/rest/training/addAttendance")
-		public String addAttendance (@RequestParam(value="playerId", required = false, defaultValue = "0" ) int[] playersId, @RequestParam(value="id") Integer trainingId ) {
+		public String addAttendance (@RequestParam(value="playerId", required = false, defaultValue = "0" ) int[] playersId, 
+				@RequestParam(value="id") Integer trainingId,
+				RedirectAttributes redirectAttribute) {
 			//find training by id
 			Optional<Training> training = trainingService.finfById(trainingId);
 			//create new list of players where we will add players who attended training
@@ -148,6 +155,7 @@ public class TrainingController {
 				updatedTraining.setPlayers(players);
 				// update training in our database
 				trainingService.save(updatedTraining);
+				redirectAttribute.addFlashAttribute("successMessage", "Attendance added succesfully!!!");
 			}
 			
 			return "redirect:/rest/training";

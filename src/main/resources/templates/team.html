@@ -30,6 +30,8 @@
 			</div>
 		</div>
 			<div class="table-div">
+			<span class="success" th:text="${successMessage}"></span>
+			<span class="delete" th:text="${deleteMessage}"></span>
 			<div class="team-container">
 				<div class="team-div" th:each="team : ${teams}">
 					<ul>
@@ -69,12 +71,12 @@
 				<form th:action="@{/rest/team/addNew}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Team Name</label>
-						<input type="text"  name="teamName">
+						<input type="text"  name="teamName" required pattern="[a-zA-Z\s0-9]{4,25}" 
+							   title="Team name should be 4-25 character long and contain only letters and numbers">
 					</div>
 					<div class="form-div">
 						<label>Coach</label>
 						<select name="coachId" required>
-							<option>Select Coach</option>
 							<option th:each="coach:${coaches}"
 							th:value="${coach.id}"
 							th:text="${coach.name}+' '+${coach.surname}">
@@ -83,7 +85,6 @@
 					<div class="form-div">
 						<label>Assistant Coach</label>
 						<select name="assistantCoachId" required>
-							<option>Select Coach</option>
 							<option th:each="coach:${coaches}"
 							th:value="${coach.id}"
 							th:text="${coach.name}+' '+${coach.surname}">
@@ -91,7 +92,7 @@
 					</div>
 					<div class="form-div">
 						<label>Select image:</label>
-						<input type="file" id="photo" name="file" accept="images/*">
+						<input type="file" id="photo" name="file" accept="images/jpeg">
 					</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>
@@ -119,7 +120,8 @@
 					</div>
 					<div class="form-div">
 						<label>Team Name</label>
-						<input type="text" id="teamNameEdit" name="teamName">
+						<input type="text" id="teamNameEdit" name="teamName" required pattern="[a-zA-Z\s0-9]{4,25}" 
+							   title="Team name should be 4-25 character long">
 					</div>
 					<div class="form-div">
 						<label>Coach</label>
@@ -141,7 +143,7 @@
 					</div>
 					<div class="form-div">
 						<label>Select image:</label>
-						<input type="file" id="photo" name="file" accept="images/*">
+						<input type="file" id="photo" name="file" accept="images/jpeg">
 					</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>

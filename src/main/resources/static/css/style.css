@@ -38,11 +38,14 @@ a{
 }
 
 .success{
-	color: green;
+	color: #f4f4f4f4;
+	background-color: green;
+	
 }
 
 .delete{
-	color: red;
+	color: #f4f4f4f4;
+	background-color: #b30000;
 }
 
 .button-group a{
