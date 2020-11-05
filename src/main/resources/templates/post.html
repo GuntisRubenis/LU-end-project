@@ -22,15 +22,17 @@
 			<form th:action="@{/secure/admin/post/addPost}" method="post" enctype="multipart/form-data">
 				<div class="form-div">
 						<label>Title</label>
-						<input  type="text" name="title">
+						<input  type="text" name="title" required pattern="[a-zA-Z\s]{4,50}" 
+							   title="Name should be 4-50 character long" >
 				</div>
 				<div class="form-div">
 						<label>Description</label>
-						<textarea rows="4" cols="50" name="description"></textarea>
+						<textarea rows="6" cols="50" name="description" required pattern="[a-zA-Z\s]{2,25}" 
+							   title="Description should be 4-5000 character long"></textarea>
 				</div>
 				<div class="form-div">
 					<label>Select image:</label>
-					<input type="file" id="photo" name="file" accept="images/*">
+					<input required="required" type="file" id="photo" name="file" accept="images/jpeg">
 				</div>
 				<div class="form-div">
 					<button class="modalSaveButton" type="submit">Save</button>
@@ -38,6 +40,8 @@
 			</form>
 		</div>
 		<div class="admin-center1-div">
+			<span class="success" th:text="${successMessage}"></span>
+			<span class="delete" th:text="${deleteMessage}"></span>
 			<table class="custom-table">
 				<tbody>
 					<tr>
@@ -64,25 +68,27 @@
 		<div class="modalContent">
 			<div class="modal-header">
 				<span class="modalCloseButton">&times;</span>
-				<h3>Edit Training</h3>
+				<h3>Edit Post</h3>
 			</div>
 			<div class="modal-body">
 				<form th:action="@{/secure/admin/post/update}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Id</label>
-						<input type="text" id="idEdit"  name="id">
+						<input type="text" id="idEdit"  name="id" readonly="readonly">
 					</div>
 					<div class="form-div">
 						<label>Title</label>
-						<input id="titleEdit" type="text" name="title">
+						<input id="titleEdit" type="text" name="title" required pattern="[a-zA-Z\s]{4,50}" 
+							   title="Name should be 4-50 character long">
 					</div>
 					<div class="form-div">
 						<label>Description</label>
-						<textarea id="descriptionEdit" rows="4" cols="50" name="description"></textarea>
+						<textarea id="descriptionEdit" rows="6" cols="50" name="description" required pattern="[a-zA-Z\s]{2,25}" 
+							   title="Description should be 4-5000 character long"></textarea>
 					</div>
 					<div class="form-div">
 						<label>Select file:</label>
-						<input type="file" id="fileEdit" name="file" accept="images/*">
+						<input  type="file" id="fileEdit" name="file" accept="images/*">
 					</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>

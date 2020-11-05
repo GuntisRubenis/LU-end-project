@@ -21,6 +21,7 @@
 		</div>
 		
 		<div class="individual-side-div">
+			<span class="success" th:text="${atendSuccessMessage}"></span>
 			<form class="attendance-form" th:action="@{/rest/tournament/report/addPlayers}" method="post" >
 				<div style="display:none" class="attendance-div">
 					<label>Id</label>
@@ -51,6 +52,7 @@
 			</form>
 		</div>
 		<div class="individual-center-div">
+			<span class="success" th:text="${statSuccessMessage}"></span>
 			<div class="table-div">
 				<form th:action="@{/rest/tournament/report/addStatistic}" method="post">
 					<table class="custom-table">

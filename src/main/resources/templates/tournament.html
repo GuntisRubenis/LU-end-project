@@ -30,6 +30,8 @@
 			</div>
 		</div>
 		<div class="table-div">
+			<span class="success" th:text="${successMessage}"></span>
+			<span class="delete" th:text="${deleteMessage}"></span>
 			<table class="custom-table">
 				<tbody>
 					<tr>
@@ -71,20 +73,21 @@
 				<form th:action="@{/rest/tournament/addNew}" method="post">
 					<div class="form-div">
 						<label>Name</label>
-						<input type="text"  name="name">
+						<input type="text"  name="name" required pattern="[a-zA-Z\s]{4,25}" 
+							   title="Name should be 4-25 character long">
 					</div>
 					<div class="form-div">
 						<label>Address</label>
-						<input type="text"  name="address">
+						<input type="text"  name="address" required pattern="[a-zA-Z\s]{4,50}" 
+							   title="Adress should be 4-25 character long">
 					</div>
 					<div class="form-div">
 						<label>Date</label>
-						<input type="date"  name="date">
+						<input required="required" type="date"  name="date">
 					</div>
 					<div class="form-div">
 						<label>Team</label>
 						<select name="teamId" required>
-							<option>Select Team</option>
 							<option th:each="team:${teams}"
 							th:value="${team.id}"
 							th:text="${team.teamName}">
@@ -115,20 +118,21 @@
 					</div>
 					<div class="form-div">
 						<label>Name</label>
-						<input type="text" id="nameEdit"  name="name">
+						<input type="text" id="nameEdit"  name="name" required pattern="[a-zA-Z\s]{2,25}" 
+							   title="Name should be 4-25 character long">
 					</div>
 					<div class="form-div">
 						<label>Address</label>
-						<input type="text" id="addressEdit"  name="address">
+						<input type="text" id="addressEdit"  name="address" required pattern="[a-zA-Z\s]{4,50}" 
+							   title="Adress should be 4-25 character long">
 					</div>
 					<div class="form-div">
 						<label>Date</label>
-						<input type="date" id="dateEdit"  name="date">
+						<input required="required" type="date" id="dateEdit"  name="date">
 					</div>
 					<div class="form-div">
 						<label>Team</label>
 						<select name="teamId" id="teamEdit" required>
-							<option>Select Team</option>
 							<option th:each="team:${teams}"
 							th:value="${team.id}"
 							th:text="${team.teamName}">

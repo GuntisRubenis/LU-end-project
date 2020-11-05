@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Post;
@@ -125,14 +126,16 @@ public class AdminController {
 	}
 	
 	@PostMapping("/secure/admin/post/addPost")
-	public String addCoach(Post post, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public String addCoach(Post post, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		postService.save(post,file);
-		return "redirect:";
+		redirectAttribute.addFlashAttribute("successMessage", "Post added succesfully!!!");
+		return "redirect:/secure/admin/post";
 	}
 	
 	@RequestMapping(value="/secure/admin/post/delete" , method = {RequestMethod.DELETE, RequestMethod.GET} )
-	public String deletePost(Integer id) {
+	public String deletePost(Integer id,RedirectAttributes redirectAttribute) {
 		postService.deleteById(id);
+		redirectAttribute.addFlashAttribute("deleteMessage", "Post deleted succesfully!!!");
 		return "redirect:/secure/admin/post";
 	}
 	
@@ -143,8 +146,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/secure/admin/post/update", method = {RequestMethod.POST, RequestMethod.GET})
-	public String update(Post post, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public String update(Post post, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		postService.save(post,file);
+		redirectAttribute.addFlashAttribute("successMessage", "Post eddited succesfully!!!");
 		return "redirect:/secure/admin/post";
 	}
 	

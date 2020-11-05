@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.models.Statistics;
@@ -45,14 +46,16 @@ public class TournamentController {
 	}
 	
 	@RequestMapping("/rest/tournament/addNew")
-	public String newTournament(Tournament tournament) {
+	public String newTournament(Tournament tournament, RedirectAttributes redirectAttribute) {
 		tournamentService.save(tournament);
-		return "redirect:";
+		redirectAttribute.addFlashAttribute("successMessage", "Tournament added succesfully!!!");
+		return "redirect:/rest/tournament";
 	}
 	
 	@RequestMapping(value="/rest/tournament/delete", method = {RequestMethod.DELETE, RequestMethod.GET} )
-	public String deleteTournament(Integer id) {
+	public String deleteTournament(Integer id, RedirectAttributes redirectAttribute) {
 		tournamentService.deleteById(id);
+		redirectAttribute.addFlashAttribute("deleteMessage", "Tournament deleted succesfully!!!");
 		return "redirect:/rest/tournament";
 	}
 	
@@ -63,8 +66,9 @@ public class TournamentController {
 	}
 	
 	@RequestMapping(value="/rest/tournament/update", method = {RequestMethod.POST, RequestMethod.GET})
-	public String update(Tournament tournament){
+	public String update(Tournament tournament, RedirectAttributes redirectAttribute){
 		tournamentService.save(tournament);
+		redirectAttribute.addFlashAttribute("successMessage", "Tournament edited succesfully!!!");
 		return "redirect:/rest/tournament";
 	}
 	
@@ -99,7 +103,9 @@ public class TournamentController {
 		
 		// from attendanceModal form collect array of playerIds, and tournament id  
 		@PostMapping("/rest/tournament/report/addPlayers")
-		public String addAttendance (@RequestParam(value="playerId", required = false, defaultValue = "0") int[] playersId, @RequestParam(value="id") Integer tournamentId ) {
+		public String addAttendance (@RequestParam(value="playerId", required = false, defaultValue = "0") int[] playersId, 
+				@RequestParam(value="id") Integer tournamentId,
+				RedirectAttributes redirectAttribute) {
 					//find tournament by id
 					Optional<Tournament> tournament = tournamentService.finfById(tournamentId);
 					//create new list of players where we will add players who attended tournament
@@ -118,9 +124,8 @@ public class TournamentController {
 						updatedTournament.setPlayers(players);
 						// update tournament in our database
 						tournamentService.save(updatedTournament);
+						redirectAttribute.addFlashAttribute("atendSuccessMessage", "Attendance added succesfully!!!");
 					}
-					
-					System.out.println(tournament.get().getStatictics().size());
 					
 					
 					return "redirect:/rest/tournament/report/?id="+tournamentId;
@@ -132,7 +137,8 @@ public class TournamentController {
 						@RequestParam(value="playerId") int[] playerIds,
 						@RequestParam(value="goals") int[] goals,
 						@RequestParam(value="assists") int[] assists,
-						@RequestParam(value="minutes") int[] minutes)
+						@RequestParam(value="minutes") int[] minutes,
+						RedirectAttributes redirectAttribute)
 				{
 							Optional<Tournament> tournament = tournamentService.finfById(tournamentId);
 							if(tournament.isPresent()) {
@@ -149,6 +155,7 @@ public class TournamentController {
 										statistic.setAssists(assists[i]);
 										statistic.setMinutes(minutes[i]);
 										statisticService.save(statistic);
+										redirectAttribute.addFlashAttribute("statSuccessMessage", "Statistic added succesfully!!!");
 									}
 								}
 								// if its not empty loop throught each statistic and delete it 
@@ -166,6 +173,7 @@ public class TournamentController {
 										statistic.setAssists(assists[i]);
 										statistic.setMinutes(minutes[i]);
 										statisticService.save(statistic);
+										redirectAttribute.addFlashAttribute("statSuccessMessage", "Statistic added succesfully!!!");
 									}
 								}
 							}
