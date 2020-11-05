@@ -27,14 +27,21 @@ public class CoachService {
 	@Autowired
 	CoachRepository coachRepository;
 	
+	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\coaches\\";
+	
 	public void save(Coach coach, MultipartFile file) throws IllegalStateException, IOException {
 		 coachRepository.save(coach);
 		 if(!file.isEmpty()) {
-			 file.transferTo(new File("C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\coaches\\"+coach.getId()+".jpg"));
+			 file.transferTo(new File(PATH+coach.getId()+".jpg"));
 		 }
 	}
 	
 	public void deleteByid(Integer id) {
+		//check if file exists in our directory and delete it
+				File file = new File(PATH+id+".jpg");
+				 if(file.exists()) {
+					 file.delete();
+				 }
 		 coachRepository.deleteById(id);
 	}
 	// check if keyword is typed and then call findAll function based on keyword

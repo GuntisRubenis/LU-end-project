@@ -31,6 +31,8 @@
 			</div>
 		</div>
 		<div class="table-div">
+			<span class="success" th:text="${successMessage}"></span>
+			<span class="delete" th:text="${deleteMessage}"></span>
 			<table class="custom-table">
 				<tbody>
 					<tr>
@@ -74,19 +76,23 @@
 				<form th:action="@{/rest/coach/addNew}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Name</label>
-						<input type="text"  name="name">
+						<input type="text"  name="name" required pattern="[a-zA-Z_]{2,25}" 
+							   title="Name should be 2-25 character long">
 					</div>
 					<div class="form-div">
 						<label>Surname</label>
-						<input type="text"  name="surname">
+						<input type="text"  name="surname" required pattern="[a-zA-Z_]{2,25}" 
+							   title="Surname should be 2-25 character long">
 					</div>
 					<div class="form-div">
 						<label>Age</label>
-						<input type="text" name="age">
+						<input type="text" name="age" required pattern="[0-9]{1,2}" 
+							   title="Age should be 1-2 characters long and contain only numbers">
 					</div>
 					<div class="form-div">
 						<label>Phone</label>
-						<input type="text"  name="phone">
+						<input type="text"  name="phone" pattern="[0-9]{8,15}" 
+							   title="Phone should be 8-15 character long and contain only numbers">
 					</div>
 					<div class="form-div">
 						<label>Email</label>
@@ -94,7 +100,7 @@
 					</div>
 					<div class="form-div">
 					<label>Category</label>
-						<select name="category">
+						<select required name="category">
 							<option>Select Category</option>
 							<option>A-UEFA-PRO</option>
 							<option>A-UEFA</option>
@@ -104,7 +110,7 @@
 					</div>
 					<div class="form-div">
 						<label>Select image:</label>
-						<input type="file" id="photo" name="file" accept="images/*">
+						<input type="file" id="photo" name="file" accept="images/jpeg">
 					</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>
@@ -132,19 +138,23 @@
 					</div>
 					<div class="form-div">
 						<label>Name</label>
-						<input type="text" id="nameEdit" name="name">
+						<input type="text" id="nameEdit" name="name" required pattern="[a-zA-Z_]{2,25}" 
+							   title="Name should be 2-25 character long">
 					</div>
 					<div class="form-div">
 						<label>Surname</label>
-						<input type="text" id="surnameEdit" name="surname">
+						<input type="text" id="surnameEdit" name="surname" required pattern="[a-zA-Z_]{2,25}" 
+							   title="Surname should be 2-25 character long">
 					</div>
 					<div class="form-div">
 						<label>Age</label>
-						<input type="text" id="ageEdit" name="age">
+						<input type="text" id="ageEdit" name="age" required pattern="[0-9]{1,2}" 
+							   title="Age should be 1-2 characters long and contain only numbers">
 					</div>
 					<div class="form-div">
 						<label>Phone</label>
-						<input type="text" id="phoneEdit" name="phone">
+						<input type="text" id="phoneEdit" name="phone" pattern="[0-9]{8,15}" 
+							   title="Phone should be 8-15 character long and contain only numbers">
 					</div>
 					<div class="form-div">
 						<label>Email</label>
@@ -152,7 +162,7 @@
 					</div>
 					<div class="form-div">
 					<label>Category</label>
-						<select name="category" id="categoryEdit">
+						<select required name="category" id="categoryEdit">
 							<option>Select Category</option>
 							<option>A-UEFA-PRO</option>
 							<option>A-UEFA</option>
@@ -162,7 +172,7 @@
 					</div>
 					<div class="form-div">
 						<label>Select image:</label>
-						<input type="file" id="photo" name="file" accept="images/*">
+						<input type="file" id="photo" name="file" accept="images/jpeg">
 					</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>
