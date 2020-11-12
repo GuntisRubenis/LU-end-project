@@ -9,8 +9,8 @@
 		<div class="header1">
 			<div class="main-page-tittle">
 				<h1>Futbola <span class="highlight">Parks</span></h1>
-				<p sec:authorize="isAnonymous()" ><a href="login.html">Login</a></p>
-				<p sec:authorize="isAuthenticated()"><a href="login.html">Logout</a></p>
+				<p sec:authorize="isAnonymous()" ><a th:href="@{/home}">Login</a></p>
+				<p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>
 				<p sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/userProfile}">Profile</a></p>
 			</div>
 		</div>
@@ -24,6 +24,7 @@
 								<li><a th:href="@{/secure/admin/post}">Posts</a></li>
 							</ul>
 						</li>
+						<li><a href="#">Posts</a>
 						<li sec:authorize="isAuthenticated()"><a href="#">Staff</a>
 							<ul>
 								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/coach}">Coaches</a></li>

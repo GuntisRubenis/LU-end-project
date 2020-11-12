@@ -29,7 +29,7 @@ public class User extends Person{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	@Size(min = 4, max =25 )
 	private String username;
 	
 	private String password;

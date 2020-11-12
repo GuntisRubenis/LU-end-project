@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import com.endProject.footballClubApplication.services.CustomUserDetailsService;
 
@@ -39,8 +40,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter  {
 		.antMatchers("/secure/**").hasAnyRole("ADMIN").anyRequest().authenticated()
 		.and()
 		.formLogin()
+		.loginPage("/login") //lets use custom login page
 		.permitAll()
-		
+		.and()
+		.logout().logoutRequestMatcher(null).logoutSuccessUrl("/")
 		.and().csrf().disable();
 	}
 	

@@ -46,7 +46,7 @@ public class Training{
 	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
-        name = "attendance", 
+        name = "player_training", 
         joinColumns = { @JoinColumn(name = "trainingId") }, 
         inverseJoinColumns = { @JoinColumn(name = "playerId") }
     )

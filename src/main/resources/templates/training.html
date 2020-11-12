@@ -71,8 +71,8 @@
 				<form th:action="@{/rest/training/addNew}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Description</label>
-						<input type="text"  name="description" required pattern="[a-zA-Z\s0-9]{4,50}" 
-							   title="Description should be 4-50 characters long and conatin only letters and numbers">
+						<input type="text"  name="description" required pattern="[]{4,50}" 
+							   title="Description should be 4-50 characters">
 					</div>
 					<div class="form-div">
 						<label>Date</label>
@@ -116,11 +116,12 @@
 					</div>
 					<div class="form-div">
 						<label>Description</label>
-						<input type="text" id="descriptionEdit"  name="description">
+						<input type="text" id="descriptionEdit"  name="description" required pattern="[]{4,50}" 
+							   title="Description should be 4-50 characters">
 					</div>
 					<div class="form-div">
 						<label>Date</label>
-						<input type="date" id="dateEdit"  name="date">
+						<input required="required" type="date" id="dateEdit"  name="date">
 					</div>
 					<div class="form-div">
 						<label>Team</label>
@@ -132,7 +133,7 @@
 					</div>
 					<div class="form-div">
 						<label>Select file:</label>
-						<input type="file" id="fileEdit" name="file" accept="images/*">
+						<input type="file" id="fileEdit" name="file" accept="images/jpeg">
 					</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>
