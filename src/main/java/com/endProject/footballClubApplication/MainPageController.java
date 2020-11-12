@@ -4,6 +4,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.endProject.footballClubApplication.models.Post;
 import com.endProject.footballClubApplication.models.Role;
 import com.endProject.footballClubApplication.models.User;
 import com.endProject.footballClubApplication.services.CustomUserDetailsService;
+import com.endProject.footballClubApplication.services.PostService;
 import com.endProject.footballClubApplication.services.RoleService;
 
 
@@ -28,6 +31,9 @@ public class MainPageController {
 	
 	@Autowired
 	RoleService roleService;
+	
+	@Autowired
+	PostService postService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -42,6 +48,21 @@ public class MainPageController {
 	@RequestMapping(value="/login", method = {RequestMethod.GET})
 	public String login() {
 		return "login"; 
+	}
+	
+	@RequestMapping("/publicPost")
+	public String postPage(Model model, @Param("keyword") String keyword) {
+		model.addAttribute("posts", postService.findAll(keyword));
+		return "publicPosts"; 
+	}
+	
+	@RequestMapping("/publicPost/postDetails")
+	public String postDetailPage(Model model, @RequestParam("id") Integer id) {
+		Optional<Post> post = postService.finfById(id);
+		if (post.isPresent()) {
+			model.addAttribute("post", post.get());	
+		}
+		return "postDetails"; 
 	}
 	
 	@RequestMapping("/contacts")

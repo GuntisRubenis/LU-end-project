@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.models.Post;
 
 import com.endProject.footballClubApplication.repositories.PostRepository;
@@ -50,6 +51,13 @@ public class PostService {
 	}
 	
 	public List<Post> findAll(){
+		return postRepository.findAll();
+	}
+	
+	public List<Post> findAll(String keyword){
+		if (keyword != null) {
+				return postRepository.findAll(keyword);
+		}
 		return postRepository.findAll();
 	}
 	

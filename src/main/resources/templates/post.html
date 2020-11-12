@@ -49,7 +49,7 @@
 						<th>Options</th>
 					</tr>
 					<tr th:each="post : ${posts}">
-						<td th:text="${post.title}"></td>
+						<td><a th:text = "${post.title}"  th:href="@{/publicPost/postDetails/(id=${post.id})}"></a></td>
 						<td sec:authorize="hasRole('ROLE_ADMIN')" class="button-group">
 							<a class="edit-button" th:href="@{/secure/admin/post/findById/(id=${post.id})}">Edit</a>
 							<a class="delete-button" th:href="@{/secure/admin/post/delete/(id=${post.id})}" >Delete</a>
