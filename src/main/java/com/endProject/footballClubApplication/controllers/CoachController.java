@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.print.attribute.standard.PageRanges;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,27 +39,40 @@ public class CoachController {
 	@Autowired
 	private CoachService coachService;
 	
-	
-	// display all coaches, keyword is for search function, so we can filter coaches
-	@RequestMapping("/rest/coach")
-	public String coachPage (Model model, @Param("keyword") String keyword) {
-		List<Coach> coaches = coachService.findAll(keyword);
-		model.addAttribute("coaches", coaches);
-		return "coach";
+	@RequestMapping("/rest/coach/{pageNum}")
+	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum, @Param("keyword") String keyword) {
+	     
+	    Page<Coach> page = coachService.listAll(pageNum,keyword);
+	     
+	    List<Coach> listProducts = page.getContent();
+	    if (page.getTotalPages() != 0) {
+	    	model.addAttribute("currentPage", pageNum);
+		    model.addAttribute("totalPages", page.getTotalPages());
+		    model.addAttribute("totalItems", page.getTotalElements());
+		    model.addAttribute("coaches", listProducts);
+	    }else {
+	    	model.addAttribute("currentPage", pageNum);
+		    model.addAttribute("totalPages", 1);
+		    model.addAttribute("totalItems", page.getTotalElements());
+		    model.addAttribute("coaches", listProducts);
+	    }
+	    
+	     
+	    return "coach";
 	}
 	
 	@PostMapping("/rest/coach/addNew")
 	public String addCoach(Coach coach, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		coachService.save(coach,file);
 		redirectAttribute.addFlashAttribute("successMessage", "Coach added succesfully!!!");
-		return "redirect:/rest/coach";
+		return "redirect:/rest/coach/1";
 	}
 	
 	@RequestMapping(value="/rest/coach/delete", method = {RequestMethod.DELETE, RequestMethod.GET} )
 	public String deleteCoach(Integer id,RedirectAttributes redirectAttribute) {
 		coachService.deleteByid(id);
 		redirectAttribute.addFlashAttribute("deleteMessage", "Coach deleted succesfully!!!");
-		return "redirect:/rest/coach";
+		return "redirect:/rest/coach/1";
 	}
 	
 	@RequestMapping("/rest/coach/findById") 
@@ -69,7 +86,7 @@ public class CoachController {
 	public String update(Coach coach, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		coachService.save(coach,file);
 		redirectAttribute.addFlashAttribute("successMessage", "Coach edited succesfully!!!");
-		return "redirect:/rest/coach";
+		return "redirect:/rest/coach/1";
 	}
 	
 	

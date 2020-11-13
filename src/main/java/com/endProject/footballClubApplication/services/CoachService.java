@@ -12,6 +12,9 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,13 +47,6 @@ public class CoachService {
 				 }
 		 coachRepository.deleteById(id);
 	}
-	// check if keyword is typed and then call findAll function based on keyword
-	public List<Coach> findAll(String keyword){
-		if (keyword != null) {
-			return coachRepository.findAll(keyword);
-		}
-		return coachRepository.findAll();
-	}
 	
 	public List<Coach> findAll(){
 		return coachRepository.findAll();
@@ -58,5 +54,14 @@ public class CoachService {
 	
 	public Optional<Coach> finfById(Integer id){
 		return coachRepository.findById(id);
-	}	
+	}
+	
+	public Page<Coach> listAll(int pageNum, String keyword) {
+	    int pageSize = 6;
+	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+	    if(keyword != null) {
+	    	return coachRepository.findAll(keyword, pageable);
+	    } 
+	    return coachRepository.findAll(pageable);
+	}
 }

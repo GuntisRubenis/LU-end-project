@@ -73,5 +73,5 @@ for (const button of modalCloseButtons) {
 var clearButton = document.querySelector('#clear-button');
 clearButton.addEventListener('click', function(){
 	//clear url 
-	window.location='/rest/coach';
+	window.location='/rest/coach/1';
 })

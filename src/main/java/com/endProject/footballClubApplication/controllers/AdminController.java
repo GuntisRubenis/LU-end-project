@@ -12,6 +12,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.stereotype.Controller;
@@ -121,7 +123,10 @@ public class AdminController {
 	
 	@RequestMapping("/secure/admin/post")
 	public String postPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
 		model.addAttribute("posts", postService.findAll());
+		model.addAttribute("user", customUserDetailService.findByUserName(auth.getName()));
 		return "post";
 	}
 	

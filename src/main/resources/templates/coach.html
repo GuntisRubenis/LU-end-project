@@ -18,7 +18,7 @@
 			<h1>Coaches</h1>
 		</div>
 		<div class ="search-div">
-			<form th:action="@{/rest/coach}">
+			<form th:action="@{/rest/coach/1}">
 				<label>Search</label>
 				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
 				
@@ -58,9 +58,14 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="paging">
+				<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+				    <a th:if="${currentPage != i}" th:href="@{'/rest/coach/' + ${i}}">[[${i}]]</a>
+				    <span class="pagging-disabled" th:unless="${currentPage != i}">[[${i}]]</span>
+				</span>
+			</div>
 		</div>
 	</div>
-	
 	<footer>
 		<div th:replace="fragments/footer :: footer"></div>
 	</footer>

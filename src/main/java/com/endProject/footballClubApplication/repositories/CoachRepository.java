@@ -2,6 +2,8 @@ package com.endProject.footballClubApplication.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,6 +16,7 @@ public interface CoachRepository extends JpaRepository<Coach, Integer> {
 	@Query("SELECT c FROM Coach c WHERE c.name LIKE %?1%"
 			+"OR c.surname LIKE %?1%"
 			+"OR c.category LIKE %?1%")
-	public List<Coach> findAll(String Keyword);
+	public Page<Coach> findAll(String Keyword, Pageable pageable);
+	
 
 }

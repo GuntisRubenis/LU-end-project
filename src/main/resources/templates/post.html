@@ -20,6 +20,10 @@
 		</div>
 		<div class="admin-side1-div">
 			<form th:action="@{/secure/admin/post/addPost}" method="post" enctype="multipart/form-data">
+				<div style=display:none class="form-div">
+						<label>User</label>
+						<input  type="text" name="userId" th:value="${user.id}">
+				</div>
 				<div class="form-div">
 						<label>Title</label>
 						<input  type="text" name="title" required pattern="[a-zA-Z\s]{4,50}" 
@@ -27,7 +31,7 @@
 				</div>
 				<div class="form-div">
 						<label>Description</label>
-						<textarea rows="6" cols="50" name="description" required pattern="[]{2,25}" 
+						<textarea rows="6" cols="50" name="description" required="required" pattern="[]{2,5000}" 
 							   title="Description should be 4-5000 character long"></textarea>
 				</div>
 				<div class="form-div">
@@ -46,10 +50,15 @@
 				<tbody>
 					<tr>
 						<th>Title</th>
+						<th>Author</th>
 						<th>Options</th>
 					</tr>
 					<tr th:each="post : ${posts}">
 						<td><a th:text = "${post.title}"  th:href="@{/publicPost/postDetails/(id=${post.id})}"></a></td>
+						<td>
+							<span th:if="${post.user == null}">UNKNOWN</span>
+							<span th:unless="${post.user == null}" th:text="${post.user.getUsername()}"></span>
+						</td>
 						<td sec:authorize="hasRole('ROLE_ADMIN')" class="button-group">
 							<a class="edit-button" th:href="@{/secure/admin/post/findById/(id=${post.id})}">Edit</a>
 							<a class="delete-button" th:href="@{/secure/admin/post/delete/(id=${post.id})}" >Delete</a>
