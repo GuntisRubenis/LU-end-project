@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.models.Statistics;
 import com.endProject.footballClubApplication.models.Tournament;
@@ -38,25 +41,43 @@ public class TournamentController {
 	@Autowired
 	private StatisticService statisticService;
 	
-	@RequestMapping("/rest/tournament")
-	public String tournamentPage(Model model, @Param("keyword") String keyword) {
-		model.addAttribute("tournaments", tournamentService.findAll(keyword));
-		model.addAttribute("teams", teamService.findAll());
-		return "tournament";
+	@RequestMapping("/rest/tournament/{pageNum}")
+	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum, @Param("keyword") String keyword) {
+	     
+	    Page<Tournament> page = tournamentService.listAll(pageNum,keyword);
+	     
+	    List<Tournament> listProducts = page.getContent();
+	    if (page.getTotalPages() != 0) {
+	    	model.addAttribute("currentPage", pageNum);
+		    model.addAttribute("totalPages", page.getTotalPages());
+		    model.addAttribute("totalItems", page.getTotalElements());
+		    model.addAttribute("tournaments", listProducts);
+		    model.addAttribute("teams", teamService.findAll());
+	    }else {
+	    	model.addAttribute("currentPage", pageNum);
+		    model.addAttribute("totalPages", 1);
+		    model.addAttribute("totalItems", page.getTotalElements());
+		    model.addAttribute("tournaments", listProducts);
+		    model.addAttribute("teams", teamService.findAll());
+	    }
+	    
+	     
+	    return "tournament";
 	}
+	
 	
 	@RequestMapping("/rest/tournament/addNew")
 	public String newTournament(Tournament tournament, RedirectAttributes redirectAttribute) {
 		tournamentService.save(tournament);
 		redirectAttribute.addFlashAttribute("successMessage", "Tournament added succesfully!!!");
-		return "redirect:/rest/tournament";
+		return "redirect:/rest/tournament/1";
 	}
 	
 	@RequestMapping(value="/rest/tournament/delete", method = {RequestMethod.DELETE, RequestMethod.GET} )
 	public String deleteTournament(Integer id, RedirectAttributes redirectAttribute) {
 		tournamentService.deleteById(id);
 		redirectAttribute.addFlashAttribute("deleteMessage", "Tournament deleted succesfully!!!");
-		return "redirect:/rest/tournament";
+		return "redirect:/rest/tournament/1";
 	}
 	
 	@RequestMapping("/rest/tournament/findById")
@@ -69,7 +90,7 @@ public class TournamentController {
 	public String update(Tournament tournament, RedirectAttributes redirectAttribute){
 		tournamentService.save(tournament);
 		redirectAttribute.addFlashAttribute("successMessage", "Tournament edited succesfully!!!");
-		return "redirect:/rest/tournament";
+		return "redirect:/rest/tournament/1";
 	}
 	
 	// return attendance page with list of current teams players

@@ -2,7 +2,12 @@ package com.endProject.footballClubApplication.services;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Tournament;
 import com.endProject.footballClubApplication.repositories.TournamentRepository;
 
@@ -22,11 +27,13 @@ public class TournamentService {
 		tournamentRepository.deleteById(id);
 	}
 	
-	public List<Tournament> findAll(String keyword){
-		if(keyword !=null) {
-			return tournamentRepository.findAll(keyword);
-		}
-		return tournamentRepository.findAll();
+	public Page<Tournament> listAll(int pageNum, String keyword) {
+	    int pageSize = 1;
+	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+	    if(keyword != null) {
+	    	return tournamentRepository.findAll(keyword, pageable);
+	    } 
+	    return tournamentRepository.findAll(pageable);
 	}
 	
 	public List<Tournament> findAll(){
