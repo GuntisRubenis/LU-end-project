@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.models.Team;
 import com.endProject.footballClubApplication.services.PlayerService;
@@ -32,26 +34,43 @@ public class PlayerController {
 	@Autowired
 	private TeamService teamService;
 	
-	@RequestMapping("/rest/player")
-	public String playerPage (Model model, @Param("keyword") String keyword) {
-		List<Player> players = playerService.findAll(keyword);
-		model.addAttribute("players", players);
-		model.addAttribute("teams", teamService.findAll());
-		return "player";
+	@RequestMapping("/rest/player/{pageNum}")
+	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum, @Param("keyword") String keyword) {
+	     
+	    Page<Player> page = playerService.listAll(pageNum,keyword);
+	     
+	    List<Player> listProducts = page.getContent();
+	    if (page.getTotalPages() != 0) {
+	    	model.addAttribute("currentPage", pageNum);
+		    model.addAttribute("totalPages", page.getTotalPages());
+		    model.addAttribute("totalItems", page.getTotalElements());
+		    model.addAttribute("players", listProducts);
+		    model.addAttribute("teams", teamService.findAll());
+	    }else {
+	    	model.addAttribute("currentPage", pageNum);
+		    model.addAttribute("totalPages", 1);
+		    model.addAttribute("totalItems", page.getTotalElements());
+		    model.addAttribute("players", listProducts);
+		    model.addAttribute("teams", teamService.findAll());
+	    }
+	    
+	     
+	    return "player";
 	}
+	
 	
 	@PostMapping("/rest/player/addNew")
 	public String addPlayer(Player player, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		playerService.save(player, file);
 		redirectAttribute.addFlashAttribute("successMessage", "Player added succesfully!!!");
-		return "redirect:/rest/player";
+		return "redirect:/rest/player/1";
 	}
 	
 	@RequestMapping(value="/rest/player/delete", method = {RequestMethod.DELETE, RequestMethod.GET} )
 	public String deletePlayer(Integer id, RedirectAttributes redirectAttribute) {
 		playerService.deleteById(id);
 		redirectAttribute.addFlashAttribute("deleteMessage", "Player deleted succesfully!!!");
-		return "redirect:/rest/player";
+		return "redirect:/rest/player/1";
 	}
 	
 	@RequestMapping("/rest/player/findById") 
@@ -65,7 +84,7 @@ public class PlayerController {
 	public String update(Player player, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		playerService.save(player, file);
 		redirectAttribute.addFlashAttribute("successMessage", "Player edited succesfully!!!");
-		return "redirect:/rest/player";
+		return "redirect:/rest/player/1";
 	}
 	
 	@RequestMapping(value="/rest/player/playerDetails")

@@ -28,7 +28,7 @@
 						<li sec:authorize="isAuthenticated()"><a href="#">Staff</a>
 							<ul>
 								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/coach/1}">Coaches</a></li>
-								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/player}">Players</a></li>
+								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/player/1}">Players</a></li>
 							</ul>
 						</li>
 						<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/team}">Teams</a></li>

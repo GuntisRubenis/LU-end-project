@@ -1,7 +1,7 @@
 package com.endProject.footballClubApplication.repositories;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,6 +19,5 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
 				+"OR p.surname LIKE %?1%"
 				+"OR p.position LIKE %?1%"
 				+"OR p.strongFoot LIKE %?1%")
-		public List<Player> findAll(String Keyword);
-
+		public Page<Player> findAll(String Keyword, Pageable pageable);
 }
