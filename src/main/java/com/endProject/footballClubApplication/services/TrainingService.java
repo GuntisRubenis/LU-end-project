@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.models.Training;
 
@@ -53,11 +57,13 @@ public class TrainingService {
 		 trainingRepository.deleteById(id);
 	}
 	
-	public List<Training> findAll(String keyword){
-		if(keyword !=null) {
-			return trainingRepository.findAll(keyword);
-		}
-		return trainingRepository.findAll();
+	public Page<Training> listAll(int pageNum, String keyword) {
+	    int pageSize = 2;
+	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+	    if(keyword != null) {
+	    	return trainingRepository.findAll(keyword, pageable);
+	    } 
+	    return trainingRepository.findAll(pageable);
 	}
 	
 	public List<Training> findAll(){
