@@ -24,7 +24,7 @@
 								<li><a th:href="@{/secure/admin/post}">Posts</a></li>
 							</ul>
 						</li>
-						<li><a th:href="@{/publicPost}">Posts</a>
+						<li><a th:href="@{/publicPost/1}">Posts</a>
 						<li sec:authorize="isAuthenticated()"><a href="#">Staff</a>
 							<ul>
 								<li sec:authorize="isAuthenticated()"><a th:href="@{/rest/coach/1}">Coaches</a></li>

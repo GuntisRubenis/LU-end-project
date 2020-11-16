@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.models.Post;
 
@@ -54,11 +57,13 @@ public class PostService {
 		return postRepository.findAll();
 	}
 	
-	public List<Post> findAll(String keyword){
-		if (keyword != null) {
-				return postRepository.findAll(keyword);
-		}
-		return postRepository.findAll();
+	public Page<Post> listAll(int pageNum, String keyword) {
+	    int pageSize = 6;
+	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+	    if(keyword != null) {
+	    	return postRepository.findAll(keyword, pageable);
+	    } 
+	    return postRepository.findAll(pageable);
 	}
 	
 	public Optional<Post> finfById(Integer id){

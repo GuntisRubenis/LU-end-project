@@ -18,7 +18,7 @@
 			<h1>Posts</h1>
 		</div>
 		<div class ="search-div">
-			<form th:action="@{/publicPost}">
+			<form th:action="@{/publicPost/1}">
 				<label>Search</label>
 				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
 				<input class="search-button" type="submit" value="Search"/>
@@ -37,12 +37,18 @@
 		 				</li>
 						<li>
 							<div class="post-li">
-								<a  th:text = "${post.title}"  th:href="@{/rest/post/postDetails/(id=${post.id})}"></a>
+								<a  th:text = "${post.title}"  th:href="@{/publicPost/postDetails/(id=${post.id})}"></a>
 							</div>
 						</li>	
 					</ul>
-				</div>	
+				</div>
 			</div>
+				<div class="paging">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+					    <a th:if="${currentPage != i}" th:href="@{'/publicPost/' + ${i}}">[[${i}]]</a>
+					    <span class="pagging-disabled" th:unless="${currentPage != i}">[[${i}]]</span>
+					</span>
+				</div>	
 		</div>
 	</div>
 	
@@ -50,4 +56,5 @@
 		<div th:replace="fragments/footer :: footer"></div>
 	</footer>	
 </body>
+<script src="/js/publicPost.js"></script>
 </html>
