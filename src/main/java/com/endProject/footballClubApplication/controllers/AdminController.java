@@ -11,6 +11,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -121,27 +124,34 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/secure/admin/post")
-	public String postPage(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
-		model.addAttribute("posts", postService.findAll());
-		model.addAttribute("user", customUserDetailService.findByUserName(auth.getName()));
-		return "post";
+	@RequestMapping("/secure/admin/post/{pageNum}")
+	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
+	    Page<Post> page = postService.listAll(pageNum);
+	     
+	    List<Post> listProducts = page.getContent();
+	    
+	    	model.addAttribute("currentPage", pageNum);
+		    model.addAttribute("totalPages", page.getTotalPages());
+		    model.addAttribute("totalItems", page.getTotalElements());
+		    model.addAttribute("posts", listProducts);
+		    model.addAttribute("user", customUserDetailService.findByUserName(auth.getName()));
+	     
+	    return "post";
 	}
 	
 	@PostMapping("/secure/admin/post/addPost")
 	public String addCoach(Post post, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		postService.save(post,file);
 		redirectAttribute.addFlashAttribute("successMessage", "Post added succesfully!!!");
-		return "redirect:/secure/admin/post";
+		return "redirect:/secure/admin/post/1";
 	}
 	
 	@RequestMapping(value="/secure/admin/post/delete" , method = {RequestMethod.DELETE, RequestMethod.GET} )
 	public String deletePost(Integer id,RedirectAttributes redirectAttribute) {
 		postService.deleteById(id);
 		redirectAttribute.addFlashAttribute("deleteMessage", "Post deleted succesfully!!!");
-		return "redirect:/secure/admin/post";
+		return "redirect:/secure/admin/post/1";
 	}
 	
 	@RequestMapping("/secure/admin/post/findById")
@@ -154,7 +164,7 @@ public class AdminController {
 	public String update(Post post, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		postService.save(post,file);
 		redirectAttribute.addFlashAttribute("successMessage", "Post eddited succesfully!!!");
-		return "redirect:/secure/admin/post";
+		return "redirect:/secure/admin/post/1";
 	}
 	
 }

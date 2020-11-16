@@ -68,5 +68,11 @@ public class PostService {
 	
 	public Optional<Post> finfById(Integer id){
 		return postRepository.findById(id);
-	}	
+	}
+	
+	public Page<Post> listAll(int pageNum) {
+	    int pageSize = 6;
+	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+	    return postRepository.findAll(pageable);
+	}
 }

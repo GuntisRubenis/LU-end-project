@@ -12,5 +12,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 	
 	@Query("SELECT p FROM Post p WHERE p.title LIKE %?1%")
 	public Page<Post> findAll(String Keyword,Pageable pageable);
+	
 
 }

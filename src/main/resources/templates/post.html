@@ -66,6 +66,12 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="paging">
+				<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+				    <a th:if="${currentPage != i}" th:href="@{'/secure/admin/post/' + ${i}}">[[${i}]]</a>
+				    <span class="pagging-disabled" th:unless="${currentPage != i}">[[${i}]]</span>
+				</span>
+			</div>
 		</div>
 	</div>
 <footer>
