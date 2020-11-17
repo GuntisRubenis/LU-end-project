@@ -1,4 +1,5 @@
 package com.endProject.footballClubApplication;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Post;
@@ -104,7 +107,8 @@ public class MainPageController {
 	}
 	
 	@RequestMapping(value="/userProfile/update", method = {RequestMethod.POST, RequestMethod.GET})
-	public String updateUser(@Valid User user,@RequestParam("role") Integer roleId) {
+	public String updateUser(@Valid User user,@RequestParam("role") Integer roleId, 
+			@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
 		//set user role 
 				Optional<Role> role = roleService.finfById(roleId);
 				if(role.isPresent()) {
@@ -114,14 +118,15 @@ public class MainPageController {
 				if(databaseUser.isPresent()) {
 					user.setPassword(databaseUser.get().getPassword());
 				}
-				customUserDetailsService.save(user);
+				customUserDetailsService.save(user,file);
 		return "redirect:/userProfile";
 	}
 	
 	@RequestMapping(value="/userProfile/changePassword", method = {RequestMethod.POST, RequestMethod.GET})
 	public String changePassword(@RequestParam("password") String newPassword, @RequestParam("id") Integer userId,
 			@RequestParam("oldPassword") String oldPassword,
-			@RequestParam("confirmPassword") String confirmPassword) {
+			@RequestParam("confirmPassword") String confirmPassword,
+			RedirectAttributes redirectAttribute) {
 		Optional<User> user = customUserDetailsService.findById(userId);
 		if(user.isPresent()) {
 			
@@ -132,13 +137,15 @@ public class MainPageController {
 					newUser.setPassword(pwd);
 					customUserDetailsService.save(newUser);
 				}else {
-					System.out.println("Password dont match");
+					redirectAttribute.addFlashAttribute("deleteMessage", "Passwords dont match!!");
+					return "redirect:/userProfile";
 				}
 			}else {
-				System.out.println("Old pwd dont match");
+				redirectAttribute.addFlashAttribute("deleteMessage", "Old password dont match!!");
+				return "redirect:/userProfile";
 			}
 		}
-		
+		redirectAttribute.addFlashAttribute("successMessage", "Password changed succesfully!!");
 		return "redirect:/userProfile";
 	}
 

@@ -22,16 +22,16 @@
 			<form th:action="@{/secure/admin/post/addPost}" method="post" enctype="multipart/form-data">
 				<div style=display:none class="form-div">
 						<label>User</label>
-						<input  type="text" name="userId" th:value="${user.id}">
+						<input  type="text" name="userId" th:value="${user.id}" readonly>
 				</div>
 				<div class="form-div">
 						<label>Title</label>
 						<input  type="text" name="title" required pattern="[a-zA-Z\s]{4,50}" 
-							   title="Name should be 4-50 character long" >
+							   title="Name should be 4-50 character long, contain big and small letters">
 				</div>
 				<div class="form-div">
 						<label>Description</label>
-						<textarea rows="6" cols="50" name="description" required="required" pattern="[]{2,5000}" 
+						<textarea rows="6" cols="50" name="description" required="required" minlength="2" maxlength="5000" 
 							   title="Description should be 4-5000 character long"></textarea>
 				</div>
 				<div class="form-div">

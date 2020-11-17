@@ -13,86 +13,156 @@
 	</header>
 	<div class="admin-main-container">
 		<div class="admin-tittle1-div">
-			<h1 class="tittle">Edit profile</h1>
+			
 		</div>
 		<div class="admin-tittle2-div">
-			<h1 class="tittle">Change password</h1>
+			
 		</div>
 		<div class="admin-side1-div">
-			<form class="user-form" th:action="@{/userProfile/update}" method="post" th:object="${user}">
-				<div style=display:none class="form-div">
-						<label>Id</label>
-						<input th:field="${user.id}" readonly>
-				</div>
-				<div class="form-div">
-						<label>UserName</label>
-						<input th:field="${user.username}" required="required" pattern="[a-zA-Z0-9]{4,25}" 
-							   title="Username should be 4-25 character long">
-				</div>
-				<div class="form-div">
-						<label>Name</label>
-						<input  th:field="${user.name}" required="required" pattern="[a-zA-Z_]{2,25}" 
-							   title="Name should be 4-25 character long">
-						
-				</div>
-				<div class="form-div">
-						<label>Surname</label>
-						<input  th:field="${user.surname}" required="required" pattern="[a-zA-Z_]{2,25}" 
-							   title="Surname should be 4-25 character long">
-						
-				</div>
-				<div class="form-div">
-						<label>Phone</label>
-						<input  th:field="${user.phone}" pattern="[0-9]{8,15}" 
-							   title="Phone number should contain only numbers and be 8-15 long">
-				</div>
-				<div class="form-div">
-						<label>Email</label>
-						<input th:field="${user.email}">
-						
-				</div>
-				<div style=display:none class="form-div">
-						<label>Role</label>
-						<input name="role" th:value="${user.roles.get(0).id}" readonly>
-				</div>
-				
-				<div class="form-buttons">
-					<button class="modalSaveButton" type="submit">Save</button>
-					<input class="clear-button" type="button" value="Clear" id="clear-button"/>
-				</div>
-			</form>
+			<div class="profile-pic">
+				<img  th:src="@{'/img/users/' + ${user.id} +'.jpg'}" width="80%" height="auto">
+			</div>
+			<div class="profile-buttons">
+				<a id="addButton">Edit</a>
+				<a id="passwordButton">Change password</a>
+			</div>
+			<div>
+				<span class="success" th:text="${successMessage}"></span>
+				<span class="delete" th:text="${deleteMessage}"></span>
+			</div>
 		</div>
 		<div class="admin-center1-div">
-			<form class="user-form" th:action="@{/userProfile/changePassword}" method="post" th:object="${user}">
-				<div style=display:none class="form-div">
-						<label>Id</label>
-						<input th:field="${user.id}">
-				</div>
-				<div class="form-div">
-						<label id="password-label">Old Password</label>
-						<input id="passwordEdit" type="password" name="oldPassword">
-						<span class="errors" th:text="${password}"></span>
-				</div>
-				<div class="form-div">
-						<label id="password-label">New Password</label>
-						<input id="passwordEdit" type="password" name="password" required pattern="[a-zA-Z0-9]{4,25}" 
-							   title="Password should be 4-25 character long">
-						<span class="errors" th:text="${password}"></span>
-				</div>
-				<div class="form-div">
-						<label>Confirm Password</label>
-						<input  type="password" name="confirmPassword" required>
-						<span class="errors" th:text="${password}"></span>
-				</div>
-				<div class="form-buttons">
-					<button class="modalSaveButton" type="submit">Save</button>
-				</div>
-			</form>
+			<div class="profile-info-div">
+				<span>Name:</span>
+				<span th:text="${user.name}"></span>
+			</div>
+			<div class="profile-info-div">
+				<span>Surname:</span>
+				<span th:text="${user.surname}"></span>
+			</div>
+			<div class="profile-info-div">
+				<span>Age:</span>
+				<span th:text="${user.age}"></span>
+			</div>
+			<div class="profile-info-div">
+				<span>Phone:</span>
+				<span th:text="${user.phone}"></span>
+			</div>
+			<div class="profile-info-div">
+				<span>Email:</span>
+				<span th:text="${user.email}"></span>
+			</div>
 		</div>
 	</div>
+	
 <footer>
 	<div th:replace="fragments/footer :: footer"></div>
 </footer>
 
+<!--Add new modal start  -->
+	<div id="addModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Edit profile</h3>
+			</div>
+			<div class="modal-body">
+				<form class="user-form" th:action="@{/userProfile/update}" method="post" th:object="${user}" enctype="multipart/form-data">
+					<div style=display:none class="form-div">
+							<label>Id</label>
+							<input th:field="${user.id}" readonly>
+					</div>
+					<div class="form-div">
+							<label>UserName</label>
+							<input th:field="${user.username}" required="required" pattern="[a-zA-Z0-9]{4,25}" 
+								   title="Username should be 4-25 character long">
+					</div>
+					<div class="form-div">
+							<label>Name</label>
+							<input  th:field="${user.name}" required="required" pattern="[a-zA-Z_]{2,25}" 
+								   title="Name should be 4-25 character long">
+							
+					</div>
+					<div class="form-div">
+							<label>Surname</label>
+							<input  th:field="${user.surname}" required="required" pattern="[a-zA-Z_]{2,25}" 
+								   title="Surname should be 4-25 character long">
+							
+					</div>
+					<div class="form-div">
+							<label>Age</label>
+							<input  th:field="${user.age}" pattern="[0-9]{1,2}" 
+								   title="Age should contain only numbers and be 1-2 long">
+					</div>
+					<div class="form-div">
+							<label>Phone</label>
+							<input  th:field="${user.phone}" pattern="[0-9]{8,15}" 
+								   title="Phone number should contain only numbers and be 8-15 long">
+					</div>
+					<div class="form-div">
+							<label>Email</label>
+							<input th:field="${user.email}">
+							
+					</div>
+					<div style=display:none class="form-div">
+							<label>Role</label>
+							<input name="role" th:value="${user.roles.get(0).id}" readonly>
+					</div>
+					<div class="form-div">
+							<label>Select image:</label>
+							<input type="file" id="photo" name="file" accept="images/jpeg">
+					</div>
+					<div class="form-buttons">
+						<button class="modalSaveButton" type="submit">Save</button>
+						<input class="clear-button" type="button" value="Clear" id="clear-button"/>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Add new modal end -->
+
+<!--Change password start  -->
+	<div id="passwordModal" class="modal">
+		<div class="modalContent">
+			<div class="modal-header">
+				<span class="modalCloseButton">&times;</span>
+				<h3>Change password</h3>
+			</div>
+			<div class="modal-body">
+				<form class="user-form" th:action="@{/userProfile/changePassword}" method="post" th:object="${user}">
+					<div style=display:none class="form-div">
+							<label>Id</label>
+							<input th:field="${user.id}">
+					</div>
+					<div class="form-div">
+							<label id="password-label">Old Password</label>
+							<input  type="password" name="oldPassword">
+							<span class="errors" th:text="${password}"></span>
+					</div>
+					<div class="form-div">
+							<label id="password-label">New Password</label>
+							<input  type="password" name="password" required pattern="[a-zA-Z0-9]{4,25}" 
+								   title="Password should be 4-25 character long">
+							<span class="errors" th:text="${password}"></span>
+					</div>
+					<div class="form-div">
+							<label>Confirm Password</label>
+							<input  type="password" name="confirmPassword" required>
+							<span class="errors" th:text="${password}"></span>
+					</div>
+					<div class="form-buttons">
+						<button class="modalSaveButton" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+<!--Change password end -->
+<script src="/js/userProfile.js"></script>
 </body>
 </html>

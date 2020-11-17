@@ -28,7 +28,7 @@ public class TournamentService {
 	}
 	
 	public Page<Tournament> listAll(int pageNum, String keyword) {
-	    int pageSize = 1;
+	    int pageSize = 2;
 	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 	    if(keyword != null) {
 	    	return tournamentRepository.findAll(keyword, pageable);
