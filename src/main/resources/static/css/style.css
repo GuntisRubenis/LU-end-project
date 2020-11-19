@@ -187,13 +187,21 @@ header p a {
 
 .header1{
 	background: #333333;
+	display: flex;
+	flex-direction: row;
 }
 
+.main-page-title{
+	flex-grow: 8;
+}
+
+.header-profile-div{
+	flex-grow: 0.3;
+}
 
 
 .header2{
 	background: #333333;
-	
 }
 
 /*Dropdown menu*/
@@ -847,6 +855,7 @@ footer{
 	margin: 10px;
 	padding: 10px;
 }
+
 
 
 

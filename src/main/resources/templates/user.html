@@ -25,6 +25,7 @@
 						<input th:field="${user.username}" required="required" pattern="[a-zA-Z0-9]{4,25}" 
 							   title="Username should be 4-25 character long">
 				</div>
+				<span class="delete" th:text="${error}"></span>
 				<div class="form-div">
 						<label>Name</label>
 						<input  th:field="${user.name}" required="required" pattern="[a-zA-Z_]{2,25}" 

@@ -71,11 +71,22 @@ public class AdminController {
 	
 	@PostMapping("/secure/admin/user/addUser")
 	public String addUser (@Valid  User user, Errors errors, @RequestParam("role") Integer roleId,
-			@RequestParam("confirmPassword") String confirmPassword, Model model ) {
+			@RequestParam("confirmPassword") String confirmPassword, Model model,
+			RedirectAttributes redirectAtribute) {
 		Optional<Role> role = roleService.finfById(roleId);
 		// find role and add it to user
 		if(role.isPresent()) {
 			user.getRoles().add(role.get());
+		}
+		//check if username already exists in system
+		String username = user.getUsername();
+		List<User> users = customUserDetailService.findAll();
+		for (User u:users) {
+			if (u.getUsername().equals(username)) {
+				redirectAtribute.addFlashAttribute("error", "Username already exists, chose diferent one");
+				
+				return "redirect:/secure/admin/user";
+			}
 		}
 		//get password and check if it equals confirm password
 		String password = user.getPassword();

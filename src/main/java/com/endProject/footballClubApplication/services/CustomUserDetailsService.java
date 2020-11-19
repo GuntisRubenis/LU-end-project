@@ -21,6 +21,7 @@ import com.endProject.footballClubApplication.repositories.UserRepository;
 public class CustomUserDetailsService implements UserDetailsService {
 	
 	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\users\\";
+	//String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\";
 	@Autowired
 	private UserRepository userRepository;
 	
