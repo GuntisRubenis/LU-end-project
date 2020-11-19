@@ -45,7 +45,7 @@
 							<a th:text ="${training.team.teamName}" th:href = "@{/rest/training/trainingDetails/(id=${training.id})}"></a>
 						</td>
 						<td th:text="${training.description}"></td>
-						<td th:text="${training.date}"></td>
+						<td th:text="${#dates.format(training.date, 'dd-MMM-yyyy')}"></td>
 						<td sec:authorize= "hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" class="button-group">
 							<a class="edit-button" th:href="@{/rest/training/findById/(id=${training.id})}">Edit</a>
 							<a class="attendance-button" th:href="@{/rest/training/attendance/(id=${training.id})}">Attendance</a>
@@ -77,7 +77,7 @@
 				<form th:action="@{/rest/training/addNew}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Description</label>
-						<input type="text"  name="description" required pattern="{4,50}" 
+						<input type="text"  name="description" required minlength="4" maxlength="50" 
 							   title="Description should be 4-50 characters">
 					</div>
 					<div class="form-div">
@@ -122,7 +122,7 @@
 					</div>
 					<div class="form-div">
 						<label>Description</label>
-						<input type="text" id="descriptionEdit"  name="description" required pattern="{4,50}" 
+						<input type="text" id="descriptionEdit"  name="description" required minlength="4" maxlength="50" 
 							   title="Description should be 4-50 characters">
 					</div>
 					<div class="form-div">

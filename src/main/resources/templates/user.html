@@ -23,19 +23,19 @@
 				<div class="form-div">
 						<label>UserName</label>
 						<input th:field="${user.username}" required="required" pattern="[a-zA-Z0-9]{4,25}" 
-							   title="Username should be 4-25 character long">
+							   title="Username should be 4-25 character long and contain only big, small letters and numbers">
+						<span class="delete" th:text="${error}"></span>
 				</div>
-				<span class="delete" th:text="${error}"></span>
 				<div class="form-div">
 						<label>Name</label>
-						<input  th:field="${user.name}" required="required" pattern="[a-zA-Z_]{2,25}" 
-							   title="Name should be 4-25 character long">
+						<input  th:field="${user.name}" required="required" pattern="[a-zA-Z\s]{2,25}" 
+							   title="Name should be 4-25 character long and contain only big and small letters">
 						
 				</div>
 				<div class="form-div">
 						<label>Surname</label>
-						<input  th:field="${user.surname}" required="required" pattern="[a-zA-Z_]{2,25}" 
-							   title="Surname should be 4-25 character long">
+						<input  th:field="${user.surname}" required="required" pattern="[a-zA-Z\s]{2,25}" 
+							   title="Surname should be 4-25 character long and contain only big and small letters">
 						
 				</div>
 				<div class="form-div">
@@ -50,7 +50,7 @@
 				</div>
 				<div class="form-div">
 						<label>Role</label>
-						<select name="role">
+						<select required="required" name="role">
 							<option th:each="role:${roles}"
 							th:value="${role.id}"
 							th:text="${role.role}"></option>
@@ -118,22 +118,25 @@
 				</div>
 				<div class="form-div">
 						<label>UserName</label>
-						<input id="userNameEdit" th:field="${user.username}">
+						<input id="userNameEdit" th:field="${user.username}" readonly>
 						
 				</div>
 				<div class="form-div">
 						<label>Name</label>
-						<input id="nameEdit" th:field="${user.name}" required >
+						<input id="nameEdit" th:field="${user.name}" required="required" pattern="[a-zA-Z\s]{2,25}" 
+							   title="Name should be 4-25 character long and contain only big and small letters" >
 						
 				</div>
 				<div class="form-div">
 						<label>Surname</label>
-						<input id="surnameEdit" th:field="${user.surname}" required>
+						<input id="surnameEdit" th:field="${user.surname}" required="required" pattern="[a-zA-Z\s]{2,25}" 
+							   title="Surname should be 4-25 character long and contain only big and small letters">
 						
 				</div>
 				<div class="form-div">
 						<label>Phone</label>
-						<input id="phoneEdit" th:field="${user.phone}">
+						<input id="phoneEdit" th:field="${user.phone}" pattern="[0-9]{8,15}" 
+							   title="Phone number should contain only numbers and be 8-15 long">
 				</div>
 				<div class="form-div">
 						<label>Email</label>

@@ -37,7 +37,7 @@
 						</tr>
 						<tr >
 							<td><h3 >Date:</h3></td>
-							<td><h4 th:text="${tournament.date}"></h4></td>
+							<td><h4 th:text="${#dates.format(tournament.date, 'dd-MMM-yyyy')}"></h4></td>
 						</tr>
 					</tbody>
 				</table>

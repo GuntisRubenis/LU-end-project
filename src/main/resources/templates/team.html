@@ -92,7 +92,7 @@
 					</div>
 					<div class="form-div">
 						<label>Select image:</label>
-						<input type="file" id="photo" name="file" accept="images/jpeg">
+						<input required="required" type="file" id="photo" name="file" accept="images/jpeg">
 					</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>
@@ -126,7 +126,6 @@
 					<div class="form-div">
 						<label>Coach</label>
 						<select name="coachId" id="coachIdEdit" required>
-							<option>Select Coach</option>
 							<option th:each="coach:${coaches}"
 							th:value="${coach.id}"
 							th:text="${coach.name}+' '+${coach.surname}">
@@ -135,7 +134,6 @@
 					<div class="form-div">
 						<label>Assistant Coach</label>
 						<select name="assistantCoachId" id="assistantCoachIdEdit" required>
-							<option>Select Coach</option>
 							<option th:each="coach:${coaches}"
 							th:value="${coach.id}"
 							th:text="${coach.name}+' '+${coach.surname}">

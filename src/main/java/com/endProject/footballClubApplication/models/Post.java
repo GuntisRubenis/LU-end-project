@@ -2,6 +2,7 @@ package com.endProject.footballClubApplication.models;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -31,6 +33,9 @@ public class Post {
 	
 	private String description;
 	
+	@DateTimeFormat( pattern = "yyyy-MM-dd")
+	private Date date;
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne
 	@JoinColumn(name="userId", insertable=false, updatable=false)
@@ -41,12 +46,17 @@ public class Post {
 		
 	}
 
-	public Post(Integer id, String title, String description) {
+	public Post(Integer id, String title, String description, Date date, User user, Integer userId) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
+		this.date = date;
+		this.user = user;
+		this.userId = userId;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -87,6 +97,15 @@ public class Post {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 	
 
 }

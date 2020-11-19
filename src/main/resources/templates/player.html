@@ -82,12 +82,12 @@
 					<div class="form-div">
 						<label>Name</label>
 						<input type="text" name="name" required pattern="[a-zA-Z\s]{2,25}" 
-							   title="Name should be 2-25 character long">
+							   title="Name should be 2-25 character long and contain only big and small letters">
 					</div>
 					<div class="form-div">
 						<label>Surname</label>
 						<input type="text" name="surname" required pattern="[a-zA-Z\s]{2,25}" 
-							   title="Surname should be 2-25 character long">
+							   title="Surname should be 2-25 character long and contain only big and small letters">
 					</div>
 					<div class="form-div">
 						<label>Age</label>
@@ -106,7 +106,7 @@
 					<div class="form-div">
 					<label>Position</label>
 						<select name="position">
-							<option>Select Position</option>
+							<option>Select</option>
 							<option>Striker</option>
 							<option>Midlfielder</option>
 							<option>Defender</option>
@@ -116,7 +116,7 @@
 					<div class="form-div">
 					<label>Alternate Position</label>
 						<select name="alternatePosition" >
-							<option>Select Position</option>
+							<option>Select</option>
 							<option>Striker</option>
 							<option>Midlfielder</option>
 							<option>Defender</option>
@@ -167,13 +167,13 @@
 					</div>
 					<div class="form-div">
 						<label>Name</label>
-						<input type="text" id="nameEdit" name="name" required pattern="[a-zA-Z_]{2,25}" 
-							   title="Name should be 2-25 character long">
+						<input type="text" id="nameEdit" name="name" required pattern="[a-zA-Z\s]{2,25}" 
+							   title="Name should be 2-25 character long and contain only big and small letters">
 					</div>
 					<div class="form-div">
 						<label>Surname</label>
-						<input type="text" id="surnameEdit" name="surname" required pattern="[a-zA-Z_]{2,25}" 
-							   title="Surname should be 2-25 character long">
+						<input type="text" id="surnameEdit" name="surname" required pattern="[a-zA-Z\s]{2,25}" 
+							   title="Surname should be 2-25 character long and contain only big and small letters">
 					</div>
 					<div class="form-div">
 						<label>Age</label>
@@ -192,7 +192,7 @@
 					<div class="form-div">
 					<label>Position</label>
 						<select name="position" id="positionEdit">
-							<option>Select Position</option>
+							<option>Select</option>
 							<option>Striker</option>
 							<option>Midlfielder</option>
 							<option>Defender</option>
@@ -202,7 +202,7 @@
 					<div class="form-div">
 					<label>Alternate Position</label>
 						<select name="alternatePosition" id="alternatePositionEdit">
-							<option>Select Position</option>
+							<option>Select</option>
 							<option>Striker</option>
 							<option>Midlfielder</option>
 							<option>Defender</option>
@@ -220,7 +220,6 @@
 					<div class="form-div">
 						<label>Team</label>
 						<select required id="teamIdEdit" name="teamId">
-							<option>Select Team</option>
 							<option th:each="team:${teams}"
 							th:value="${team != null} ? ${team.id} : 'null'"
 							th:text ="${team != null} ? ${team.teamName} : '-'">

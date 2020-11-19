@@ -813,10 +813,10 @@ footer{
 
 .post-li a{
 	color: #f4f4f4;
-	/*border-right: 1px solid #f4f4f4;*/
 	padding: 5px;  
 	
 }
+
 
 .post-li a:hover{
 	background-color: gray; 
@@ -828,6 +828,7 @@ footer{
 	display:flex;
 }
 
+/*User profile page*/
 .profile-pic {
 	background-color: #f4f4f4;
 }

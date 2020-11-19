@@ -81,13 +81,13 @@
 				<form th:action="@{/rest/coach/addNew}" method="post" enctype="multipart/form-data">
 					<div class="form-div">
 						<label>Name</label>
-						<input type="text"  name="name" required pattern="[a-zA-Z_]{2,25}" 
-							   title="Name should be 2-25 character long">
+						<input type="text"  name="name" required pattern="[a-zA-Z\s]{2,25}" 
+							   title="Name should be 2-25 character long and contain only big and small letters">
 					</div>
 					<div class="form-div">
 						<label>Surname</label>
-						<input type="text"  name="surname" required pattern="[a-zA-Z_]{2,25}" 
-							   title="Surname should be 2-25 character long">
+						<input type="text"  name="surname" required pattern="[a-zA-Z\s]{2,25}" 
+							   title="Surname should be 2-25 character long and contain only big and small letters">
 					</div>
 					<div class="form-div">
 						<label>Age</label>
@@ -142,13 +142,13 @@
 					</div>
 					<div class="form-div">
 						<label>Name</label>
-						<input type="text" id="nameEdit" name="name" required pattern="[a-zA-Z_]{2,25}" 
-							   title="Name should be 2-25 character long">
+						<input type="text" id="nameEdit" name="name" required pattern="[a-zA-Z\s]{2,25}" 
+							   title="Name should be 2-25 character long and contain only big and small letters">
 					</div>
 					<div class="form-div">
 						<label>Surname</label>
-						<input type="text" id="surnameEdit" name="surname" required pattern="[a-zA-Z_]{2,25}" 
-							   title="Surname should be 2-25 character long">
+						<input type="text" id="surnameEdit" name="surname" required pattern="[a-zA-Z\s]{2,25}" 
+							   title="Surname should be 2-25 character long and contain only big and small letters">
 					</div>
 					<div class="form-div">
 						<label>Age</label>

@@ -20,8 +20,8 @@ for (const button of editButtons){
 				var user = JSON.parse(request.responseText);
 				console.log(user.username);
 				//get elements by id and assign each value to be displayed
-				document.querySelectorAll('.user-form')[0].action = '/secure/admin/user/update'	
-				document.querySelectorAll('.tittle')[0].innerHTML = 'Edit user';
+				//document.querySelectorAll('.user-form')[0].action = '/secure/admin/user/update'	
+				//document.querySelectorAll('.tittle')[0].innerHTML = 'Edit user';
 				document.querySelector('#idEdit').value = user.id;
 				document.querySelector('#userNameEdit').value = user.username;
 				document.querySelector('#nameEdit').value = user.name;

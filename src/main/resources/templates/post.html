@@ -32,7 +32,11 @@
 				<div class="form-div">
 						<label>Description</label>
 						<textarea rows="6" cols="50" name="description" required="required" minlength="2" maxlength="5000" 
-							   title="Description should be 4-5000 character long"></textarea>
+							   title="Description should be 2-5000 character long"></textarea>
+				</div>
+				<div class="form-div">
+						<label>Date</label>
+						<input required="required" type="date"  name="date">
 				</div>
 				<div class="form-div">
 					<label>Select image:</label>
@@ -51,6 +55,7 @@
 					<tr>
 						<th>Title</th>
 						<th>Author</th>
+						<th>Date</th>
 						<th>Options</th>
 					</tr>
 					<tr th:each="post : ${posts}">
@@ -59,6 +64,7 @@
 							<span th:if="${post.user == null}">UNKNOWN</span>
 							<span th:unless="${post.user == null}" th:text="${post.user.getUsername()}"></span>
 						</td>
+						<td th:text="${#dates.format(post.date, 'dd-MMM-yyyy')}"></td>
 						<td sec:authorize="hasRole('ROLE_ADMIN')" class="button-group">
 							<a class="edit-button" th:href="@{/secure/admin/post/findById/(id=${post.id})}">Edit</a>
 							<a class="delete-button" th:href="@{/secure/admin/post/delete/(id=${post.id})}" >Delete</a>
@@ -98,8 +104,12 @@
 					</div>
 					<div class="form-div">
 						<label>Description</label>
-						<textarea id="descriptionEdit" rows="6" cols="50" name="description" required pattern="[]{2,25}" 
-							   title="Description should be 4-5000 character long"></textarea>
+						<textarea id="descriptionEdit" rows="6" cols="50" name="description" required="required" minlength="2" maxlength="5000" 
+							   title="Description should be 2-5000 character long"></textarea>
+					</div>
+					<div class="form-div">
+						<label>Date</label>
+						<input required="required" type="date"  name="date">
 					</div>
 					<div class="form-div">
 						<label>Select file:</label>

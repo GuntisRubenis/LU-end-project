@@ -74,19 +74,18 @@
 					</div>
 					<div class="form-div">
 							<label>UserName</label>
-							<input th:field="${user.username}" required="required" pattern="[a-zA-Z0-9]{4,25}" 
-								   title="Username should be 4-25 character long">
+							<input th:field="${user.username}" readonly="readonly">
 					</div>
 					<div class="form-div">
 							<label>Name</label>
-							<input  th:field="${user.name}" required="required" pattern="[a-zA-Z_]{2,25}" 
-								   title="Name should be 4-25 character long">
+							<input  th:field="${user.name}" required="required" pattern="[a-zA-Z\s]{2,25}" 
+								   title="Name should be 2-25 character long and contain only big and small letters">
 							
 					</div>
 					<div class="form-div">
 							<label>Surname</label>
-							<input  th:field="${user.surname}" required="required" pattern="[a-zA-Z_]{2,25}" 
-								   title="Surname should be 4-25 character long">
+							<input  th:field="${user.surname}" required="required" pattern="[a-zA-Z\s]{2,25}" 
+								   title="Surname should be 2-25 character long and contain only big and small letters">
 							
 					</div>
 					<div class="form-div">
@@ -139,18 +138,19 @@
 					</div>
 					<div class="form-div">
 							<label id="password-label">Old Password</label>
-							<input  type="password" name="oldPassword">
+							<input required="required"  type="password" name="oldPassword">
 							<span class="errors" th:text="${password}"></span>
 					</div>
 					<div class="form-div">
 							<label id="password-label">New Password</label>
 							<input  type="password" name="password" required pattern="[a-zA-Z0-9]{4,25}" 
-								   title="Password should be 4-25 character long">
+								   title="Password should be 4-25 character long and contain only big, small letters and numbers">
 							<span class="errors" th:text="${password}"></span>
 					</div>
 					<div class="form-div">
 							<label>Confirm Password</label>
-							<input  type="password" name="confirmPassword" required>
+							<input  type="password" name="confirmPassword" required pattern="[a-zA-Z0-9]{4,25}" 
+								   title="Password should be 4-25 character long and contain only big, small letters and numbers">
 							<span class="errors" th:text="${password}"></span>
 					</div>
 					<div class="form-buttons">

@@ -38,6 +38,7 @@
 						<li>
 							<div class="post-li">
 								<a  th:text = "${post.title}"  th:href="@{/publicPost/postDetails/(id=${post.id})}"></a>
+								<span><a th:text="${#dates.format(post.date, 'dd-MMM-yyyy')}"></a></span>
 							</div>
 						</li>	
 					</ul>
