@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,6 +59,9 @@ public class AdminController {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	
+	
 	
 	@RolesAllowed("ADMIN")
 	@RequestMapping("/secure/admin/user")
@@ -129,7 +133,29 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/secure/admin/user/delete" , method = {RequestMethod.DELETE, RequestMethod.GET} )
-	public String deleteUser(Integer id) {
+	public String deleteUser(Integer id, RedirectAttributes redirectAttribute) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = customUserDetailService.findByUserName(auth.getName());
+		List<User> users = customUserDetailService.findAll();
+		//check if user is not last administrator in system
+		if (id == user.getId() && user.getRoles().get(0).getRole().equals("ADMIN")) {
+			int adminCount = 0;
+			for (User u :users) {
+				if (u.getRoles().get(0).getRole().equals("ADMIN")) {
+					adminCount++;
+				}
+			}
+			if (adminCount == 1) {
+				redirectAttribute.addFlashAttribute("adminError", "Canot delete this user,because it is last admin!!!");
+				return "redirect:/secure/admin/user";
+			}
+			
+		}
+		// logout user if he is deleting his profile
+		if (id == user.getId()) {
+			customUserDetailService.deleteById(id);
+			return "redirect:/logout";
+		}
 		customUserDetailService.deleteById(id);
 		return "redirect:/secure/admin/user";
 	}

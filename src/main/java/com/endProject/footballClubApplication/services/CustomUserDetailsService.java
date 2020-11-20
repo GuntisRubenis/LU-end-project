@@ -20,8 +20,8 @@ import com.endProject.footballClubApplication.repositories.UserRepository;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 	
-	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\users\\";
-	//String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\";
+	//String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\users\\";
+	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\users\\";
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -75,7 +75,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		 }
 	}
 	
-	//delete training by id and delete file if such file exists
+	//delete user by id and delete file if such file exists
 		public void deleteById(Integer id) {
 				//check if file exists in our directory and delete it
 				File file = new File(PATH+id+".jpg");

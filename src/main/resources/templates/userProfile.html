@@ -20,7 +20,7 @@
 		</div>
 		<div class="admin-side1-div">
 			<div class="profile-pic">
-				<img  th:src="@{'/img/users/' + ${user.id} +'.jpg'}" width="80%" height="auto">
+				<img  th:src="@{'/uploads/users/' + ${user.id} +'.jpg'}" width="80%" height="auto">
 			</div>
 			<div class="profile-buttons">
 				<a id="addButton">Edit</a>
@@ -144,13 +144,13 @@
 					<div class="form-div">
 							<label id="password-label">New Password</label>
 							<input  type="password" name="password" required pattern="[a-zA-Z0-9]{4,25}" 
-								   title="Password should be 4-25 character long and contain only big, small letters and numbers">
+								   title="Password should be 4-25 character long and contain only big,small letters and numbers">
 							<span class="errors" th:text="${password}"></span>
 					</div>
 					<div class="form-div">
 							<label>Confirm Password</label>
 							<input  type="password" name="confirmPassword" required pattern="[a-zA-Z0-9]{4,25}" 
-								   title="Password should be 4-25 character long and contain only big, small letters and numbers">
+								   title="Password should be 4-25 character long and contain only big,small letters and numbers">
 							<span class="errors" th:text="${password}"></span>
 					</div>
 					<div class="form-buttons">
