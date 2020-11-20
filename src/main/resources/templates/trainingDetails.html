@@ -41,8 +41,8 @@
 					<tr>
 						<td>File:</td>
 						<td>
-							<a href="/img/trainings/+'${training.team.teamName}'+/+ '${training.id}' +.jpg">
-								<img class="min-images" th:src="@{'/img/trainings/'+'${training.team.teamName}'+'/'+ ${training.id} +'.jpg'}" width="40" height="40">
+							<a href="/uploads/trainings/+'${training.team.teamName}'+/+ '${training.id}' +.jpg">
+								<img class="min-images" th:src="@{'/uploads/trainings/'+'${training.team.teamName}'+'/'+ ${training.id} +'.jpg'}" width="40" height="40">
 							</a>
 						</td>
 					</tr>
@@ -61,7 +61,7 @@
 					<tr th:each="player : ${players}">
 						<td >
 							<a class="photo-button" th:href="@{/rest/player/playerDetails/(id=${player.id})}">
-	 							<img class="min-images" th:src="@{'/img/players/' + ${player.id} +'.jpg'}" width="60" height="60">
+	 							<img class="min-images" th:src="@{'/uploads/players/' + ${player.id} +'.jpg'}" width="60" height="60">
 	 						</a>
 						</td>
 						<td th:text="${player.name}"></td>

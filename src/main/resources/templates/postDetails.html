@@ -20,7 +20,7 @@
 			<h1 th:text ="${post.title}"></h1>
 		</div>
 		<div class="individual-side-div">
-			<img class="" th:src="@{'/img/posts/' + ${post.id} +'.jpg'}" width="100%" height="300px">
+			<img class="" th:src="@{'/uploads/posts/' + ${post.id} +'.jpg'}" width="100%" height="300px">
 		</div>
 		<div class="individual-center-div">
 			<p th:text="${post.description}"></p>

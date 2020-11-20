@@ -26,8 +26,8 @@ public class PostService {
 	@Autowired
 	PostRepository postRepository;
 	
-	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\posts\\";
-	
+	//String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\posts\\";
+	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\posts\\";
 	public void save(Post post, MultipartFile file) throws IllegalStateException, IOException {
 		 postRepository.save(post);
 		 // if file is not empty create new directory with teams name

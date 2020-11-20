@@ -30,11 +30,17 @@ public class CoachService {
 	@Autowired
 	CoachRepository coachRepository;
 	
-	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\coaches\\";
+	//String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\coaches\\";
+	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\coaches\\";
 	
 	public void save(Coach coach, MultipartFile file) throws IllegalStateException, IOException {
 		 coachRepository.save(coach);
 		 if(!file.isEmpty()) {
+			 File newDirectory = new File(PATH);
+			 // if directory don`t exist make new directory
+			 if(!newDirectory.exists()) {
+				 newDirectory.mkdir();
+			 }
 			 file.transferTo(new File(PATH+coach.getId()+".jpg"));
 		 }
 	}

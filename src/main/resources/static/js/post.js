@@ -23,6 +23,9 @@ for (const button of editButtons){
 				//get elements by id and assign each value to be displayed
 				document.querySelector('#idEdit').value = post.id;
 				document.querySelector('#descriptionEdit').value = post.description;
+				// cut time portion of date
+				var date = post.date.substr(0,10);
+				document.querySelector('#dateEdit').value = date;
 				document.querySelector('#titleEdit').value = post.title;
 			}
 		}

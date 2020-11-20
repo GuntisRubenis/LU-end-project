@@ -45,7 +45,7 @@
 					<tr th:each="coach : ${coaches}">
 						<td >
 							<a class="photo-button" th:href="@{/rest/coach/coachDetails/(id=${coach.id})}">
-	 							<img class="min-images" th:src="@{'/img/coaches/' + ${coach.id} +'.jpg'}" width="60" height="60">
+	 							<img class="min-images" th:src="@{'/uploads/coaches/' + ${coach.id} +'.jpg'}" width="60" height="60">
 	 						</a>
 						</td>
 						<td th:text="${coach.name}"></td>

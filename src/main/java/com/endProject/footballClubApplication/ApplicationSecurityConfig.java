@@ -32,7 +32,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter  {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http
-		.authorizeRequests().antMatchers("/css/**", "/js/**", "/img/**").permitAll()
+		.authorizeRequests().antMatchers("/css/**", "/js/**", "/img/**","/uploads/**").permitAll()
 		.and()
 		.authorizeRequests()
 		.antMatchers("/","/about","/contacts","/publicPost/**").permitAll()

@@ -26,14 +26,18 @@ public class TrainingService {
 	@Autowired
 	TrainingRepository trainingRepository;
 	
-	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\trainings\\";
-	
+	//String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\trainings\\";
+	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\trainings\\";
 	public void save(Training training, MultipartFile file, String teamName) throws IllegalStateException, IOException {
 		 trainingRepository.save(training);
 		 // if file is not empty create new directory with teams name
 		 if(!file.isEmpty()) {
-			 File newDirectory = new File(PATH+teamName+"\\");
+			 File trainingDirectory = new File(PATH);
 			 // if directory don`t exist make new directory
+			 if(!trainingDirectory.exists()) {
+				 trainingDirectory.mkdir();
+			 }
+			 File newDirectory = new File(PATH+teamName+"\\");
 			 if(!newDirectory.exists()) {
 				 newDirectory.mkdir();
 			 }

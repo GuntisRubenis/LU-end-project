@@ -16,14 +16,19 @@ import com.endProject.footballClubApplication.repositories.TeamRepository;
 @Service 
 public class TeamService {
 	
-	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\teams\\";
-	
+	//String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\teams\\";
+	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\teams\\";
 	@Autowired
 	TeamRepository teamRepository;
 	
 	public void save(Team team, MultipartFile file) throws IllegalStateException, IOException {
 		 teamRepository.save(team);
 		 if(!file.isEmpty()) {
+			 File newDirectory = new File(PATH);
+			 // if directory don`t exist make new directory
+			 if(!newDirectory.exists()) {
+				 newDirectory.mkdir();
+			 }
 			 file.transferTo(new File(PATH+team.getId()+".jpg"));
 		 }
 		 

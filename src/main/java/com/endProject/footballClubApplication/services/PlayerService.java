@@ -23,12 +23,17 @@ public class PlayerService {
 	@Autowired
 	PlayerRepository playerRepository;
 	
-	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\players\\";
-	
+	//String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\footballClubApplication\\src\\main\\resources\\static\\img\\players\\";
+	String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\players\\";
 	public void save(Player player,  MultipartFile file) throws IllegalStateException, IOException {
 		 playerRepository.save(player);
 		 
 		 if(!file.isEmpty()) {
+			 File newDirectory = new File(PATH);
+			 // if directory don`t exist make new directory
+			 if(!newDirectory.exists()) {
+				 newDirectory.mkdir();
+			 }
 			 file.transferTo(new File(PATH+player.getId()+".jpg"));
 		 }
 	}

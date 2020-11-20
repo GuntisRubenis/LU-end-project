@@ -22,7 +22,7 @@
 		
 		<div class="individual-side-div">
 			<a th:href="@{/rest/team/teamDetails/(id=${team.id})}">
-			 	<img class="" th:src="@{'/img/teams/' + ${team.id} +'.jpg'}" width="100%" height="200px">
+			 	<img class="" th:src="@{'/uploads/teams/' + ${team.id} +'.jpg'}" width="100%" height="200px">
 			 </a>
 			 <div class="table-div">
 			 	<table class="custom-table">
@@ -59,7 +59,7 @@
 					<tr th:each="player : ${players}">
 						<td >
 							<a class="photo-button" th:href="@{/rest/player/playerDetails/(id=${player.id})}">
-	 							<img class="min-images" th:src="@{'/img/players/' + ${player.id} +'.jpg'}" width="60" height="60">
+	 							<img class="min-images" th:src="@{'/uploads/players/' + ${player.id} +'.jpg'}" width="60" height="60">
 	 						</a>
 						</td>
 						<td th:text="${player.name}"></td>
