@@ -2,6 +2,7 @@ package com.endProject.footballClubApplication.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,84 @@ public class PlayerService {
 	public List<Player> findAll(){
 		return playerRepository.findAll();
 	}
+	
+	public List<Player> topScorers(){
+		List<Player> topScorers = new ArrayList<Player>();
+		List<Player> players = playerRepository.findAll();
+	
+		for(int i=0; i<=2; i++) {
+			Player highestScorer = new Player();
+
+			if(players.get(0).getAllGoals()>=players.get(1).getAllGoals()) {
+				highestScorer=players.get(0);
+				
+			}else {
+				highestScorer=players.get(1);
+				
+			}
+			for(Player p:players) {
+				if(p.getAllGoals()>highestScorer.getAllGoals() && !p.equals(highestScorer)) {
+					highestScorer=p;
+				}
+			}
+			
+			topScorers.add(highestScorer);
+			players.remove(highestScorer);
+			
+		}
+		
+		return topScorers;
+	}
+	
+	public List<Player> mostAssists(){
+		List<Player> topScorers = new ArrayList<Player>();
+		List<Player> players = playerRepository.findAll();
+		Player highestScorer = new Player();
+		for(int i=0; i<=2; i++) {
+			if(players.get(0).getAllAssists()>=players.get(1).getAllAssists()) {
+				highestScorer=players.get(0);
+				
+			}else {
+				highestScorer=players.get(1);
+				
+			}
+			for(Player p:players) {
+				if(p.getAllAssists()>highestScorer.getAllAssists() && !p.equals(highestScorer)) {
+					highestScorer=p;
+				}
+			}
+			topScorers.add(highestScorer);
+			players.remove(highestScorer);
+			
+		}
+		
+		return topScorers;
+	}
+	
+	public List<Player> mostMinutes(){
+		List<Player> mosMinutes = new ArrayList<Player>();
+		List<Player> players = playerRepository.findAll();
+		Player highestMinutes = new Player();
+		for(int i=0; i<=2; i++) {
+			if(players.get(0).getAllMinutes()>=players.get(1).getAllMinutes()) {
+				highestMinutes=players.get(0);
+				
+			}else {
+				highestMinutes=players.get(1);
+				
+			}
+			for(Player p:players) {
+				if(p.getAllMinutes()>highestMinutes.getAllMinutes() && !p.equals(highestMinutes)) {
+					highestMinutes=p;
+				}
+			}
+			mosMinutes.add(highestMinutes);
+			players.remove(highestMinutes);
+			
+		}
+		
+		return mosMinutes;
+	}
+	
 	
 }

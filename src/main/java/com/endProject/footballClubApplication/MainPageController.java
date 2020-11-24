@@ -26,6 +26,7 @@ import com.endProject.footballClubApplication.models.Post;
 import com.endProject.footballClubApplication.models.Role;
 import com.endProject.footballClubApplication.models.User;
 import com.endProject.footballClubApplication.services.CustomUserDetailsService;
+import com.endProject.footballClubApplication.services.PlayerService;
 import com.endProject.footballClubApplication.services.PostService;
 import com.endProject.footballClubApplication.services.RoleService;
 
@@ -34,21 +35,35 @@ import com.endProject.footballClubApplication.services.RoleService;
 public class MainPageController {
 	
 	@Autowired
-	CustomUserDetailsService customUserDetailsService;
+	private CustomUserDetailsService customUserDetailsService;
 	
 	@Autowired
-	RoleService roleService;
+	private RoleService roleService;
 	
 	@Autowired
-	PostService postService;
+	private PostService postService;
+	
+	@Autowired
+	private PlayerService playerService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+
 	
 	
 	
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String mainPage(Model model) {
+		List<Post> posts = postService.findAll();
+		posts.remove(0);
+		
+		model.addAttribute("mostMinutes", playerService.mostMinutes());
+		model.addAttribute("mostAssists", playerService.mostAssists());
+		model.addAttribute("topScorers", playerService.topScorers());
+		model.addAttribute("posts", posts);
+		model.addAttribute("currentPost", postService.findAll().get(0));
+		
 		return "index"; 
 	}
 	

@@ -14,7 +14,7 @@
 	
 	<section class="main-page-showcase">
 		<div class="container">
-			<h1>Welcome, to Futbola Parks</h1>
+			<h1>Welcome, to Football Club</h1>
 			<p>This is place for some random but , good text from our club to all our clients </p>
 		</div>
 	</section>
@@ -22,51 +22,73 @@
 	<section class="news-showcase">
 		<div class="container">
 			<h1>What`s new</h1>
-			<div class="box">
-					<img alt="lieldienas" src="/img/lieldienas.jpg">
-					<h3>Lieldienu Pasakums</h3>
-					<p>Piedalijamies lieldienu pasakuma</p>
+			<div class="slider">
+				<div class="slide current">
+					<img  th:src="@{'/uploads/posts/' +${currentPost.id}+ '.jpg'}">
+					<div class="content">
+						<h1 th:text="${currentPost.title}"></h1>
+						<p th:text="${currentPost.description}"></p>
+					</div>
 				</div>
-				<div class="box">
-				<img alt="turnirs" src="/img/turnirs.jpg">
-					<h3>Turnirs tallina</h3>
-					<p>Splejam igaunijas trunira, ar labiem panakumiem</p>
+				<div th:each="post:${posts}" class="slide">
+					<img  th:src="@{'/uploads/posts/' +${post.id}+ '.jpg'}">
+					<div class="content">
+						<h1 th:text="${post.title}"></h1>
+						<p th:text="${post.description}"></p>
+					</div>
 				</div>
-				<div class="box">
-					<img alt="nometne" src="/img/nometne.jpg">
-					<h3>Nometne Priekulos</h3>
-					<p>Aizvadita karteja nometne priekulos</p>
-				</div>
-			
+			</div>
+			<div class="navigation-buttons">
+				<button id="next">Next</button>
+				<button id="prev">Prev</button>
+			</div>
 		</div>
 	</section>
 	
 	<section class="players-showcase">
 		<div class="container">
-			<h1>Players of the month</h1>
-				<div class="box">
-					<img alt="ronaldo" src="/img/ronaldo.jpg">
-					<h3>Ronaldo</h3>
-					<p>Juventus</p>
+			<h1>Top Scorers</h1>
+				<div th:each="player: ${topScorers}" class="player-box">
+					<img  th:src="@{'/uploads/players/' +${player.id}+ '.jpg'}">
+					<h3 th:text="${player.name+' '+player.surname}"></h3>
+					<p th:text="'Team: '+${player.team.teamName}"></p>
+					<p th:text="'Position: '+${player.position}"></p>
+					<p th:text="'Golas Scored: '+${player.getAllGoals()}"></p>
+					<p th:text="'Tournaments particpated: '+${player.getStatictics().size()}"></p>
 				</div>
-				<div class="box">
-				<img alt="neymar" src="/img/neymar.jpg">
-					<h3>Neymar</h3>
-					<p>PSG</p>
+		</div>
+		
+		<div class="container">
+			<h1>Most assists</h1>
+				<div th:each="player: ${mostAssists}" class="player-box">
+					<img  th:src="@{'/uploads/players/' +${player.id}+ '.jpg'}">
+					<h3 th:text="${player.name+' '+player.surname}"></h3>
+					<p th:text="'Team: '+${player.team.teamName}"></p>
+					<p th:text="'Position: '+${player.position}"></p>
+					<p th:text="'Assists: '+${player.getAllAssists()}"></p>
+					<p th:text="'Tournaments particpated: '+${player.getStatictics().size()}"></p>
 				</div>
-				<div class="box">
-					<img alt="salah" src="/img/salah.jpg">
-					<h3>Mohamed</h3>
-					<p>Liverpool</p>
+		</div>
+		
+		<div class="container">
+			<h1>Most minutes</h1>
+				<div th:each="player: ${mostMinutes}" class="player-box">
+					<img  th:src="@{'/uploads/players/' +${player.id}+ '.jpg'}">
+					<h3 th:text="${player.name+' '+player.surname}"></h3>
+					<p th:text="'Team: '+${player.team.teamName}"></p>
+					<p th:text="'Position: '+${player.position}"></p>
+					<p th:text="'Total minutes: '+${player.getAllMinutes()}"></p>
+					<p th:text="'Tournaments particpated: '+${player.getStatictics().size()}"></p>
 				</div>
 		</div>
 	</section>
+	
+
 	
 	<footer>
 		<div th:replace="fragments/footer :: footer"></div>
 	</footer>
 	
-	
-	
+<script src="/js/index.js"></script>
 </body>
 </html>

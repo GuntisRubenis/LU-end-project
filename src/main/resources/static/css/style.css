@@ -11,7 +11,7 @@ body {
 
 /*global*/
 .container {
-	width: 80%;
+	width: 70%;
 	margin:auto;
 	overflow: hidden;
 }
@@ -315,37 +315,123 @@ header nav ul li:hover ul {
 	font-size: 55px;
 }
 
-/*news showcase*/
-.news-showcase{
-	border-bottom: #b30000 5px solid;
-}
-.news-showcase .box{
-	float: left;
-	width: 30%;
-	padding: 10px;
-	text-align: center;
+/*news */
+.slider{
+	position: relative;
+	overflow: hidden;
+	height: 100vh;
+	width: 100vw;
+	background-color: black;
 }
 
-.news-showcase .box img{
-	 width:  200px;
-    height: 200px;
-    object-fit: cover;
+.slide{
+	color:white;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition:0.6s ease-in-out;
 }
+
+.slide img{
+	width: 900px;
+	height: 100%;
+}
+
+.slide.current{
+	opacity: 1;
+}
+
+.slide .content {
+	position: absolute;
+	bottom: 50px;
+	left:-600px;
+	opacity:0;
+	width: 600px;
+	background-color: rgba(255,255,255,0.8);
+	color: #333;
+	padding: 35px;
+}
+/*need to check this*/
+.slide.current .content{
+	opacity: 1;
+	transform: translateX(600px);
+	transition: all 0.7s ease-in-out 0.3s;
+}
+
+.navigation-buttons button#next{
+	position: absolute;
+	top: 150%;
+	right: 190px;
+}
+
+.navigation-buttons button#prev{
+	position: absolute;
+	top: 150%;
+	left: 190px;
+}
+
+.navigation-buttons button {
+	color:white;
+	border: 2px solid white;
+	background-color: transparent;
+	cursor: pointer;
+	padding: 8px 8px;
+	border-radius: 50%;
+	outline: none;
+}
+
+.navigation-buttons button:hover {
+	color:black;
+	border: 2px solid white;
+	background-color: white;
+	cursor: pointer;
+	padding: 8px 8px;
+	border-radius: 50%;
+	outline: none;
+}
+
 
 /*players showcase*/
+.players-showcase{
+	
+}
 
-.players-showcase .box{
+.container h1{
+	border-bottom: 2px solid gray;
+}
+.players-showcase .player-box p{
+	padding: 0;
+	margin: 3px;
+	background-color: black;
+	opacity: 0.8;
+	color: white;
+	border-radius: 10px;
+	
+}
+
+.players-showcase .player-box{
 	float: left;
 	width: 30%;
-	padding: 10px;
+	padding:5px;
+	margin:7px;
 	text-align: center;
+	
 }
 
-.players-showcase .box img{
-	 width:  200px;
+.players-showcase .player-box img{
+	width:  200px;
     height: 200px;
     object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 10px 10px;
+    border: 1px solid black;
 }
+
+
+
 
 footer{
 	padding: 20px;
@@ -835,6 +921,8 @@ footer{
 
 .profile-pic img{
 	border-radius: 50px;
+	border:3px solid black;
+	box-shadow: 5px 5px 8px #888888;
 }
 
 .profile-buttons {

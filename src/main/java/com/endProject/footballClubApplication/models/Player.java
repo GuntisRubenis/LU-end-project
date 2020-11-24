@@ -156,4 +156,31 @@ public class Player extends Person{
 		return minutes;
 	}
 	
+	public Integer getAllGoals () {
+		Integer golas = 0;
+		for (Integer i=0; i<statictics.size(); i++) {
+			Statistics stat = statictics.get(i);
+			golas+=stat.getGoals();
+		}
+		return golas;
+	}
+	
+	public Integer getAllAssists () {
+		Integer assists = 0;
+		for (Integer i=0; i<statictics.size(); i++) {
+			Statistics stat = statictics.get(i);
+			assists+=stat.getAssists();
+		}
+		return assists;
+	}
+	
+	public Integer getAllMinutes() {
+		Integer minutes = 0;
+		for (Integer i=0; i<statictics.size(); i++) {
+			Statistics stat = statictics.get(i);
+			minutes+=stat.getMinutes();
+		}
+		return minutes;
+	}
+	
 }

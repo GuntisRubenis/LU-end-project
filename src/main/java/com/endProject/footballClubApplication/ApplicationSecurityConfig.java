@@ -43,7 +43,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter  {
 		.loginPage("/login") //lets use custom login page
 		.permitAll()
 		.and()
-		.logout().logoutRequestMatcher(null).logoutSuccessUrl("/")
+		.logout().logoutRequestMatcher(null).logoutSuccessUrl("/")// redirects to homepage after logout
 		.and().csrf().disable();
 	}
 	
