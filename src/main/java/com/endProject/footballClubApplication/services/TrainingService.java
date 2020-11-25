@@ -2,8 +2,13 @@ package com.endProject.footballClubApplication.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,12 +66,32 @@ public class TrainingService {
 		 trainingRepository.deleteById(id);
 	}
 	
-	public Page<Training> listAll(int pageNum, String keyword) {
-	    int pageSize = 2;
+	public Page<Training> listAllDate(int pageNum, String keyword, String startDate, String endDate) throws ParseException {
+	    int pageSize = 10;
 	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-	    if(keyword != null) {
+	    //check if keyword and dates are entered
+	    if(keyword != null && !keyword.equals("") && startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
+	    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+			//parse string to date
+	    	Date date1 = formatter.parse(startDate);
+			Date date2 = formatter.parse(endDate);
+			System.out.println("Hello dates+keyword");
+	    	return trainingRepository.findAll(keyword, pageable, date1, date2);
+	    }
+	    //check if only dates are entered
+	    if(startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
+	    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+			Date date1 = formatter.parse(startDate);
+			Date date2 = formatter.parse(endDate);
+			System.out.println("Hello dates");
+	    	return trainingRepository.findAll(pageable, date1, date2);
+	    }
+	    // check if only keyword is entered
+	    if(keyword != null && !keyword.equals("")) {
+	    	System.out.println("Hello keyword-> "+ keyword);
 	    	return trainingRepository.findAll(keyword, pageable);
-	    } 
+	    }
+	    System.out.println("Hello all");
 	    return trainingRepository.findAll(pageable);
 	}
 	

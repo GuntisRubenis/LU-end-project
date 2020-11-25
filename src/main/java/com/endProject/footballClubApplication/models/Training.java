@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -36,6 +38,7 @@ public class Training{
 	private String description;
 	
 	@DateTimeFormat( pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date date;
 	
 	@NotFound(action = NotFoundAction.IGNORE)
@@ -58,7 +61,7 @@ public class Training{
 		
 	}
 
-
+	
 
 	public Training(Integer id, String description, Date date, Team team, Integer teamId, List<Player> players) {
 		this.id = id;

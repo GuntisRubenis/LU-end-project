@@ -16,10 +16,17 @@
 		<div class="tittle-div">
 			<h1>Trainings</h1>
 		</div>
-		<div class ="search-div">
+		<div class ="expanded-search-div">
 			<form th:action="@{/rest/training/1}">
 				<label>Search</label>
-				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}"
+				title="Enter team name"/>
+				<label>Start date</label>
+				<input class="search-input" id="search-input" type="date" name="startDate" th:value="${startDate}"
+				title="Enter start date (this will be included)"/>
+				<label>End date</label>
+				<input class="search-input" id="search-input" type="date" name="endDate" th:value="${endDate}"
+				title="Enter end date (this will not be included)"/>
 				
 				<input class="search-button" type="submit" value="Search"/>
 				

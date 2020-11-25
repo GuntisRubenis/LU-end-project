@@ -1,7 +1,9 @@
 package com.endProject.footballClubApplication.controllers;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -44,11 +46,13 @@ public class TrainingController {
 	private PlayerService playerService;
 	
 	@RequestMapping("/rest/training/{pageNum}")
-	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum, @Param("keyword") String keyword) {
+	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum, @Param("keyword") String keyword,
+			@Param("startDate") String startDate, @Param("endDate") String endDate ) throws ParseException {
 	     
-	    Page<Training> page = trainingService.listAll(pageNum,keyword);
+	    Page<Training> page = trainingService.listAllDate(pageNum, keyword, startDate, endDate);
 	     
 	    List<Training> listProducts = page.getContent();
+	    // if pageNum = 0, set totla pages to 1
 	    if (page.getTotalPages() != 0) {
 	    	model.addAttribute("currentPage", pageNum);
 		    model.addAttribute("totalPages", page.getTotalPages());

@@ -280,6 +280,17 @@ header nav ul li:hover ul {
 	grid-row:2/3;
 }
 
+.expanded-search-div{
+	grid-column:1/2;
+	grid-row:2/4;
+	background-color: #e6e6e6;
+	padding: 10px;
+}
+
+.expanded-search-div button{
+	margin-top: 5px;
+}
+
 .table-div{
 	grid-column:2/6;
 	grid-row:2/4;

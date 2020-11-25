@@ -19,7 +19,8 @@
 		<div class ="search-div">
 			<form th:action="@{/rest/player/1}">
 				<label>Search</label>
-				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required 
+				title="Enter players: name,surname,position or teams name"/>
 				
 				<input class="search-button" type="submit" value="Search"/>
 				

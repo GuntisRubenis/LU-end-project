@@ -18,6 +18,6 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
 		@Query("SELECT p FROM Player p WHERE p.name LIKE %?1%"
 				+"OR p.surname LIKE %?1%"
 				+"OR p.position LIKE %?1%"
-				+"OR p.strongFoot LIKE %?1%")
+				+"OR p.team.teamName LIKE %?1%")
 		public Page<Player> findAll(String Keyword, Pageable pageable);
 }

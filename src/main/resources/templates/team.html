@@ -20,7 +20,8 @@
 		<div class ="search-div">
 			<form th:action="@{/rest/team}">
 				<label>Search</label>
-				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required />
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required 
+				title="Enter teams name"/>
 				<input class="search-button" type="submit" value="Search"/>
 				
 				<input class="clear-button" type="button" value="Clear" id="clear-button"/>
