@@ -112,7 +112,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/secure/admin/user/update", method = {RequestMethod.POST, RequestMethod.GET})
-	public String updateUser(@Valid User user,@RequestParam("role") Integer roleId) {
+	public String updateUser(@Valid User user,@RequestParam("role") Integer roleId, RedirectAttributes redirectAtribute) {
 		//set user role 
 				Optional<Role> role = roleService.finfById(roleId);
 				if(role.isPresent()) {
@@ -121,6 +121,20 @@ public class AdminController {
 				Optional<User> databaseUser = customUserDetailService.findById(user.getId());
 				if(databaseUser.isPresent()) {
 					user.setPassword(databaseUser.get().getPassword());
+					//check if there is more than one administrator, if changing role to USER
+					if(user.getRoles().get(0).getRole().equals("USER")) {
+						List<User> users = customUserDetailService.findAll();
+						Integer adminCount = 0;
+						for(User u:users) {
+							if(u.getRoles().get(0).getRole().equals("ADMIN")) {
+								adminCount++;
+							}
+						}
+						if(adminCount <=1) {
+							redirectAtribute.addFlashAttribute("adminError", "ERROR:There should be athleast one adminsitrator in system");
+							return "redirect:/secure/admin/user";
+						}
+					}
 				}
 				customUserDetailService.save(user);
 		return "redirect:/secure/admin/user";

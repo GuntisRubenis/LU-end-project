@@ -23,7 +23,7 @@
 			<img class="" th:src="@{'/uploads/posts/' + ${post.id} +'.jpg'}" width="100%" height="300px">
 		</div>
 		<div class="individual-center-div">
-			<p th:text="${post.description}"></p>
+			<p class="post-desc-div" th:text="${post.description}"></p>
 		</div>
 	</div>
 	<footer>

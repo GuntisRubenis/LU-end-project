@@ -59,7 +59,22 @@
 						<td>Trainings participated:</td>
 						<td th:text="${player.countTrainings()}"></td>
 					</tr>
-				
+					<tr>
+						<td>Tournaments participated:</td>
+						<td th:text="${player.getTournaments().size()}"></td>
+					</tr>
+					<tr>
+						<td>Goals scored:</td>
+						<td th:text="${player.getAllGoals()}"></td>
+					</tr>
+					<tr>
+						<td>Assists made:</td>
+						<td th:text="${player.getAllAssists()}"></td>
+					</tr>
+					<tr>
+						<td>Minutes played:</td>
+						<td th:text="${player.getAllMinutes()}"></td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

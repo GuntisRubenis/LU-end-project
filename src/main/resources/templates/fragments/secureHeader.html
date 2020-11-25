@@ -21,7 +21,7 @@
 		<div class="header2">
 				<nav>
 					<ul>
-						<li><a th:href="@{/home}">Home</a></li>
+						<li><a th:href="@{/}">Home</a></li>
 						<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#">Admin</a>
 							<ul>
 								<li><a th:href="@{/secure/admin/user}">Users</a></li>

@@ -70,13 +70,16 @@ public class PlayerService {
 		return playerRepository.findAll();
 	}
 	
+	// get top scorers
 	public List<Player> topScorers(){
+		//return this list with 3 top scorers
 		List<Player> topScorers = new ArrayList<Player>();
+		// get all players
 		List<Player> players = playerRepository.findAll();
-	
+		
 		for(int i=0; i<=2; i++) {
 			Player highestScorer = new Player();
-
+			// find first pivot element and set it as highest scorer
 			if(players.get(0).getAllGoals()>=players.get(1).getAllGoals()) {
 				highestScorer=players.get(0);
 				
@@ -84,12 +87,13 @@ public class PlayerService {
 				highestScorer=players.get(1);
 				
 			}
+			// go throught all players and find highest scorer
 			for(Player p:players) {
 				if(p.getAllGoals()>highestScorer.getAllGoals() && !p.equals(highestScorer)) {
 					highestScorer=p;
 				}
 			}
-			
+			// add highest scorer to list and remove it from all players list
 			topScorers.add(highestScorer);
 			players.remove(highestScorer);
 			

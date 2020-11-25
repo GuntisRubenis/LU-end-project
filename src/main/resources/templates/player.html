@@ -38,6 +38,7 @@
 						<th>Picture</th>
 						<th>Name</th>
 						<th>Surname</th>
+						<th>Team</th>
 						<th>Position</th>
 						<th sec:authorize="hasRole('ROLE_ADMIN')">Options</th>
 					</tr>
@@ -49,6 +50,8 @@
 						</td>
 						<td th:text="${player.name}"></td>
 						<td th:text="${player.surname}"></td>
+						<td th:if="${player.team == null}">-</td>
+						<td th:unless="${player.team == null}" th:text="${player.team.teamName}"></td>
 						<td th:text="${player.position}"></td>
 						<td sec:authorize="hasRole('ROLE_ADMIN')" class="button-group">
 							<a class="edit-button" th:href="@{/rest/player/findById/(id=${player.id})}">Edit</a>
@@ -57,7 +60,8 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="paging">
+			<span th:if="${totalPages == 1}" ></span>
+			<div th:unless="${totalPages == 1}"  class="paging">
 				<span th:each="i: ${#numbers.sequence(1, totalPages)}">
 				    <a th:if="${currentPage != i}" th:href="@{'/rest/player/' + ${i}}">[[${i}]]</a>
 				    <span class="pagging-disabled" th:unless="${currentPage != i}">[[${i}]]</span>

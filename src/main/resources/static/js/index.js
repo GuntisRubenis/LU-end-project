@@ -38,7 +38,6 @@ const prevSlide = function(){
 }
 
 //button events
-
 next.addEventListener('click', function(){
 	nextSlide();
 });

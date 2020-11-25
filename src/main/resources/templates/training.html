@@ -54,7 +54,8 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="paging">
+			<span th:if="${totalPages == 1}"></span>
+			<div th:unless="${totalPages == 1}"  class="paging">
 				<span th:each="i: ${#numbers.sequence(1, totalPages)}">
 				    <a th:if="${currentPage != i}" th:href="@{'/rest/training/' + ${i}}">[[${i}]]</a>
 				    <span class="pagging-disabled" th:unless="${currentPage != i}">[[${i}]]</span>

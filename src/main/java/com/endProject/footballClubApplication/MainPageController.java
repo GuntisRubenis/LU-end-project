@@ -52,20 +52,46 @@ public class MainPageController {
 
 	
 	
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public String publicMainPage(Model model) {
+		List<Post> posts = postService.findAll();
+		if(!posts.isEmpty()) {
+			posts.remove(0);
+			model.addAttribute("mostMinutes", playerService.mostMinutes());
+			model.addAttribute("mostAssists", playerService.mostAssists());
+			model.addAttribute("topScorers", playerService.topScorers());
+			model.addAttribute("posts", posts);
+			model.addAttribute("currentPost", postService.findAll().get(0));
+			
+			return "index";
+		}else {
+			model.addAttribute("mostMinutes", null);
+			model.addAttribute("mostAssists", null);
+			model.addAttribute("topScorers", null);
+			return "index"; 
+		}
+	}
 	
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String mainPage(Model model) {
 		List<Post> posts = postService.findAll();
-		posts.remove(0);
-		
-		model.addAttribute("mostMinutes", playerService.mostMinutes());
-		model.addAttribute("mostAssists", playerService.mostAssists());
-		model.addAttribute("topScorers", playerService.topScorers());
-		model.addAttribute("posts", posts);
-		model.addAttribute("currentPost", postService.findAll().get(0));
-		
-		return "index"; 
+		if(!posts.isEmpty()) {
+			posts.remove(0);
+			model.addAttribute("mostMinutes", playerService.mostMinutes());
+			model.addAttribute("mostAssists", playerService.mostAssists());
+			model.addAttribute("topScorers", playerService.topScorers());
+			model.addAttribute("posts", posts);
+			model.addAttribute("currentPost", postService.findAll().get(0));
+			
+			return "index";
+		}else {
+			model.addAttribute("mostMinutes", null);
+			model.addAttribute("mostAssists", null);
+			model.addAttribute("topScorers", null);
+			return "index"; 
+		}
 	}
+	
 	
 	@RequestMapping(value="/login", method = {RequestMethod.GET})
 	public String login() {

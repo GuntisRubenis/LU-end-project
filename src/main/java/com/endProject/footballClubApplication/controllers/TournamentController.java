@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,18 +132,22 @@ public class TournamentController {
 					Optional<Tournament> tournament = tournamentService.finfById(tournamentId);
 					//create new list of players where we will add players who attended tournament
 					ArrayList<Player> players = new ArrayList<Player>();
+					
 					// for all players witch id`s are present in playerId array we find player by id
 					// and if it exists we add it to players list
 					for (Integer id:playersId) {
 						Optional<Player> player = playerService.finfById(id);
 						if(player.isPresent()) {
 							players.add(player.get());
+					
 						}
 					}
+					
 					// check if tournament is present and set tournaments players list as our created list 
 					if(tournament.isPresent()) {
 						Tournament updatedTournament = tournament.get();
 						updatedTournament.setPlayers(players);
+						
 						// update tournament in our database
 						tournamentService.save(updatedTournament);
 						redirectAttribute.addFlashAttribute("atendSuccessMessage", "Attendance added succesfully!!!");
