@@ -1,5 +1,6 @@
 package com.endProject.footballClubApplication;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,9 +66,9 @@ public class MainPageController {
 			
 			return "index";
 		}else {
-			model.addAttribute("mostMinutes", null);
-			model.addAttribute("mostAssists", null);
-			model.addAttribute("topScorers", null);
+			model.addAttribute("mostMinutes", playerService.mostMinutes());
+			model.addAttribute("mostAssists", playerService.mostAssists());
+			model.addAttribute("topScorers", playerService.topScorers());
 			return "index"; 
 		}
 	}
@@ -85,9 +86,9 @@ public class MainPageController {
 			
 			return "index";
 		}else {
-			model.addAttribute("mostMinutes", null);
-			model.addAttribute("mostAssists", null);
-			model.addAttribute("topScorers", null);
+			model.addAttribute("mostMinutes", playerService.mostMinutes());
+			model.addAttribute("mostAssists", playerService.mostAssists());
+			model.addAttribute("topScorers", playerService.topScorers());
 			return "index"; 
 		}
 	}
@@ -100,9 +101,10 @@ public class MainPageController {
 	
 	
 	@RequestMapping("/publicPost/{pageNum}")
-	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum, @Param("keyword") String keyword) {
+	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum, @Param("keyword") String keyword,
+			@Param("startDate") String startDate, @Param("endDate") String endDate) throws ParseException {
 	     
-	    Page<Post> page = postService.listAll(pageNum,keyword);
+	    Page<Post> page = postService.listAllDate(pageNum, keyword, startDate, endDate);
 	     
 	    List<Post> listProducts = page.getContent();
 	    if (page.getTotalPages() != 0) {

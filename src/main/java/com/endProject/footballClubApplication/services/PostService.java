@@ -2,7 +2,11 @@ package com.endProject.footballClubApplication.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.models.Post;
-
+import com.endProject.footballClubApplication.models.Training;
 import com.endProject.footballClubApplication.repositories.PostRepository;
 
 
@@ -42,7 +46,7 @@ public class PostService {
 		 }
 	}
 	
-	//delete training by id and delete file if such file exists
+	//delete post by id and delete file if such file exists
 	public void deleteById(Integer id) {
 		//check if file exists in our directory and delete it
 		File file = new File(PATH+id+".jpg");
@@ -73,6 +77,35 @@ public class PostService {
 	public Page<Post> listAll(int pageNum) {
 	    int pageSize = 6;
 	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+	    return postRepository.findAll(pageable);
+	}
+	
+	public Page<Post> listAllDate(int pageNum, String keyword, String startDate, String endDate) throws ParseException {
+	    int pageSize = 10;
+	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+	    //check if keyword and dates are entered
+	    if(keyword != null && !keyword.equals("") && startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
+	    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+			//parse string to date
+	    	Date date1 = formatter.parse(startDate);
+			Date date2 = formatter.parse(endDate);
+			System.out.println("Hello dates+keyword");
+	    	return postRepository.findAll(keyword, pageable, date1, date2);
+	    }
+	    //check if only dates are entered
+	    if(startDate != null && endDate != null && !startDate.equals("") && !endDate.equals("")) {
+	    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+			Date date1 = formatter.parse(startDate);
+			Date date2 = formatter.parse(endDate);
+			System.out.println("Hello dates");
+	    	return postRepository.findAll(pageable, date1, date2);
+	    }
+	    // check if only keyword is entered
+	    if(keyword != null && !keyword.equals("")) {
+	    	System.out.println("Hello keyword-> "+ keyword);
+	    	return postRepository.findAll(keyword, pageable);
+	    }
+	    System.out.println("Hello all");
 	    return postRepository.findAll(pageable);
 	}
 }

@@ -22,7 +22,7 @@ public interface TournamentRepository extends JpaRepository<Tournament, Integer>
 	@Query("SELECT t FROM Tournament t WHERE t.date >= :startDate AND t.date <= :endDate")
 	public Page<Tournament> findAll(Pageable pageable, @Param("startDate")Date startDate, @Param("endDate")Date endDate);
 	
-	@Query("SELECT t FROM Tournament t WHERE t.team.teamName LIKE :keyword "+
-	"OR t.name LIKE :keyword AND t.date >= :startDate AND t.date <= :endDate")
+	@Query("SELECT t FROM Tournament t WHERE t.team.teamName LIKE %:keyword% "+
+	"OR t.name LIKE %:keyword% AND t.date >= :startDate AND t.date <= :endDate")
 	public Page<Tournament> findAll(@Param("keyword")String keyword,Pageable pageable, @Param("startDate")Date startDate, @Param("endDate")Date endDate);
 }
