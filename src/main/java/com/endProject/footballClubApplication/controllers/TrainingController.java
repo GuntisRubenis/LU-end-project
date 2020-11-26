@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.endProject.footballClubApplication.models.Coach;
 import com.endProject.footballClubApplication.models.Player;
 import com.endProject.footballClubApplication.models.Team;
 import com.endProject.footballClubApplication.models.Training;
@@ -145,7 +143,8 @@ public class TrainingController {
 	            		players.put(player, true);
 	            	}
 	            }  
-			} 
+			}
+			// in html page we filter players and add checked to ones who have true 
 			model.addAttribute("training", training.get());
 			model.addAttribute("players", players);
 		}

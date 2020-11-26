@@ -38,7 +38,6 @@ public class Training{
 	private String description;
 	
 	@DateTimeFormat( pattern = "yyyy-MM-dd")
-	@Temporal(TemporalType.DATE)
 	private Date date;
 	
 	@NotFound(action = NotFoundAction.IGNORE)

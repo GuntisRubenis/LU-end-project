@@ -1,4 +1,5 @@
 package com.endProject.footballClubApplication.controllers;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -43,9 +44,10 @@ public class TournamentController {
 	private StatisticService statisticService;
 	
 	@RequestMapping("/rest/tournament/{pageNum}")
-	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum, @Param("keyword") String keyword) {
+	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum, @Param("keyword") String keyword,
+			@Param("startDate") String startDate, @Param("endDate") String endDate) throws ParseException {
 	     
-	    Page<Tournament> page = tournamentService.listAll(pageNum,keyword);
+	    Page<Tournament> page = tournamentService.listAllDate(pageNum, keyword, startDate, endDate);
 	     
 	    List<Tournament> listProducts = page.getContent();
 	    if (page.getTotalPages() != 0) {
