@@ -58,6 +58,19 @@ function closePasswordModal(){
 	passwordModal.style.display = 'none';
 }
 
+/*======================================*/
+//File upload
+/*======================================*/
+var uploadField = document.querySelectorAll("#fileSize");
+
+for (const upload of uploadField){
+	upload.addEventListener("change", function(){
+		 if(this.files[0].size > 1048576 || this.files[1].size > 1048576){
+		       alert("File is too big, max size 1 mbit !");
+		       this.value = "";
+		    };
+	})
+}
 
 
 

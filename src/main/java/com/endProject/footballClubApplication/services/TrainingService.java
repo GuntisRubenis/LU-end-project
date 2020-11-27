@@ -47,7 +47,7 @@ public class TrainingService {
 				 newDirectory.mkdir();
 			 }
 			 // transfer file to our directory and give it name of training id
-			 file.transferTo(new File(PATH+teamName+"\\"+training.getId()+".jpg")); 
+			 file.transferTo(new File(PATH+teamName+"\\"+training.getId()+".pdf")); 
 		 }
 	}
 	

@@ -20,7 +20,8 @@
 		</div>
 		<div class="admin-side1-div">
 			<div class="profile-pic">
-				<img  th:src="@{'/uploads/users/' + ${user.id} +'.jpg'}" width="80%" height="auto">
+				<img th:if="${user.imageExists() == true}" th:src="@{'/uploads/users/' + ${user.id} +'.jpg'}" width="80%" height="auto">
+				<img th:unless="${user.imageExists() == true}" th:src="@{'/img/default/default.png'}" width="80%" height="auto">
 			</div>
 			<div class="profile-buttons">
 				<a id="addButton">Edit</a>
@@ -109,7 +110,7 @@
 					</div>
 					<div class="form-div">
 							<label>Select image:</label>
-							<input type="file" id="photo" name="file" accept="images/jpeg">
+							<input type="file" id="fileSize" name="file" accept="image/jpeg">
 					</div>
 					<div class="form-buttons">
 						<button class="modalSaveButton" type="submit">Save</button>

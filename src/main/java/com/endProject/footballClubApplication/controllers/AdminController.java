@@ -112,7 +112,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/secure/admin/user/update", method = {RequestMethod.POST, RequestMethod.GET})
-	public String updateUser(@Valid User user,@RequestParam("role") Integer roleId, RedirectAttributes redirectAtribute) {
+	public String updateUser(@Valid User user,@RequestParam("role") Integer roleId, RedirectAttributes redirectAtribute, 
+			@RequestParam(value="confirmPassword", defaultValue = "null") String confirmPassword) {
 		//set user role 
 				Optional<Role> role = roleService.finfById(roleId);
 				if(role.isPresent()) {
@@ -120,7 +121,6 @@ public class AdminController {
 				}
 				Optional<User> databaseUser = customUserDetailService.findById(user.getId());
 				if(databaseUser.isPresent()) {
-					user.setPassword(databaseUser.get().getPassword());
 					//check if there is more than one administrator, if changing role to USER
 					if(user.getRoles().get(0).getRole().equals("USER")) {
 						List<User> users = customUserDetailService.findAll();
@@ -135,6 +135,21 @@ public class AdminController {
 						}
 						if(adminCount <1) {
 							redirectAtribute.addFlashAttribute("deleteError", "ERROR:There should be athleast one adminsitrator in system");
+							return "redirect:/secure/admin/user";
+						}
+					}
+					if(user.getPassword() == null || user.getPassword().equals("")) {
+						user.setPassword(databaseUser.get().getPassword());
+					}else {
+						if(user.getPassword().equals(confirmPassword)) {
+							String encodedPassword = passwordEncoder.encode(user.getPassword());
+							user.setPassword(encodedPassword);
+							redirectAtribute.addFlashAttribute("add", "User edited succesfully!!!");
+							customUserDetailService.save(user);
+							return "redirect:/secure/admin/user";
+						}else {
+							System.out.println(user.getPassword()+" this is password");
+							redirectAtribute.addFlashAttribute("deleteError", "Passwords dont match, user is not edited!!!");
 							return "redirect:/secure/admin/user";
 						}
 					}

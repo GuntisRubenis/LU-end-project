@@ -153,6 +153,17 @@
 							th:text="${role.role}"></option>
 						</select>
 				</div>
+				<div class="form-div">
+						<label id="password-label">Password</label>
+						<input id="passwordEdit" type="password" name="password" pattern="[a-zA-Z0-9]{4,25}" 
+							   title="Password should be 4-25 character long">
+						<span class="errors" th:text="${password}"></span>
+				</div>
+				<div class="form-div">
+						<label>Confirm Password</label>
+						<input  type="password" name="confirmPassword">
+						<span class="errors" th:text="${password}"></span>
+				</div>
 					<div class="form-div">
 						<button class="modalSaveButton" type="submit">Save</button>
 					</div>

@@ -41,8 +41,8 @@
 					<tr>
 						<td>File:</td>
 						<td>
-							<a href="/uploads/trainings/+'${training.team.teamName}'+'/'+ '${training.id}' +.jpg">
-								<img  class="min-images" th:src="@{'/uploads/trainings/'+'${training.team.teamName}'+'/'+ ${training.id} +'.jpg'}" width="40" height="40">
+							<a th:href="@{'/uploads/trainings/'+${training.team.teamName}+'/'+ ${training.id} +'.pdf'}" >
+								<img  th:src="@{'/img/default/default-file.png'}" width="40" height="40">
 							</a>
 						</td>
 					</tr>
