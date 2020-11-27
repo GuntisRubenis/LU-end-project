@@ -19,7 +19,7 @@
 		<div class ="expanded-search-div">
 			<form th:action="@{/rest/tournament/1}">
 				<label>Search</label>
-				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}"
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" minlength="1" maxlength="25"
 				title="Enter team name"/>
 				<label>Start date</label>
 				<input class="search-input" id="search-input" type="date" name="startDate" th:value="${startDate}"

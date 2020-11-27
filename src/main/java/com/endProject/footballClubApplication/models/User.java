@@ -1,6 +1,8 @@
 package com.endProject.footballClubApplication.models;
 
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -76,6 +78,15 @@ public class User extends Person{
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+	
+	public Boolean imageExists() {
+		String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\users\\"+this.id+".jpg";
+		File file = new File(PATH);
+		if(file.exists()) {
+			return true;
+		}
+		return false;
 	}
 
 }

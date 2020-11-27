@@ -106,9 +106,9 @@ public class AdminController {
 			model.addAttribute("password", "Passwords don`t match!!");
 			return "user";
 		}
-		
+		redirectAtribute.addFlashAttribute("add", "User adedd succesfully!");
 		customUserDetailService.save(user);
-		return "redirect:";
+		return "redirect:/secure/admin/user";
 	}
 	
 	@RequestMapping(value="/secure/admin/user/update", method = {RequestMethod.POST, RequestMethod.GET})
@@ -128,14 +128,18 @@ public class AdminController {
 						for(User u:users) {
 							if(u.getRoles().get(0).getRole().equals("ADMIN")) {
 								adminCount++;
+								if(u.getId() == user.getId()) {
+									adminCount--;
+								}
 							}
 						}
-						if(adminCount <=1) {
-							redirectAtribute.addFlashAttribute("adminError", "ERROR:There should be athleast one adminsitrator in system");
+						if(adminCount <1) {
+							redirectAtribute.addFlashAttribute("deleteError", "ERROR:There should be athleast one adminsitrator in system");
 							return "redirect:/secure/admin/user";
 						}
 					}
 				}
+				redirectAtribute.addFlashAttribute("add", "User edited succesfully!!!");
 				customUserDetailService.save(user);
 		return "redirect:/secure/admin/user";
 	}
@@ -160,7 +164,7 @@ public class AdminController {
 				}
 			}
 			if (adminCount == 1) {
-				redirectAttribute.addFlashAttribute("adminError", "Canot delete this user,because it is last admin!!!");
+				redirectAttribute.addFlashAttribute("deleteError", "Canot delete this user,because it is last admin!!!");
 				return "redirect:/secure/admin/user";
 			}
 			
@@ -170,9 +174,11 @@ public class AdminController {
 			customUserDetailService.deleteById(id);
 			return "redirect:/logout";
 		}
+		redirectAttribute.addFlashAttribute("deleteError", "User deleted succesfully");
 		customUserDetailService.deleteById(id);
 		return "redirect:/secure/admin/user";
 	}
+	
 	
 	
 	@RequestMapping("/secure/admin/post/{pageNum}")

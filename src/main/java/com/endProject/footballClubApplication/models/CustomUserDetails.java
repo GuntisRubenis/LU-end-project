@@ -1,5 +1,6 @@
 package com.endProject.footballClubApplication.models;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,6 +80,15 @@ public class CustomUserDetails implements UserDetails {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+	
+	public Boolean imageExists() {
+		String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\users\\"+user.getId()+".jpg";
+		File file = new File(PATH);
+		if(file.exists()) {
+			return true;
+		}
+		return false;
 	}
 	
 

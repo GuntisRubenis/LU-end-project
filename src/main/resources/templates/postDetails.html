@@ -20,7 +20,8 @@
 			<h1 th:text ="${post.title}"></h1>
 		</div>
 		<div class="individual-side-div">
-			<img class="" th:src="@{'/uploads/posts/' + ${post.id} +'.jpg'}" width="100%" height="300px">
+			<img th:if="${post.imageExists() == true}" class="" th:src="@{'/uploads/posts/' + ${post.id} +'.jpg'}" width="100%" height="300px">
+			<img th:unless="${post.imageExists() == true}" class="" th:src="@{'/img/default/default-team.jpg'}" width="100%" height="300px">
 		</div>
 		<div class="individual-center-div">
 			<p class="post-desc-div" th:text="${post.description}"></p>

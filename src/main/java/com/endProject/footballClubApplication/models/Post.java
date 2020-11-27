@@ -1,6 +1,7 @@
 package com.endProject.footballClubApplication.models;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -106,6 +107,13 @@ public class Post {
 		this.date = date;
 	}
 	
-	
+	public Boolean imageExists() {
+		String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\posts\\"+this.id+".jpg";
+		File file = new File(PATH);
+		if(file.exists()) {
+			return true;
+		}
+		return false;
+	}
 
 }

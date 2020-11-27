@@ -20,8 +20,8 @@
 		<div class ="expanded-search-div">
 			<form th:action="@{/publicPost/1}">
 				<label>Search</label>
-				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}"
-				title="Enter post name"/>
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" minlength="1" maxlength="25"
+				title="Enter post name, 1-25 characters long"/>
 				<label>Start date</label>
 				<input class="search-input" id="search-input" type="date" name="startDate" th:value="${startDate}"
 				title="Enter start date (this will be included)"/>
@@ -40,7 +40,9 @@
 					<ul>
 						<li>
 							<a class="" th:href="@{/publicPost/postDetails/(id=${post.id})}">
-		 						<img class="" th:src="@{'/uploads/posts/' + ${post.id} +'.jpg'}">
+		 						
+		 						<img th:if="${post.imageExists() == true}" class="" th:src="@{'/uploads/posts/' + ${post.id} +'.jpg'}" >
+								<img th:unless="${post.imageExists() == true}" class="" th:src="@{'/img/default/default-team.jpg'}">
 		 					</a>
 		 				</li>
 						<li>

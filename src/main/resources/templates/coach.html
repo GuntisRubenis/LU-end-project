@@ -20,7 +20,7 @@
 		<div class ="search-div">
 			<form th:action="@{/rest/coach/1}">
 				<label>Search</label>
-				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required 
+				<input class="search-input" id="search-input" type="text" name="keyword" th:value="${keyword}" required minlength="1" maxlength="25"
 				title="Enter coachs: name,surname or category."/>
 				
 				<input class="search-button" type="submit" value="Search"/>
@@ -46,7 +46,8 @@
 					<tr th:each="coach : ${coaches}">
 						<td >
 							<a class="photo-button" th:href="@{/rest/coach/coachDetails/(id=${coach.id})}">
-	 							<img class="min-images" th:src="@{'/uploads/coaches/' + ${coach.id} +'.jpg'}" width="60" height="60">
+	 							<img th:if="${coach.imageExists()==true}" class="min-images" th:src="@{'/uploads/coaches/' + ${coach.id} +'.jpg'}" width="60" height="60">
+	 							<img th:unless="${coach.imageExists()==true}" class="min-images" th:src="@{'/img/default/default.png'}" width="60" height="60">
 	 						</a>
 						</td>
 						<td th:text="${coach.name}"></td>

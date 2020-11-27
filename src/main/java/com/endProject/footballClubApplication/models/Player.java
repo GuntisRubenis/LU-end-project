@@ -1,5 +1,6 @@
 package com.endProject.footballClubApplication.models;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -181,6 +182,15 @@ public class Player extends Person{
 			minutes+=stat.getMinutes();
 		}
 		return minutes;
+	}
+	
+	public Boolean imageExists() {
+		String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\players\\"+super.getId()+".jpg";
+		File file = new File(PATH);
+		if(file.exists()) {
+			return true;
+		}
+		return false;
 	}
 	
 }

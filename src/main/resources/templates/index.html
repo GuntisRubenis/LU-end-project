@@ -26,7 +26,8 @@
 			<h1>What`s new</h1>
 			<div class="slider">
 				<div class="slide current">
-					<img  th:src="@{'/uploads/posts/' +${currentPost.id}+ '.jpg'}">
+					<img th:if="${currentPost.imageExists() == true}" th:src="@{'/uploads/posts/' +${currentPost.id}+ '.jpg'}">
+					<img th:unless="${currentPost.imageExists() == true}" th:src="@{'/img/default/default-team.jpg'}">
 					<div class="content">
 						<h1 th:text="${currentPost.title}"></h1>
 						<p th:text="${#strings.abbreviate(currentPost.description,100)}"></p>
@@ -34,7 +35,8 @@
 					</div>
 				</div>
 				<div th:each="post:${posts}" class="slide">
-					<img  th:src="@{'/uploads/posts/' +${post.id}+ '.jpg'}">
+					<img th:if="${post.imageExists() == true}" th:src="@{'/uploads/posts/' +${post.id}+ '.jpg'}">
+					<img th:unless="${post.imageExists() == true}" th:src="@{'/img/default/default-team.jpg'}">
 					<div class="content">
 						<h1 th:text="${post.title}"></h1>
 						<p th:text="${#strings.abbreviate(post.description,100)}"></p>
@@ -56,7 +58,8 @@
 		<div th:unless="${topScorers == null}" class="container">
 			<h1>Top Scorers</h1>
 				<div th:each="player: ${topScorers}" class="player-box">
-					<img  th:src="@{'/uploads/players/' +${player.id}+ '.jpg'}">
+					<img th:if="${player.imageExists() == true}" th:src="@{'/uploads/players/' +${player.id}+ '.jpg'}">
+					<img th:unless="${player.imageExists() == true}" th:src="@{'/img/default/default.png'}">
 					<h3 th:text="${player.name+' '+player.surname}"></h3>
 					<p th:text="'Team: '+${player.team.teamName}"></p>
 					<p th:text="'Position: '+${player.position}"></p>
@@ -69,7 +72,8 @@
 		<div th:unless="${mostAssists == null}" class="container">
 			<h1>Most assists</h1>
 				<div th:each="player: ${mostAssists}" class="player-box">
-					<img  th:src="@{'/uploads/players/' +${player.id}+ '.jpg'}">
+					<img th:if="${player.imageExists() == true}" th:src="@{'/uploads/players/' +${player.id}+ '.jpg'}">
+					<img th:unless="${player.imageExists() == true}" th:src="@{'/img/default/default.png'}">
 					<h3 th:text="${player.name+' '+player.surname}"></h3>
 					<p th:text="'Team: '+${player.team.teamName}"></p>
 					<p th:text="'Position: '+${player.position}"></p>
@@ -82,7 +86,8 @@
 		<div th:unless="${mostMinutes == null}" class="container">
 			<h1>Most minutes</h1>
 				<div th:each="player: ${mostMinutes}" class="player-box">
-					<img  th:src="@{'/uploads/players/' +${player.id}+ '.jpg'}">
+					<img th:if="${player.imageExists() == true}" th:src="@{'/uploads/players/' +${player.id}+ '.jpg'}">
+					<img th:unless="${player.imageExists() == true}" th:src="@{'/img/default/default.png'}">
 					<h3 th:text="${player.name+' '+player.surname}"></h3>
 					<p th:text="'Team: '+${player.team.teamName}"></p>
 					<p th:text="'Position: '+${player.position}"></p>

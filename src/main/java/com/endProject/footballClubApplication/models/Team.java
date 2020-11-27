@@ -1,5 +1,6 @@
 package com.endProject.footballClubApplication.models;
 
+import java.io.File;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -129,6 +130,15 @@ public class Team {
 
 	public void setTournaments(List<Tournament> tournaments) {
 		this.tournaments = tournaments;
+	}
+	
+	public Boolean imageExists() {
+		String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\teams\\"+this.id+".jpg";
+		File file = new File(PATH);
+		if(file.exists()) {
+			return true;
+		}
+		return false;
 	}
 	
 }
