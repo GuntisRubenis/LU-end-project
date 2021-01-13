@@ -89,7 +89,7 @@ public class PostService {
 			//parse string to date
 	    	Date date1 = formatter.parse(startDate);
 			Date date2 = formatter.parse(endDate);
-			System.out.println("Hello dates+keyword");
+			//System.out.println("Hello dates+keyword");
 	    	return postRepository.findAll(keyword, pageable, date1, date2);
 	    }
 	    //check if only dates are entered
@@ -97,12 +97,12 @@ public class PostService {
 	    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 			Date date1 = formatter.parse(startDate);
 			Date date2 = formatter.parse(endDate);
-			System.out.println("Hello dates");
+			//System.out.println("Hello dates");
 	    	return postRepository.findAll(pageable, date1, date2);
 	    }
 	    // check if only keyword is entered
 	    if(keyword != null && !keyword.equals("")) {
-	    	System.out.println("Hello keyword-> "+ keyword);
+	    	//System.out.println("Hello keyword-> "+ keyword);
 	    	return postRepository.findAll(keyword, pageable);
 	    }
 	    System.out.println("Hello all");

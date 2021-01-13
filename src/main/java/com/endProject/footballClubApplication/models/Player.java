@@ -40,7 +40,7 @@ public class Player extends Person{
 	@ManyToMany(mappedBy = "players")
     private List<Tournament> tournaments = new ArrayList<Tournament>();
 	
-	@OneToMany(mappedBy="player", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="player", cascade = CascadeType.DETACH)
 	private List<Statistics> statictics;
 
 	public Player(Integer id, String name, String surname, String age, String photo, String phone, String email,

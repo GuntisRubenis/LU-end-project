@@ -1,5 +1,6 @@
 package com.endProject.footballClubApplication.models;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -125,7 +126,14 @@ public class Training{
 		this.players = players;
 	}
 	
-	
+	public Boolean fileExsists() {
+		String PATH = "C:\\Users\\taken305\\Downloads\\JAVA_SPRING_BOOT\\footballClubApplication\\uploads\\trainings\\"+this.team.getTeamName()+"\\"+this.id+".pdf";
+		File file = new File(PATH);
+		if(file.exists()) {
+			return true;
+		}
+		return false;
+	}
 
 	
 	

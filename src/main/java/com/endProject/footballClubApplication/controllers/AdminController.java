@@ -63,7 +63,7 @@ public class AdminController {
 	
 	
 	
-	@RolesAllowed("ADMIN")
+	// returns all user page 
 	@RequestMapping("/secure/admin/user")
 	public String userPage(Model model) {
 		model.addAttribute("users", customUserDetailService.findAll());
@@ -110,7 +110,7 @@ public class AdminController {
 		customUserDetailService.save(user);
 		return "redirect:/secure/admin/user";
 	}
-	
+	// allows admin to update user information or change password 
 	@RequestMapping(value="/secure/admin/user/update", method = {RequestMethod.POST, RequestMethod.GET})
 	public String updateUser(@Valid User user,@RequestParam("role") Integer roleId, RedirectAttributes redirectAtribute, 
 			@RequestParam(value="confirmPassword", defaultValue = "null") String confirmPassword) {
@@ -138,9 +138,11 @@ public class AdminController {
 							return "redirect:/secure/admin/user";
 						}
 					}
+					// check if pasword is entered, if not set existing password from database 
 					if(user.getPassword() == null || user.getPassword().equals("")) {
 						user.setPassword(databaseUser.get().getPassword());
 					}else {
+						//check if passwords match
 						if(user.getPassword().equals(confirmPassword)) {
 							String encodedPassword = passwordEncoder.encode(user.getPassword());
 							user.setPassword(encodedPassword);
@@ -148,7 +150,7 @@ public class AdminController {
 							customUserDetailService.save(user);
 							return "redirect:/secure/admin/user";
 						}else {
-							System.out.println(user.getPassword()+" this is password");
+							
 							redirectAtribute.addFlashAttribute("deleteError", "Passwords dont match, user is not edited!!!");
 							return "redirect:/secure/admin/user";
 						}
@@ -158,15 +160,16 @@ public class AdminController {
 				customUserDetailService.save(user);
 		return "redirect:/secure/admin/user";
 	}
-	
+	// finds user by id and returns JSON response
 	@RequestMapping("/secure/admin/user/findById")
 	@ResponseBody
 	public Optional<User> findByIdUser(Integer id) {
 		return customUserDetailService.findById(id);
 	}
-	
+	// lets admin to delete user 
 	@RequestMapping(value="/secure/admin/user/delete" , method = {RequestMethod.DELETE, RequestMethod.GET} )
 	public String deleteUser(Integer id, RedirectAttributes redirectAttribute) {
+		// find authenticated user
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = customUserDetailService.findByUserName(auth.getName());
 		List<User> users = customUserDetailService.findAll();
@@ -195,7 +198,7 @@ public class AdminController {
 	}
 	
 	
-	
+	// returns post page which only admin can see
 	@RequestMapping("/secure/admin/post/{pageNum}")
 	public String viewPage(Model model,@PathVariable(name = "pageNum") int pageNum) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
@@ -211,27 +214,27 @@ public class AdminController {
 	     
 	    return "post";
 	}
-	
+	// lets admin add new posts
 	@PostMapping("/secure/admin/post/addPost")
 	public String addCoach(Post post, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		postService.save(post,file);
 		redirectAttribute.addFlashAttribute("successMessage", "Post added succesfully!!!");
 		return "redirect:/secure/admin/post/1";
 	}
-	
+	// lets admin to delete post 
 	@RequestMapping(value="/secure/admin/post/delete" , method = {RequestMethod.DELETE, RequestMethod.GET} )
 	public String deletePost(Integer id,RedirectAttributes redirectAttribute) {
 		postService.deleteById(id);
 		redirectAttribute.addFlashAttribute("deleteMessage", "Post deleted succesfully!!!");
 		return "redirect:/secure/admin/post/1";
 	}
-	
+	// find post by id and returns JSON object 
 	@RequestMapping("/secure/admin/post/findById")
 	@ResponseBody
 	public Optional<Post> findByIdPost(Integer id) {
 		return postService.finfById(id);
 	}
-	
+	// lets admin update post 
 	@RequestMapping(value="/secure/admin/post/update", method = {RequestMethod.POST, RequestMethod.GET})
 	public String update(Post post, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttribute) throws IllegalStateException, IOException {
 		postService.save(post,file);

@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
+	// change path where to search for static content
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
     	String PATH = "file:///C:/Users/taken305/Downloads/JAVA_SPRING_BOOT/footballClubApplication/uploads/";

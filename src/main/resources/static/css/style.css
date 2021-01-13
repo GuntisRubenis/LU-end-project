@@ -361,7 +361,7 @@ header nav ul li:hover ul {
 }
 
 .slide img{
-	width: 900px;
+	width: 1000;
 	height: 100%;
 }
 
@@ -389,14 +389,14 @@ header nav ul li:hover ul {
 
 .navigation-buttons button#next{
 	position: absolute;
-	top: 150%;
-	right: 190px;
+	top: 140%;
+	right: 210px;
 }
 
 .navigation-buttons button#prev{
 	position: absolute;
-	top: 150%;
-	left: 190px;
+	top: 140%;
+	left: 210px;
 }
 
 .navigation-buttons button {
@@ -975,6 +975,33 @@ footer{
 	padding: 10px;
 }
 
+/*About page*/
+.about-details-cont{
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	width: 80%;
+	grid-gap:10px;
+	height:auto;
+	margin:auto;
+	
+	overflow: hidden;
+}
 
+.about-details-cont ul{
+list-style-type: none;
+}
+.about-side-div {
+	grid-column:1/2;
+	grid-row:1/2;
+}
 
+.about-side2-div {
+	grid-column:1/2;
+	grid-row:2/2;
+}
+
+.about-center-div {
+	grid-column:2/3;
+	grid-row:1/2;
+}
 

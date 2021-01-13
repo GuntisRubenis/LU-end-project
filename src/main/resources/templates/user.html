@@ -29,13 +29,13 @@
 				<div class="form-div">
 						<label>Name</label>
 						<input  th:field="${user.name}" required="required" pattern="[a-zA-Z\s]{2,25}" 
-							   title="Name should be 4-25 character long and contain only big and small letters">
+							   title="Name should be 2-25 character long and contain only big and small letters">
 						
 				</div>
 				<div class="form-div">
 						<label>Surname</label>
 						<input  th:field="${user.surname}" required="required" pattern="[a-zA-Z\s]{2,25}" 
-							   title="Surname should be 4-25 character long and contain only big and small letters">
+							   title="Surname should be 2-25 character long and contain only big and small letters">
 						
 				</div>
 				<div class="form-div">
@@ -45,7 +45,7 @@
 				</div>
 				<div class="form-div">
 						<label>Email</label>
-						<input th:field="${user.email}">
+						<input type="email" th:field="${user.email}">
 						
 				</div>
 				<div class="form-div">
@@ -64,7 +64,7 @@
 				</div>
 				<div class="form-div">
 						<label>Confirm Password</label>
-						<input  type="password" name="confirmPassword" required>
+						<input  type="password" name="confirmPassword" required pattern="[a-zA-Z0-9]{4,25}">
 						<span class="errors" th:text="${password}"></span>
 				</div>
 				<div class="form-buttons">
@@ -155,13 +155,14 @@
 				</div>
 				<div class="form-div">
 						<label id="password-label">Password</label>
-						<input id="passwordEdit" type="password" name="password" pattern="[a-zA-Z0-9]{4,25}" 
+						<input id="passwordEdit" type="password" name="password" pattern="[a-zA-Z0-9]{4,25}"  
 							   title="Password should be 4-25 character long">
 						<span class="errors" th:text="${password}"></span>
 				</div>
 				<div class="form-div">
 						<label>Confirm Password</label>
-						<input  type="password" name="confirmPassword">
+						<input  type="password" name="confirmPassword" pattern="[a-zA-Z0-9]{4,25}" 
+							   title="Password should be 4-25 character long">
 						<span class="errors" th:text="${password}"></span>
 				</div>
 					<div class="form-div">

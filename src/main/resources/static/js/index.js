@@ -1,23 +1,23 @@
+//slesct slide div
 const slides = document.querySelectorAll('.slide');
+// select buttons
 const next = document.querySelector('#next');
 const prev = document.querySelector('#prev');
-const auto = false;
-const intervalTime = 5000;
-let SlideInterval;
+
 
 const nextSlide = function(){
 	//select surrent div
 	const current = document.querySelector('.current');
 	//remove current classs form div
 	current.classList.remove('current');
-	// check for next div
+	// check for next div and add current to it exists
 	if(current.nextElementSibling){
 		current.nextElementSibling.classList.add('current');
 	}else {
-		//add current to start
+		//add current to first div if there is no divs 
 		slides[0].classList.add('current');
 	}
-	setTimeout(() => {current.classList.remove('current')});
+
 	
 }
 
@@ -30,10 +30,10 @@ const prevSlide = function(){
 	if(current.previousElementSibling){
 		current.previousElementSibling.classList.add('current');
 	}else {
-		//add current to last
+		//add current to last div 
 		slides[slides.length-1].classList.add('current');
 	}
-	setTimeout(() => {current.classList.remove('current')});
+	
 	
 }
 

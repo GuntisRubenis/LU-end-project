@@ -23,13 +23,13 @@
 				<img th:if="${user.imageExists() == true}" th:src="@{'/uploads/users/' + ${user.id} +'.jpg'}" width="80%" height="auto">
 				<img th:unless="${user.imageExists() == true}" th:src="@{'/img/default/default.png'}" width="80%" height="auto">
 			</div>
-			<div class="profile-buttons">
-				<a id="addButton">Edit</a>
-				<a id="passwordButton">Change password</a>
-			</div>
 			<div>
 				<span class="success" th:text="${successMessage}"></span>
 				<span class="delete" th:text="${deleteMessage}"></span>
+			</div>
+			<div class="profile-buttons">
+				<a id="addButton">Edit</a>
+				<a id="passwordButton">Change password</a>
 			</div>
 		</div>
 		<div class="admin-center1-div">
@@ -101,7 +101,7 @@
 					</div>
 					<div class="form-div">
 							<label>Email</label>
-							<input th:field="${user.email}">
+							<input type="email" th:field="${user.email}">
 							
 					</div>
 					<div style=display:none class="form-div">
@@ -114,7 +114,6 @@
 					</div>
 					<div class="form-buttons">
 						<button class="modalSaveButton" type="submit">Save</button>
-						<input class="clear-button" type="button" value="Clear" id="clear-button"/>
 					</div>
 				</form>
 			</div>
@@ -139,7 +138,7 @@
 					</div>
 					<div class="form-div">
 							<label id="password-label">Old Password</label>
-							<input required="required"  type="password" name="oldPassword">
+							<input required="required"  type="password" name="oldPassword" >
 							<span class="errors" th:text="${password}"></span>
 					</div>
 					<div class="form-div">
